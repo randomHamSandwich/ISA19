@@ -8,52 +8,52 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 public class SignUpForm {
-	
+
 	@NotBlank
-    @Size(min = 3, max = 50)
-	private String lozinka;
-	@NotBlank
-    @Size(min = 3, max = 50)
+	@Size(min = 3, max = 50)
+	private String password;
+//	@NotBlank
+//    @Size(min = 3, max = 50)
 	private String ime;
-	@NotBlank
-    @Size(min = 3, max = 50)
+//	@NotBlank
+//    @Size(min = 3, max = 50)
 	private String prezime;
-	@NotBlank
-    @Size(min = 3, max = 50)
+//	@NotBlank
+//    @Size(min = 3, max = 50)
 	private String ulica;
-	@NotBlank
-    @Size(min = 3, max = 50)
+//	@NotBlank
+//    @Size(min = 3, max = 50)
 	private String brojUlice;
-	@NotBlank
-    @Size(min = 3, max = 50)
+//	@NotBlank
+//    @Size(min = 3, max = 50)
 	private String grad;
-	@NotBlank
-    @Size(min = 3, max = 50)
+//	@NotBlank
+//    @Size(min = 3, max = 50)
 	private String drzava;
-	@NotBlank
-    @Size(min = 3, max = 50)
+//	@NotBlank
+//    @Size(min = 3, max = 50)
 	private String brojTelefona;
-	@NotBlank
-    @Size(min = 3, max = 50)
+//	@NotBlank
+//    @Size(min = 3, max = 50)
 	private java.lang.String jmbg;
 
-    @NotBlank
-    @Size(max = 60)
-    @Email
-    private String email;
-    
-    private Set<String> role;
+	@NotBlank
+	@Size(max = 60)
+	@Email
+	private String email;
 
-	public String getLozinka() {
-		return lozinka;
-	}
-
-	public void setLozinka(String lozinka) {
-		this.lozinka = lozinka;
-	}
+	private Set<String> role;
 
 	public String getIme() {
 		return ime;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public void setIme(String ime) {
@@ -131,7 +131,10 @@ public class SignUpForm {
 	public void setRole(Set<String> role) {
 		this.role = role;
 	}
-    
 
- 
+	public SignUpForm() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 }

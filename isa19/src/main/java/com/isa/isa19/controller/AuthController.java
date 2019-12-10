@@ -55,7 +55,7 @@ public class AuthController {
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
 
 		Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
@@ -79,8 +79,9 @@ public class AuthController {
 
 		// Creating user's account
 		Pacijent user = new Pacijent();
-		user.setIme(signUpRequest.getIme());
-		user.setLozinka(encoder.encode(signUpRequest.getLozinka()));
+		user.setEmail(signUpRequest.getEmail());
+
+		user.setLozinka(encoder.encode(signUpRequest.getPassword()));
 		
 
 		Set<String> strRoles = signUpRequest.getRole();
