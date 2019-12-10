@@ -10,12 +10,18 @@ import java.util.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 //@Entity
 //@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -28,6 +34,8 @@ public class Korisnik {
 	private long idOsoba;
 	@Column(unique = true, length = 50)
 	private java.lang.String email;
+//    @NotBlank
+//    @Size(max = 60)
 	@Column
 	private java.lang.String lozinka;
 	@Column
@@ -46,6 +54,12 @@ public class Korisnik {
 	private java.lang.String brojTelefona;
 	@Column
 	private java.lang.String jmbg;
+	
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "korisnik_role", 
+    	joinColumns = @JoinColumn(name = "idOsoba"), 
+    	inverseJoinColumns = @JoinColumn(name = "idRola"))
+    private Set<Roles> roles = new HashSet<>();
 
 	public Korisnik() {
 	}
@@ -137,5 +151,14 @@ public class Korisnik {
 	public void setJmbg(java.lang.String jmbg) {
 		this.jmbg = jmbg;
 	}
+
+	public Set<Roles> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Roles> roles) {
+		this.roles = roles;
+	}
+	
 
 }

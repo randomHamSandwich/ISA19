@@ -4,12 +4,15 @@
  * Purpose: Defines the Class Pacijent
  ***********************************************************************/
 package com.isa.isa19.model;
+
 import java.util.*;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -19,13 +22,13 @@ import net.bytebuddy.dynamic.TypeResolutionStrategy.Lazy;
 public class Pacijent extends Korisnik {
 	@OneToMany(mappedBy = "pacijent", cascade = CascadeType.ALL)
 	private Set<Pregled> pregled;
-	
+
 	@OneToMany(mappedBy = "pacijent", cascade = CascadeType.ALL)
 	private Set<Operacija> operacija;
-   
-    @OneToOne(fetch = FetchType.LAZY, cascade= CascadeType.ALL)
-    @JoinColumn(name = "id_karton")
-    private Karton karton;
+
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_karton")
+	private Karton karton;
 
 	public Set<Pregled> getPregled() {
 		return pregled;
@@ -56,6 +59,4 @@ public class Pacijent extends Korisnik {
 		// TODO Auto-generated constructor stub
 	}
 
-    
-    
 }
