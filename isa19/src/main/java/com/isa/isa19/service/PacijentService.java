@@ -17,7 +17,10 @@ public class PacijentService {
 
 	public Optional<Pacijent> findOne(Long id) {
 		return pacijentRepo.findById(id);
-
+	}
+	
+	public Optional<Pacijent> findByEmail(String email){
+		return pacijentRepo.findByEmail(email);
 	}
 
 	public List<Pacijent> findAll() {

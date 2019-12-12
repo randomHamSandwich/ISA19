@@ -1,7 +1,7 @@
 package com.isa.isa19.dto;
 
 import com.isa.isa19.model.Korisnik;
-@Deprecated
+//@Deprecated
 public class KorisnikDTO {
 
 	public long idOsoba;

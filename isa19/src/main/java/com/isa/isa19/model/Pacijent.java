@@ -59,4 +59,16 @@ public class Pacijent extends Korisnik {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public String toString() {
+		return "Pacijent [pregled=" + pregled + ", operacija=" + operacija + ", karton=" + karton + ", getIdOsoba()="
+				+ getIdOsoba() + ", getEmail()=" + getEmail() + ", getLozinka()=" + getLozinka() + ", getIme()="
+				+ getIme() + ", getPrezime()=" + getPrezime() + ", getUlica()=" + getUlica() + ", getBrojUlice()="
+				+ getBrojUlice() + ", getGrad()=" + getGrad() + ", getDrzava()=" + getDrzava() + ", getBrojTelefona()="
+				+ getBrojTelefona() + ", getJmbg()=" + getJmbg() + ", getRoles()=" + getRoles()
+				+ ", getStatusKorisnika()=" + getStatusKorisnika() + "]";
+	}
+	
+	
+
 }

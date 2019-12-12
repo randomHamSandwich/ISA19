@@ -10,6 +10,8 @@ import java.util.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -54,6 +56,8 @@ public class Korisnik {
 	private java.lang.String brojTelefona;
 	@Column
 	private java.lang.String jmbg;
+	@Enumerated(EnumType.STRING)
+	private StatusKorisnika statusKorisnika;
 	
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "korisnik_role", 
@@ -159,6 +163,15 @@ public class Korisnik {
 	public void setRoles(Set<Roles> roles) {
 		this.roles = roles;
 	}
+
+	public StatusKorisnika getStatusKorisnika() {
+		return statusKorisnika;
+	}
+
+	public void setStatusKorisnika(StatusKorisnika statusKorisnika) {
+		this.statusKorisnika = statusKorisnika;
+	}
+	
 	
 
 }
