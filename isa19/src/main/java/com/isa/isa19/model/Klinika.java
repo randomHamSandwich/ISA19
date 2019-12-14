@@ -20,11 +20,11 @@ public class Klinika {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idKlinika;
 	@Column
-	private int naziv;
+	private String naziv;
 	@Column
-	private String adresa;
+	private String ulica;
 	@Column
-	private String brojAdrese;
+	private String brojUlice;
 	@Column
 	private String grad;
 	@Column
@@ -36,13 +36,13 @@ public class Klinika {
 
 	@OneToMany(mappedBy = "klinika")
 	private Set<Usluga> usluga;
-	
+
 	@OneToMany(mappedBy = "klinika")
 	private Set<AdministratorKlinike> administratorKlinike;
-	
+
 	@OneToMany(mappedBy = "klinika")
 	private Set<MedicinskoOsoblje> medicinskoOsoblje;
-	
+
 	@OneToMany(mappedBy = "klinika")
 	private Set<Sala> sala;
 
@@ -54,28 +54,28 @@ public class Klinika {
 		this.idKlinika = idKlinika;
 	}
 
-	public int getNaziv() {
+	public String getNaziv() {
 		return naziv;
 	}
 
-	public void setNaziv(int naziv) {
+	public void setNaziv(String naziv) {
 		this.naziv = naziv;
 	}
 
-	public String getAdresa() {
-		return adresa;
+	public String getUlica() {
+		return ulica;
 	}
 
-	public void setAdresa(String adresa) {
-		this.adresa = adresa;
+	public void setUlica(String ulica) {
+		this.ulica = ulica;
 	}
 
-	public String getBrojAdrese() {
-		return brojAdrese;
+	public String getBrojUlice() {
+		return brojUlice;
 	}
 
-	public void setBrojAdrese(String brojAdrese) {
-		this.brojAdrese = brojAdrese;
+	public void setBrojUlice(String brojUlice) {
+		this.brojUlice = brojUlice;
 	}
 
 	public String getGrad() {
@@ -146,8 +146,23 @@ public class Klinika {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
-	
+
+	public Klinika(Long idKlinika, String naziv, String ulica, String brojUlice, String grad, String drzava,
+			String opis, float ocenaKlinike, Set<Usluga> usluga, Set<AdministratorKlinike> administratorKlinike,
+			Set<MedicinskoOsoblje> medicinskoOsoblje, Set<Sala> sala) {
+		super();
+		this.idKlinika = idKlinika;
+		this.naziv = naziv;
+		this.ulica = ulica;
+		this.brojUlice = brojUlice;
+		this.grad = grad;
+		this.drzava = drzava;
+		this.opis = opis;
+		this.ocenaKlinike = ocenaKlinike;
+		this.usluga = usluga;
+		this.administratorKlinike = administratorKlinike;
+		this.medicinskoOsoblje = medicinskoOsoblje;
+		this.sala = sala;
+	}
 
 }

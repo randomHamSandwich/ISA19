@@ -5,16 +5,16 @@ import com.isa.isa19.model.Klinika;
 public class KlinikaDTO {
 
 	private Long idKlinika;
-	private int naziv;
-	private String adresa;
-	private String brojAdrese;
+	private String naziv;
+	private String ulica;
+	private String brojUlice;
 	private String grad;
 	private String drzava;
 	private String opis;
 	private float ocenaKlinike;
 
 	public KlinikaDTO(Klinika k) {
-		this(k.getIdKlinika(), k.getNaziv(), k.getAdresa(), k.getBrojAdrese(), k.getGrad(), k.getDrzava(), k.getOpis(),
+		this(k.getIdKlinika(), k.getNaziv(), k.getUlica(), k.getBrojUlice(), k.getGrad(), k.getDrzava(), k.getOpis(),
 				k.getOcenaKlinike());
 	}
 
@@ -23,13 +23,13 @@ public class KlinikaDTO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public KlinikaDTO(Long idKlinika, int naziv, String adresa, String brojAdrese, String grad, String drzava,
+	public KlinikaDTO(Long idKlinika, String naziv, String ulica, String brojUlice, String grad, String drzava,
 			String opis, float ocenaKlinike) {
 		super();
 		this.idKlinika = idKlinika;
 		this.naziv = naziv;
-		this.adresa = adresa;
-		this.brojAdrese = brojAdrese;
+		this.ulica = ulica;
+		this.brojUlice = brojUlice;
 		this.grad = grad;
 		this.drzava = drzava;
 		this.opis = opis;
@@ -44,28 +44,28 @@ public class KlinikaDTO {
 		this.idKlinika = idKlinika;
 	}
 
-	public int getNaziv() {
+	public String getNaziv() {
 		return naziv;
 	}
 
-	public void setNaziv(int naziv) {
+	public void setNaziv(String naziv) {
 		this.naziv = naziv;
 	}
 
-	public String getAdresa() {
-		return adresa;
+	public String getUlica() {
+		return ulica;
 	}
 
-	public void setAdresa(String adresa) {
-		this.adresa = adresa;
+	public void setUlica(String ulica) {
+		this.ulica = ulica;
 	}
 
-	public String getBrojAdrese() {
-		return brojAdrese;
+	public String getBrojUlice() {
+		return brojUlice;
 	}
 
-	public void setBrojAdrese(String brojAdrese) {
-		this.brojAdrese = brojAdrese;
+	public void setBrojUlice(String brojUlice) {
+		this.brojUlice = brojUlice;
 	}
 
 	public String getGrad() {
