@@ -39,12 +39,38 @@ public class Klinika {
 
 	@OneToMany(mappedBy = "klinika")
 	private Set<AdministratorKlinike> administratorKlinike;
+//	nije vishe snigleTable medicniskop osbolje nego svi useri su SingleTable korisnik
+//	@OneToMany(mappedBy = "klinika")
+//	private Set<MedicinskoOsoblje> medicinskoOsoblje;
 
+	// TODO URADI POSLE BRISANJA @@MappedSuperclass    	
 	@OneToMany(mappedBy = "klinika")
-	private Set<MedicinskoOsoblje> medicinskoOsoblje;
+	private Set<Korisnik> korisnik;
 
 	@OneToMany(mappedBy = "klinika")
 	private Set<Sala> sala;
+
+	public Klinika() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Klinika(Long idKlinika, String naziv, String ulica, String brojUlice, String grad, String drzava,
+			String opis, float ocenaKlinike, Set<Usluga> usluga, Set<AdministratorKlinike> administratorKlinike,
+			Set<Sala> sala) {
+		super();
+		this.idKlinika = idKlinika;
+		this.naziv = naziv;
+		this.ulica = ulica;
+		this.brojUlice = brojUlice;
+		this.grad = grad;
+		this.drzava = drzava;
+		this.opis = opis;
+		this.ocenaKlinike = ocenaKlinike;
+		this.usluga = usluga;
+		this.administratorKlinike = administratorKlinike;
+		this.sala = sala;
+	}
 
 	public Long getIdKlinika() {
 		return idKlinika;
@@ -126,14 +152,6 @@ public class Klinika {
 		this.administratorKlinike = administratorKlinike;
 	}
 
-	public Set<MedicinskoOsoblje> getMedicinskoOsoblje() {
-		return medicinskoOsoblje;
-	}
-
-	public void setMedicinskoOsoblje(Set<MedicinskoOsoblje> medicinskoOsoblje) {
-		this.medicinskoOsoblje = medicinskoOsoblje;
-	}
-
 	public Set<Sala> getSala() {
 		return sala;
 	}
@@ -142,27 +160,8 @@ public class Klinika {
 		this.sala = sala;
 	}
 
-	public Klinika() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 
-	public Klinika(Long idKlinika, String naziv, String ulica, String brojUlice, String grad, String drzava,
-			String opis, float ocenaKlinike, Set<Usluga> usluga, Set<AdministratorKlinike> administratorKlinike,
-			Set<MedicinskoOsoblje> medicinskoOsoblje, Set<Sala> sala) {
-		super();
-		this.idKlinika = idKlinika;
-		this.naziv = naziv;
-		this.ulica = ulica;
-		this.brojUlice = brojUlice;
-		this.grad = grad;
-		this.drzava = drzava;
-		this.opis = opis;
-		this.ocenaKlinike = ocenaKlinike;
-		this.usluga = usluga;
-		this.administratorKlinike = administratorKlinike;
-		this.medicinskoOsoblje = medicinskoOsoblje;
-		this.sala = sala;
-	}
+
+	
 
 }

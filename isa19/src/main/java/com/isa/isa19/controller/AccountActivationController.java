@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.isa.isa19.model.Korisnik;
 import com.isa.isa19.model.Lek;
 import com.isa.isa19.model.Pacijent;
 import com.isa.isa19.model.StatusKorisnika;
+import com.isa.isa19.service.KorisnikService;
 import com.isa.isa19.service.PacijentService;
 
 @RestController
@@ -18,23 +20,23 @@ import com.isa.isa19.service.PacijentService;
 public class AccountActivationController {
 	
 	@Autowired
-	private PacijentService pacijentService;
+	private KorisnikService korisnikService;
 	
 
 	@GetMapping(value = "/{mail}")
 	public void getStudent(@PathVariable String mail) {
-		Optional<Pacijent> pacijent = pacijentService.findByEmail(mail);
+		Optional<Korisnik> korisnik = korisnikService.findByEmail(mail);
 
-		if (!pacijent.isPresent()) {
+		if (!korisnik.isPresent()) {
 			
 			System.out.println("korisnik sa "+mail+"  email ne postoji ");
 			return;
 		}
 		
-		if(pacijent.get().getStatusKorisnika()== StatusKorisnika.NOT_ACTIVATED) {
-			pacijent.get().setStatusKorisnika(StatusKorisnika.ACTIVATED_IN_USE);
-			Pacijent p = pacijent.get();
-			p = pacijentService.save(p);
+		if(korisnik.get().getStatusKorisnika()== StatusKorisnika.NOT_ACTIVATED) {
+			korisnik.get().setStatusKorisnika(StatusKorisnika.ACTIVATED_IN_USE);
+			Korisnik k = korisnik.get();
+			k = korisnikService.save(k);
 			System.out.println("nalog korisnika aktiviran");
 		}
 		

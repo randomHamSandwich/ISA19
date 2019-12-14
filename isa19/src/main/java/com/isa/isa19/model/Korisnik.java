@@ -6,9 +6,15 @@
  ***********************************************************************/
 package com.isa.isa19.model;
 
-import java.util.*;
+import static javax.persistence.DiscriminatorType.STRING;
+import static javax.persistence.InheritanceType.SINGLE_TABLE;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -17,18 +23,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.MappedSuperclass;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-
-//@Entity
-//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-//public abstract class Korisnik {
-@MappedSuperclass
+import javax.persistence.ManyToOne;
+@Entity
+@Inheritance(strategy=SINGLE_TABLE)
+@DiscriminatorColumn(name="tipp", discriminatorType=STRING)
 public class Korisnik {
 
 	@Id
@@ -58,14 +59,37 @@ public class Korisnik {
 	private java.lang.String jmbg;
 	@Enumerated(EnumType.STRING)
 	private StatusKorisnika statusKorisnika;
-	
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "korisnik_role", 
-    	joinColumns = @JoinColumn(name = "idOsoba"), 
-    	inverseJoinColumns = @JoinColumn(name = "idRola"))
-    private Set<Roles> roles = new HashSet<>();
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "korisnik_role", joinColumns = @JoinColumn(name = "idOsoba"), inverseJoinColumns = @JoinColumn(name = "idRola"))
+	private Set<Roles> roles = new HashSet<>();
+// TODO URADI POSLE BRISANJA @@MappedSuperclass    
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_klinika")
+	private Klinika klinika;
 
 	public Korisnik() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Korisnik(long idOsoba, String email, String lozinka, String ime, String prezime, String ulica,
+			String brojUlice, String grad, String drzava, String brojTelefona, String jmbg,
+			StatusKorisnika statusKorisnika, Set<Roles> roles) {
+		super();
+		this.idOsoba = idOsoba;
+		this.email = email;
+		this.lozinka = lozinka;
+		this.ime = ime;
+		this.prezime = prezime;
+		this.ulica = ulica;
+		this.brojUlice = brojUlice;
+		this.grad = grad;
+		this.drzava = drzava;
+		this.brojTelefona = brojTelefona;
+		this.jmbg = jmbg;
+		this.statusKorisnika = statusKorisnika;
+		this.roles = roles;
 	}
 
 	public long getIdOsoba() {
@@ -156,14 +180,6 @@ public class Korisnik {
 		this.jmbg = jmbg;
 	}
 
-	public Set<Roles> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(Set<Roles> roles) {
-		this.roles = roles;
-	}
-
 	public StatusKorisnika getStatusKorisnika() {
 		return statusKorisnika;
 	}
@@ -171,7 +187,13 @@ public class Korisnik {
 	public void setStatusKorisnika(StatusKorisnika statusKorisnika) {
 		this.statusKorisnika = statusKorisnika;
 	}
-	
-	
+
+	public Set<Roles> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Roles> roles) {
+		this.roles = roles;
+	}
 
 }

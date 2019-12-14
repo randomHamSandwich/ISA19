@@ -19,11 +19,11 @@ import javax.persistence.OneToMany;
 
 @Entity
 @DiscriminatorValue("LEKAR")
-public class Lekar extends MedicinskoOsoblje {
-	@Column(unique = false, nullable = false)
+public class Lekar extends Korisnik{
+	@Column(unique = false, nullable = true)
 	private float ocenaLekar;
 
-	@Column(unique = false, nullable = false)
+	@Column(unique = false, nullable = true)
 	private Specijalizacija specijalizacija;
 
 	@OneToMany(mappedBy = "lekar", cascade = CascadeType.ALL)

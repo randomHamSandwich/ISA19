@@ -43,6 +43,7 @@ import com.isa.isa19.model.Pacijent;
 import com.isa.isa19.model.RoleNaziv;
 import com.isa.isa19.model.Roles;
 import com.isa.isa19.model.StatusKorisnika;
+import com.isa.isa19.repository.KorisnikRepo;
 import com.isa.isa19.repository.PacijentRepo;
 import com.isa.isa19.security.jwt.JwtProvider;
 import com.isa.isa19.security.repository.RoleRepo;
@@ -55,7 +56,7 @@ public class AuthController {
 	AuthenticationManager authenticationManager;
 
 	@Autowired
-	PacijentRepo userRepository;
+	KorisnikRepo userRepository;
 
 	@Autowired
 	RoleRepo roleRepository;

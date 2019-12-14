@@ -1,6 +1,9 @@
 package com.isa.isa19.dto;
 
 import com.isa.isa19.model.Korisnik;
+import com.isa.isa19.model.Pacijent;
+import com.isa.isa19.model.StatusKorisnika;
+
 //@Deprecated
 public class KorisnikDTO {
 
@@ -21,6 +24,11 @@ public class KorisnikDTO {
 				k.getGrad(), k.getDrzava(), k.getBrojTelefona(), k.getJmbg());
 	}
 
+	public KorisnikDTO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public KorisnikDTO(long idOsoba, String email, String lozinka, String ime, String prezime, String ulica,
 			String brojUlice, String grad, String drzava, String brojTelefona, String jmbg) {
 		super();
@@ -35,12 +43,6 @@ public class KorisnikDTO {
 		this.drzava = drzava;
 		this.brojTelefona = brojTelefona;
 		this.jmbg = jmbg;
-	}
-
-	public KorisnikDTO() {
-		super();
-		// TODO Auto-generated constructor stub
-
 	}
 
 	public long getIdOsoba() {
@@ -130,5 +132,7 @@ public class KorisnikDTO {
 	public void setJmbg(java.lang.String jmbg) {
 		this.jmbg = jmbg;
 	}
+	
+	
 
 }

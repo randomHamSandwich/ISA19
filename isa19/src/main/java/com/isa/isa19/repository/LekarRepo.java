@@ -4,6 +4,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.isa.isa19.model.Lekar;
 
-public interface LekarRepo extends JpaRepository<Lekar, Long>{
+//public interface LekarRepo extends JpaRepository<Lekar, Long>{
+//
+//}
 
-}
+@Deprecated
+public interface LekarRepo {}

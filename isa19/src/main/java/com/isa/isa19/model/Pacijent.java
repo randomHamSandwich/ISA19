@@ -6,6 +6,7 @@
 package com.isa.isa19.model;
 
 import java.util.*;
+import javax.persistence.DiscriminatorValue;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -19,6 +20,7 @@ import javax.persistence.OneToOne;
 import net.bytebuddy.dynamic.TypeResolutionStrategy.Lazy;
 
 @Entity
+@DiscriminatorValue("PACIJENT")
 public class Pacijent extends Korisnik {
 	@OneToMany(mappedBy = "pacijent", cascade = CascadeType.ALL)
 	private Set<Pregled> pregled;
@@ -27,7 +29,7 @@ public class Pacijent extends Korisnik {
 	private Set<Operacija> operacija;
 
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_karton")
+	@JoinColumn(name = "id_karton" , nullable = true)
 	private Karton karton;
 
 	public Set<Pregled> getPregled() {

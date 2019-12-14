@@ -1,6 +1,7 @@
 package com.isa.isa19.security.service;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.isa.isa19.model.Korisnik;
 import com.isa.isa19.model.Pacijent;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -46,7 +47,7 @@ public class UserDetailsImpl implements UserDetails {
 		this.authorities = authorities;
 	}
 
-	public static UserDetailsImpl build(Pacijent user) {
+	public static UserDetailsImpl build(Korisnik user) {
 		List<GrantedAuthority> authorities = user.getRoles().stream()
 				.map(role -> new SimpleGrantedAuthority(role.getNazivRole().name())).collect(Collectors.toList());
 

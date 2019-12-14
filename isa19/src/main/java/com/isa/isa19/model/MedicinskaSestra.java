@@ -17,7 +17,7 @@ import javax.persistence.OneToMany;
 
 @Entity
 @DiscriminatorValue("SESTRA")
-public class MedicinskaSestra extends MedicinskoOsoblje {
+public class MedicinskaSestra extends Korisnik{
 	@ManyToMany
 	@JoinTable(name = "medicinska_sestra_operacija", joinColumns = @JoinColumn(name = "id_medicinska_sestra"), inverseJoinColumns = @JoinColumn(name = "id_operacija"))
 	private Set<Operacija> operacija;

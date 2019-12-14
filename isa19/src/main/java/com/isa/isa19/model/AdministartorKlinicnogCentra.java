@@ -11,8 +11,9 @@ import java.util.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-
+import javax.persistence.DiscriminatorValue;
 @Entity
+@DiscriminatorValue("AKC")
 public class AdministartorKlinicnogCentra extends Korisnik {
 	@OneToMany(mappedBy = "administartorKlinicnogCentra", cascade = CascadeType.ALL)
 	public Set<Dijagnoza> dijagnoza;

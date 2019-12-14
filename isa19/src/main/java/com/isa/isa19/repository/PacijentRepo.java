@@ -6,7 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.isa.isa19.model.Pacijent;
 
-public interface PacijentRepo extends JpaRepository<Pacijent, Long>{
-	Optional<Pacijent> findByEmail(String email);
-	Boolean existsByEmail(String email);
-}
+//public interface PacijentRepo extends JpaRepository<Pacijent, Long>{
+//	Optional<Pacijent> findByEmail(String email);
+//	Boolean existsByEmail(String email);
+//}
+@Deprecated
+public interface PacijentRepo{}

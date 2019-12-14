@@ -9,22 +9,24 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.isa.isa19.model.Korisnik;
 import com.isa.isa19.model.Pacijent;
+import com.isa.isa19.repository.KorisnikRepo;
 import com.isa.isa19.repository.PacijentRepo;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Autowired
-	PacijentRepo pacijentRepo;
+	KorisnikRepo korisnikRepo;
 
 	@Override
 	public UserDetails loadUserByUsername(String email) throws AuthenticationException {
 
-		Pacijent pacijent = pacijentRepo.findByEmail(email).orElseThrow(
+		Korisnik korisnik = korisnikRepo.findByEmail(email).orElseThrow(
 				() -> new UsernameNotFoundException("User Not Found with -> username or email : " + email));
 
-		switch (pacijent.getStatusKorisnika()) {
+		switch (korisnik.getStatusKorisnika()) {
 		case DELETED:
 			throw new DisabledException(
 					"This account was deleated contact adminstrator for more information\n" + email);
@@ -37,7 +39,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 			throw new BadCredentialsException("Bad status in DB");
 		}
 
-		return UserDetailsImpl.build(pacijent);
+		return UserDetailsImpl.build(korisnik);
 	}
 
 }

@@ -29,6 +29,8 @@ public class Karton {
 	private int tezina;
 	@Column(nullable = true)
 	private int krvnaGrupa;
+//	TODO alergije na lek
+//	TODO izveshtaj o pregledu
 
 //	@OneToOne(fetch = FetchType.LAZY)
 //	@JoinColumn(name = "id_pacijent")

@@ -4,6 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.isa.isa19.model.GodisnjiOdmor;
 
-public interface GodisnjiOdmorRepo extends JpaRepository<GodisnjiOdmor, Long>{
-
-}
+//public interface GodisnjiOdmorRepo extends JpaRepository<GodisnjiOdmor, Long>{
+//
+//	
+//}
+public interface GodisnjiOdmorRepo{}
