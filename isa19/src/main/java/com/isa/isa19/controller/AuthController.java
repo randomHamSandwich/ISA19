@@ -187,6 +187,8 @@ public class AuthController {
 			MimeBodyPart messageBodyPart = new MimeBodyPart();
 
 			// Fill the message
+			
+
 			messageBodyPart.setText(
 					"welcome " + formatter.format(calendar.getTime()) + "<p>click on the link to activate</p>"
 							+ "<a href=\"http://127.0.0.1:8080/api/auth/activate/" + recipentMail + " \">link</a>",
