@@ -25,57 +25,77 @@ public class Pregled {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idPregleda;
-	
+
 	@Column(nullable = true)
 	private java.util.Date vremePocetka;
-	
+
 	@Column(nullable = true)
 	private java.util.Date vremeZavrsetka;
-	
+
 	@Column(nullable = true)
 	private float cena;
-	
+
 	@Column(nullable = true)
 	private float popust;
-	
+
 	@Column(nullable = true)
 	private float cenaSaPopustom;
-	
+
 	@Column(nullable = true)
 	private int ocenaLekara;
-	
+
 	@Column(nullable = true)
 	private int ocenaKilinike;
-	
-	@Column(nullable = true)
-	private Status status;
-	
-	@ManyToOne(cascade =CascadeType.ALL)
+
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_pacijent")
 	private Pacijent pacijent;
 
-	@ManyToOne(cascade =CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_medicinskaSestra")
 	private MedicinskaSestra medicinskaSestra;
 
-	@ManyToOne(cascade =CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_lekar")
 	private Lekar lekar;
 
-	@ManyToOne(cascade =CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_sala")
 	private Sala sala;
-	
-	@ManyToOne(cascade =CascadeType.ALL)
+
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_dijagnoza")
 	private Dijagnoza dijagnoza;
-	
-	//N - M ka Leku
+
+	// N - M ka Leku
 	@ManyToMany
-	@JoinTable(name = "terapija", 
-	joinColumns=@JoinColumn( name = "id_pregled"),
-	inverseJoinColumns = @JoinColumn(name= "id_lek"))
+	@JoinTable(name = "terapija", joinColumns = @JoinColumn(name = "id_pregled"), inverseJoinColumns = @JoinColumn(name = "id_lek"))
 	private Set<Lek> lek;
+
+	public Pregled() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Pregled(Long idPregleda, Date vremePocetka, Date vremeZavrsetka, float cena, float popust,
+			float cenaSaPopustom, int ocenaLekara, int ocenaKilinike, Pacijent pacijent,
+			MedicinskaSestra medicinskaSestra, Lekar lekar, Sala sala, Dijagnoza dijagnoza, Set<Lek> lek) {
+		super();
+		this.idPregleda = idPregleda;
+		this.vremePocetka = vremePocetka;
+		this.vremeZavrsetka = vremeZavrsetka;
+		this.cena = cena;
+		this.popust = popust;
+		this.cenaSaPopustom = cenaSaPopustom;
+		this.ocenaLekara = ocenaLekara;
+		this.ocenaKilinike = ocenaKilinike;
+		this.pacijent = pacijent;
+		this.medicinskaSestra = medicinskaSestra;
+		this.lekar = lekar;
+		this.sala = sala;
+		this.dijagnoza = dijagnoza;
+		this.lek = lek;
+	}
 
 	public Long getIdPregleda() {
 		return idPregleda;
@@ -141,14 +161,6 @@ public class Pregled {
 		this.ocenaKilinike = ocenaKilinike;
 	}
 
-	public Status getStatus() {
-		return status;
-	}
-
-	public void setStatus(Status status) {
-		this.status = status;
-	}
-
 	public Pacijent getPacijent() {
 		return pacijent;
 	}
@@ -197,12 +209,6 @@ public class Pregled {
 		this.lek = lek;
 	}
 
-	public Pregled() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	
-	
-	
+
 
 }

@@ -3,7 +3,6 @@ package com.isa.isa19.dto;
 import java.util.Date;
 
 import com.isa.isa19.model.Pregled;
-import com.isa.isa19.model.Status;
 
 public class PregledDTO {
 	private Long idPregleda;
@@ -14,11 +13,10 @@ public class PregledDTO {
 	private float cenaSaPopustom;
 	private int ocenaLekara;
 	private int ocenaKilinike;
-	private Status status;
 
 	public PregledDTO(Pregled p) {
 		this(p.getIdPregleda(), p.getVremePocetka(), p.getVremeZavrsetka(), p.getCena(), p.getPopust(),
-				p.getCenaSaPopustom(), p.getOcenaLekara(), p.getOcenaKilinike(), p.getStatus());
+				p.getCenaSaPopustom(), p.getOcenaLekara(), p.getOcenaKilinike());
 		// TODO Auto-generated constructor stub
 	}
 
@@ -28,7 +26,7 @@ public class PregledDTO {
 	}
 
 	public PregledDTO(Long idPregleda, Date vremePocetka, Date vremeZavrsetka, float cena, float popust,
-			float cenaSaPopustom, int ocenaLekara, int ocenaKilinike, Status status) {
+			float cenaSaPopustom, int ocenaLekara, int ocenaKilinike) {
 		super();
 		this.idPregleda = idPregleda;
 		this.vremePocetka = vremePocetka;
@@ -38,7 +36,6 @@ public class PregledDTO {
 		this.cenaSaPopustom = cenaSaPopustom;
 		this.ocenaLekara = ocenaLekara;
 		this.ocenaKilinike = ocenaKilinike;
-		this.status = status;
 	}
 
 	public Long getIdPregleda() {
@@ -103,14 +100,6 @@ public class PregledDTO {
 
 	public void setOcenaKilinike(int ocenaKilinike) {
 		this.ocenaKilinike = ocenaKilinike;
-	}
-
-	public Status getStatus() {
-		return status;
-	}
-
-	public void setStatus(Status status) {
-		this.status = status;
 	}
 
 }

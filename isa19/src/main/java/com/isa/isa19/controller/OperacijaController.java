@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.isa.isa19.dto.OperacijaDTO;
 import com.isa.isa19.model.Operacija;
-import com.isa.isa19.model.Status;
 import com.isa.isa19.service.OperacijaService;
 
 @RestController
@@ -81,7 +80,6 @@ public class OperacijaController {
 		operacija.setVremeZavrsetka(operacijaDTO.getVremeZavrsetka());
 		operacija.setOcenaKlinke(operacijaDTO.getOcenaKlinke());
 		operacija.setOcenaLekara(operacijaDTO.getOcenaLekara());
-		operacija.setStatus(operacijaDTO.getStatus());
 
 		operacija = operacijaService.save(operacija);
 		return new ResponseEntity<>(new OperacijaDTO(operacija), HttpStatus.CREATED);
@@ -103,7 +101,6 @@ public class OperacijaController {
 		operacija.get().setVremeZavrsetka(operacijaDTO.getVremeZavrsetka());
 		operacija.get().setOcenaKlinke(operacijaDTO.getOcenaKlinke());
 		operacija.get().setOcenaLekara(operacijaDTO.getOcenaLekara());
-		operacija.get().setStatus(operacijaDTO.getStatus());
 
 		Operacija o = operacija.get();
 		o = operacijaService.save(o);

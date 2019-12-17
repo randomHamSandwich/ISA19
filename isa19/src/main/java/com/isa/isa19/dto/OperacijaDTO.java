@@ -3,7 +3,6 @@ package com.isa.isa19.dto;
 import java.util.Date;
 
 import com.isa.isa19.model.Operacija;
-import com.isa.isa19.model.Status;
 
 public class OperacijaDTO {
 
@@ -12,10 +11,9 @@ public class OperacijaDTO {
 	private java.util.Date vremeZavrsetka;
 	private int ocenaKlinke;
 	private int ocenaLekara;
-	private Status status;
 
 	public OperacijaDTO(Operacija o) {
-		this(o.getIdOperacija(), o.getVremePocetka(), o.getVremeZavrsetka(), o.getOcenaKlinke(), o.getOcenaLekara(), o.getStatus());
+		this(o.getIdOperacija(), o.getVremePocetka(), o.getVremeZavrsetka(), o.getOcenaKlinke(), o.getOcenaLekara());
 	}
 
 	public OperacijaDTO() {
@@ -23,16 +21,13 @@ public class OperacijaDTO {
 		// TODO Auto-generated constructor stub
 	}
 
-
-	public OperacijaDTO(Long idOperacija, Date vremePocetka, Date vremeZavrsetka, int ocenaKlinke, int ocenaLekara,
-			Status status) {
+	public OperacijaDTO(Long idOperacija, Date vremePocetka, Date vremeZavrsetka, int ocenaKlinke, int ocenaLekara) {
 		super();
 		this.idOperacija = idOperacija;
 		this.vremePocetka = vremePocetka;
 		this.vremeZavrsetka = vremeZavrsetka;
 		this.ocenaKlinke = ocenaKlinke;
 		this.ocenaLekara = ocenaLekara;
-		this.status = status;
 	}
 
 	public Long getIdOperacija() {
@@ -75,13 +70,4 @@ public class OperacijaDTO {
 		this.ocenaLekara = ocenaLekara;
 	}
 
-	public Status getStatus() {
-		return status;
-	}
-
-	public void setStatus(Status status) {
-		this.status = status;
-	}
-
-	
 }

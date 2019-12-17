@@ -19,7 +19,7 @@ import javax.persistence.OneToMany;
 
 @Entity
 @DiscriminatorValue("LEKAR")
-public class Lekar extends Korisnik{
+public class Lekar extends Korisnik {
 	@Column(unique = false, nullable = true)
 	private float ocenaLekar;
 
@@ -32,6 +32,9 @@ public class Lekar extends Korisnik{
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "lekar_operacija", joinColumns = @JoinColumn(name = "id_lekar"), inverseJoinColumns = @JoinColumn(name = "id_operacija"))
 	private Set<Operacija> operacija;
+
+	@OneToMany(mappedBy = "lekar", cascade = CascadeType.ALL)
+	public Set<KalendarDogadjaja> kalendarDogadjaja;
 
 	public float getOcenaLekar() {
 		return ocenaLekar;
@@ -65,12 +68,22 @@ public class Lekar extends Korisnik{
 		this.operacija = operacija;
 	}
 
-	public Lekar(float ocenaLekar, Specijalizacija specijalizacija, Set<Pregled> pregled, Set<Operacija> operacija) {
+	public Set<KalendarDogadjaja> getKalendarDogadjaja() {
+		return kalendarDogadjaja;
+	}
+
+	public void setKalendarDogadjaja(Set<KalendarDogadjaja> kalendarDogadjaja) {
+		this.kalendarDogadjaja = kalendarDogadjaja;
+	}
+
+	public Lekar(float ocenaLekar, Specijalizacija specijalizacija, Set<Pregled> pregled, Set<Operacija> operacija,
+			Set<KalendarDogadjaja> kalendarDogadjaja) {
 		super();
 		this.ocenaLekar = ocenaLekar;
 		this.specijalizacija = specijalizacija;
 		this.pregled = pregled;
 		this.operacija = operacija;
+		this.kalendarDogadjaja = kalendarDogadjaja;
 	}
 
 	public Lekar() {

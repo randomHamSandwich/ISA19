@@ -33,8 +33,7 @@ public class Operacija {
 	private int ocenaKlinke;
 	@Column
 	private int ocenaLekara;
-	@Column
-	private Status status;
+
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_pacijent")
@@ -47,6 +46,24 @@ public class Operacija {
 	@ManyToMany //
 	@JoinTable(name = "medicinska_sestra_operacija", joinColumns = @JoinColumn(name = "id_operacija"), inverseJoinColumns = @JoinColumn(name = "id_medicinska_sestra"))
 	private Set<MedicinskaSestra> medicinskaSestra;
+
+	public Operacija() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Operacija(Long idOperacija, Date vremePocetka, Date vremeZavrsetka, int ocenaKlinke, int ocenaLekara,
+			Pacijent pacijent, Set<Lekar> lekar, Set<MedicinskaSestra> medicinskaSestra) {
+		super();
+		this.idOperacija = idOperacija;
+		this.vremePocetka = vremePocetka;
+		this.vremeZavrsetka = vremeZavrsetka;
+		this.ocenaKlinke = ocenaKlinke;
+		this.ocenaLekara = ocenaLekara;
+		this.pacijent = pacijent;
+		this.lekar = lekar;
+		this.medicinskaSestra = medicinskaSestra;
+	}
 
 	public Long getIdOperacija() {
 		return idOperacija;
@@ -112,31 +129,6 @@ public class Operacija {
 		this.medicinskaSestra = medicinskaSestra;
 	}
 
-	public Status getStatus() {
-		return status;
-	}
-
-	public Operacija(Long idOperacija, Date vremePocetka, Date vremeZavrsetka, int ocenaKlinke, int ocenaLekara,
-			Status status, Pacijent pacijent, Set<Lekar> lekar, Set<MedicinskaSestra> medicinskaSestra) {
-		super();
-		this.idOperacija = idOperacija;
-		this.vremePocetka = vremePocetka;
-		this.vremeZavrsetka = vremeZavrsetka;
-		this.ocenaKlinke = ocenaKlinke;
-		this.ocenaLekara = ocenaLekara;
-		this.status = status;
-		this.pacijent = pacijent;
-		this.lekar = lekar;
-		this.medicinskaSestra = medicinskaSestra;
-	}
-
-	public void setStatus(Status status) {
-		this.status = status;
-	}
-
-	public Operacija() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	
 
 }

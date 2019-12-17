@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.isa.isa19.dto.PregledDTO;
 import com.isa.isa19.model.Pregled;
-import com.isa.isa19.model.Status;
 import com.isa.isa19.service.PregledService;
 
 
@@ -83,7 +82,6 @@ public class PregledController {
 		pregled.setCenaSaPopustom(pregledDTO.getCenaSaPopustom());
 		pregled.setOcenaLekara(pregledDTO.getOcenaLekara());
 		pregled.setOcenaKilinike(pregledDTO.getOcenaKilinike());
-		pregled.setStatus(pregledDTO.getStatus());
 
 		pregled = pregledService.save(pregled);
 		return new ResponseEntity<>(new PregledDTO(pregled), HttpStatus.CREATED);
@@ -105,7 +103,6 @@ public class PregledController {
 		pregled.get().setCenaSaPopustom(pregledDTO.getCenaSaPopustom());
 		pregled.get().setOcenaLekara(pregledDTO.getOcenaLekara());
 		pregled.get().setOcenaKilinike(pregledDTO.getOcenaKilinike());
-		pregled.get().setStatus(pregledDTO.getStatus());
 
 		Pregled p = pregled.get();
 		p = pregledService.save(p);

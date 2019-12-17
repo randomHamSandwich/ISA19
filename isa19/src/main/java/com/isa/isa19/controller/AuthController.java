@@ -39,10 +39,12 @@ import com.isa.isa19.message.request.LoginForm;
 import com.isa.isa19.message.request.SignUpForm;
 import com.isa.isa19.message.response.JwtResponse;
 import com.isa.isa19.message.response.ResponseMessage;
+import com.isa.isa19.model.Karton;
 import com.isa.isa19.model.Pacijent;
 import com.isa.isa19.model.RoleNaziv;
 import com.isa.isa19.model.Roles;
 import com.isa.isa19.model.StatusKorisnika;
+import com.isa.isa19.repository.KartonRepo;
 import com.isa.isa19.repository.KorisnikRepo;
 import com.isa.isa19.repository.PacijentRepo;
 import com.isa.isa19.security.jwt.JwtProvider;
@@ -57,6 +59,9 @@ public class AuthController {
 
 	@Autowired
 	KorisnikRepo userRepository;
+	
+	@Autowired
+	KartonRepo kartonRepo;
 
 	@Autowired
 	RoleRepo roleRepository;
@@ -145,6 +150,14 @@ public class AuthController {
 		user.setRoles(roles);
 		userRepository.save(user);
 		sendMail(user.getEmail());
+		
+		if(user instanceof Pacijent) {
+			Karton k = new Karton();
+			k.setPacijent(user);
+			user.setKarton(k);
+			userRepository.save(user);
+			kartonRepo.save(k);
+		}
 
 		return new ResponseEntity<>(new ResponseMessage("Activate account on your mail!"), HttpStatus.OK);
 	}
@@ -160,7 +173,7 @@ public class AuthController {
 		final String username = env.getProperty("spring.mail.username");
 		final String password = env.getProperty("spring.mail.password");
 		String recipient = recipentMail;
-
+// stavi application propery
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", true);
 		props.put("mail.smtp.starttls.enable", true);
@@ -181,13 +194,7 @@ public class AuthController {
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient));
 			message.setSubject("Hi user");
 
-//			message.setText("welcome " + formatter.format(calendar.getTime())  + "click on the link to active\n" + 
-//			"<a href=\"http://127.0.0.1:8080/api/auth/activate/ "+ recipentMail+" \">link</a>" );
-
 			MimeBodyPart messageBodyPart = new MimeBodyPart();
-
-			// Fill the message
-			
 
 			messageBodyPart.setText(
 					"welcome " + formatter.format(calendar.getTime()) + "<p>click on the link to activate</p>"
