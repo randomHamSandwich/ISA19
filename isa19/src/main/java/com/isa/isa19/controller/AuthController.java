@@ -71,6 +71,7 @@ public class AuthController {
 
 	@Autowired
 	JwtProvider jwtProvider;
+	
 	@Autowired
 	private Environment env;
 
@@ -91,7 +92,7 @@ public class AuthController {
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpForm signUpRequest) {
 		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-			return new ResponseEntity<>(new ResponseMessage("Fail -> Username is already taken!"),
+			return new ResponseEntity<>(new ResponseMessage("Fail -> Email is already taken!"),
 					HttpStatus.BAD_REQUEST);
 		}
 

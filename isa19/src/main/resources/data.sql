@@ -33,6 +33,8 @@ insert into korisnik(tipp, email,ime,prezime,lozinka,ulica,broj_ulice,grad,drzav
 insert into korisnik(tipp, email,ime,prezime,lozinka,ulica,broj_ulice,grad,drzava,jmbg,status_korisnika,broj_telefona) values
 ('PACIJENT', 'pera@gmail.com','pera', 'Pavlic','$2a$10$YDrhoDY60oavj/E0tHUQYOhpg1tm1kIM/m8xg.nvUl6GVF0qBjtIG', 'Pavla Papa', '13','Novi Sad', 'Srbija', 'jmbg55555', 'ACTIVATED_IN_USE', '0655555555555');
 
+--insert into karton
+
 
 insert into korisnik_role (id_osoba, id_rola) select id_osoba , id_rola from korisnik , roles where email = 'antonije@gmail.com' and naziv_role='ADMINISTRAOR_KLINIKE';
 insert into korisnik_role (id_osoba, id_rola) select id_osoba , id_rola from korisnik , roles where email = 'andrej@gmail.com' and naziv_role='ADMINISTRATOR_KLINICKOG_CENTRA';

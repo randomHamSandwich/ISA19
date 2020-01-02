@@ -60,7 +60,7 @@ public class Korisnik {
 	@Enumerated(EnumType.STRING)
 	private StatusKorisnika statusKorisnika;
 
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "korisnik_role", joinColumns = @JoinColumn(name = "idOsoba"), inverseJoinColumns = @JoinColumn(name = "idRola"))
 	private Set<Roles> roles = new HashSet<>();
 // TODO URADI POSLE BRISANJA @@MappedSuperclass    
