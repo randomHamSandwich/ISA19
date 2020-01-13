@@ -29,7 +29,7 @@ public class KalendarDogadjaja {
 	private TipDogadjajaKalendar tipDogadjaja;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="id_lekar" ,nullable =true)
+	@JoinColumn(name="id_medicinsko_osoblje" ,nullable =true)
 	private Lekar lekar ;
 
 	public KalendarDogadjaja() {

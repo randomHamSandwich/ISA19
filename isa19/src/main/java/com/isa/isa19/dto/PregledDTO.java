@@ -1,13 +1,14 @@
 package com.isa.isa19.dto;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import com.isa.isa19.model.Pregled;
 
 public class PregledDTO {
 	private Long idPregleda;
-	private java.util.Date vremePocetka;
-	private java.util.Date vremeZavrsetka;
+	private Calendar vremePocetka;
+	private Calendar vremeZavrsetka;
 	private float cena;
 	private float popust;
 	private float cenaSaPopustom;
@@ -25,7 +26,7 @@ public class PregledDTO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public PregledDTO(Long idPregleda, Date vremePocetka, Date vremeZavrsetka, float cena, float popust,
+	public PregledDTO(Long idPregleda, Calendar vremePocetka, Calendar vremeZavrsetka, float cena, float popust,
 			float cenaSaPopustom, int ocenaLekara, int ocenaKilinike) {
 		super();
 		this.idPregleda = idPregleda;
@@ -46,19 +47,19 @@ public class PregledDTO {
 		this.idPregleda = idPregleda;
 	}
 
-	public java.util.Date getVremePocetka() {
+	public Calendar getVremePocetka() {
 		return vremePocetka;
 	}
 
-	public void setVremePocetka(java.util.Date vremePocetka) {
+	public void setVremePocetka(Calendar vremePocetka) {
 		this.vremePocetka = vremePocetka;
 	}
 
-	public java.util.Date getVremeZavrsetka() {
+	public Calendar getVremeZavrsetka() {
 		return vremeZavrsetka;
 	}
 
-	public void setVremeZavrsetka(java.util.Date vremeZavrsetka) {
+	public void setVremeZavrsetka(Calendar vremeZavrsetka) {
 		this.vremeZavrsetka = vremeZavrsetka;
 	}
 
@@ -101,5 +102,7 @@ public class PregledDTO {
 	public void setOcenaKilinike(int ocenaKilinike) {
 		this.ocenaKilinike = ocenaKilinike;
 	}
+
+	
 
 }

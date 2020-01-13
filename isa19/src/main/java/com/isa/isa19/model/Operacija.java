@@ -26,9 +26,9 @@ public class Operacija {
 	private Long idOperacija;
 
 	@Column
-	private java.util.Date vremePocetka;
+	private Calendar vremePocetka;
 	@Column
-	private java.util.Date vremeZavrsetka;
+	private Calendar vremeZavrsetka;
 	@Column
 	private int ocenaKlinke;
 	@Column
@@ -52,7 +52,7 @@ public class Operacija {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Operacija(Long idOperacija, Date vremePocetka, Date vremeZavrsetka, int ocenaKlinke, int ocenaLekara,
+	public Operacija(Long idOperacija, Calendar vremePocetka, Calendar vremeZavrsetka, int ocenaKlinke, int ocenaLekara,
 			Pacijent pacijent, Set<Lekar> lekar, Set<MedicinskaSestra> medicinskaSestra) {
 		super();
 		this.idOperacija = idOperacija;
@@ -73,19 +73,19 @@ public class Operacija {
 		this.idOperacija = idOperacija;
 	}
 
-	public java.util.Date getVremePocetka() {
+	public Calendar getVremePocetka() {
 		return vremePocetka;
 	}
 
-	public void setVremePocetka(java.util.Date vremePocetka) {
+	public void setVremePocetka(Calendar vremePocetka) {
 		this.vremePocetka = vremePocetka;
 	}
 
-	public java.util.Date getVremeZavrsetka() {
+	public Calendar getVremeZavrsetka() {
 		return vremeZavrsetka;
 	}
 
-	public void setVremeZavrsetka(java.util.Date vremeZavrsetka) {
+	public void setVremeZavrsetka(Calendar vremeZavrsetka) {
 		this.vremeZavrsetka = vremeZavrsetka;
 	}
 
@@ -128,6 +128,8 @@ public class Operacija {
 	public void setMedicinskaSestra(Set<MedicinskaSestra> medicinskaSestra) {
 		this.medicinskaSestra = medicinskaSestra;
 	}
+
+	
 
 	
 

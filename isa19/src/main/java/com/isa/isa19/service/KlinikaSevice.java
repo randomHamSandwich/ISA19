@@ -35,5 +35,9 @@ public class KlinikaSevice {
 	public Page<Klinika> findAll(Pageable page) {
 		return klinikaRepo.findAll(page);
 	}
+	
+	public List<Klinika> findClincSpec(String spec){
+		return klinikaRepo.findClincSpec(spec);
+	}
 
 }

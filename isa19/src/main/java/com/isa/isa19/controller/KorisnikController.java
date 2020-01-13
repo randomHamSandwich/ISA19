@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.isa.isa19.dto.KorisnikDTO;
 import com.isa.isa19.dto.LozinkeDTO;
+import com.isa.isa19.message.response.ResponseMessage;
 import com.isa.isa19.model.Korisnik;
 import com.isa.isa19.model.StatusKorisnika;
 import com.isa.isa19.service.KorisnikService;
@@ -138,12 +139,13 @@ public class KorisnikController {
 
 	@PutMapping(consumes = "application/json", value = "/{email}")
 	@PreAuthorize("hasAuthority('PACIJENT')")
-	public ResponseEntity<KorisnikDTO> updateStudent(@PathVariable String email, @RequestBody KorisnikDTO korisnikDTO) {
+	public ResponseEntity<?> updateStudent(@PathVariable String email, @RequestBody KorisnikDTO korisnikDTO) {
 
 		Optional<Korisnik> korisnik = korisnikService.findByEmail(email);
 
 		if (!korisnik.isPresent()) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(new ResponseMessage("Fail -> This user does not exit!"),
+					HttpStatus.NOT_FOUND);
 		}
 
 		korisnik.get().setIme(korisnikDTO.getIme());
@@ -160,7 +162,7 @@ public class KorisnikController {
 
 	@PutMapping(consumes = "application/json", value = "/pass/{email}")
 	@PreAuthorize("hasAuthority('PACIJENT')")
-	public ResponseEntity<KorisnikDTO> changePassword(@PathVariable String email, @RequestBody LozinkeDTO lozinkeDTO) {
+	public ResponseEntity<?> changePassword(@PathVariable String email, @RequestBody LozinkeDTO lozinkeDTO) {
 
 		Optional<Korisnik> korisnik = korisnikService.findByEmail(email);
 
@@ -170,7 +172,9 @@ public class KorisnikController {
 
 
 		if (!encoder.matches(lozinkeDTO.getLozinkaStara(), korisnik.get().getLozinka())) {
-			return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+			return new ResponseEntity<>(new ResponseMessage("Fail -> old password is wrong!"),
+					HttpStatus.BAD_REQUEST);
+
 		}
 		korisnik.get().setLozinka(encoder.encode(lozinkeDTO.getLozinkaNova()));
 

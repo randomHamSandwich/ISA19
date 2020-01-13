@@ -24,8 +24,8 @@ insert into korisnik(tipp, email,ime,prezime,lozinka,ulica,broj_ulice,grad,drzav
 insert into korisnik(tipp, email,ime,prezime,lozinka,ulica,broj_ulice,grad,drzava,jmbg,status_korisnika,broj_telefona) values
 ('AKC', 'andrej@gmail.com','Avramov', 'Avramov','$2a$10$YDrhoDY60oavj/E0tHUQYOhpg1tm1kIM/m8xg.nvUl6GVF0qBjtIG', 'Gogoljeva', '5','Novi Sad', 'Srbija', 'jmbg2222222', 'ACTIVATED_IN_USE', '0622222222222');
 
-insert into korisnik(tipp, email,ime,prezime,lozinka,ulica,broj_ulice,grad,drzava,jmbg,status_korisnika,broj_telefona) values
-('LEKAR', 'leonard@gmail.com','Leonard', 'Maxwell','$2a$10$YDrhoDY60oavj/E0tHUQYOhpg1tm1kIM/m8xg.nvUl6GVF0qBjtIG', 'Puskinova', '22','Novi Sad', 'Srbija', 'jmbg333333333', 'ACTIVATED_IN_USE', '063333333333');
+insert into korisnik(tipp, email,ime,prezime,lozinka,ulica,broj_ulice,grad,drzava,jmbg,status_korisnika,broj_telefona, specijalizacija) values
+('LEKAR', 'leonard@gmail.com','Leonard', 'Maxwell','$2a$10$YDrhoDY60oavj/E0tHUQYOhpg1tm1kIM/m8xg.nvUl6GVF0qBjtIG', 'Puskinova', '22','Novi Sad', 'Srbija', 'jmbg333333333', 'ACTIVATED_IN_USE', '063333333333', 'NEUROLOGIJA');
 
 insert into korisnik(tipp, email,ime,prezime,lozinka,ulica,broj_ulice,grad,drzava,jmbg,status_korisnika,broj_telefona) values
 ('SESTRA', 'milka@gmail.com','Milka', 'Saric','$2a$10$YDrhoDY60oavj/E0tHUQYOhpg1tm1kIM/m8xg.nvUl6GVF0qBjtIG', 'Zimanova', '145','Novi Sad', 'Srbija', 'jmbg4444444', 'ACTIVATED_IN_USE', '06444444444444');

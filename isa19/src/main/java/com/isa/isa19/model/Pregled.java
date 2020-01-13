@@ -27,10 +27,10 @@ public class Pregled {
 	private Long idPregleda;
 
 	@Column(nullable = true)
-	private java.util.Date vremePocetka;
+	private Calendar vremePocetka;
 
 	@Column(nullable = true)
-	private java.util.Date vremeZavrsetka;
+	private Calendar vremeZavrsetka;
 
 	@Column(nullable = true)
 	private float cena;
@@ -77,7 +77,7 @@ public class Pregled {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Pregled(Long idPregleda, Date vremePocetka, Date vremeZavrsetka, float cena, float popust,
+	public Pregled(Long idPregleda, Calendar vremePocetka, Calendar vremeZavrsetka, float cena, float popust,
 			float cenaSaPopustom, int ocenaLekara, int ocenaKilinike, Pacijent pacijent,
 			MedicinskaSestra medicinskaSestra, Lekar lekar, Sala sala, Dijagnoza dijagnoza, Set<Lek> lek) {
 		super();
@@ -105,19 +105,19 @@ public class Pregled {
 		this.idPregleda = idPregleda;
 	}
 
-	public java.util.Date getVremePocetka() {
+	public Calendar getVremePocetka() {
 		return vremePocetka;
 	}
 
-	public void setVremePocetka(java.util.Date vremePocetka) {
+	public void setVremePocetka(Calendar vremePocetka) {
 		this.vremePocetka = vremePocetka;
 	}
 
-	public java.util.Date getVremeZavrsetka() {
+	public Calendar getVremeZavrsetka() {
 		return vremeZavrsetka;
 	}
 
-	public void setVremeZavrsetka(java.util.Date vremeZavrsetka) {
+	public void setVremeZavrsetka(Calendar vremeZavrsetka) {
 		this.vremeZavrsetka = vremeZavrsetka;
 	}
 
@@ -208,6 +208,8 @@ public class Pregled {
 	public void setLek(Set<Lek> lek) {
 		this.lek = lek;
 	}
+
+	
 
 
 

@@ -12,6 +12,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -24,6 +26,7 @@ public class Lekar extends Korisnik {
 	private float ocenaLekar;
 
 	@Column(unique = false, nullable = true)
+	@Enumerated(EnumType.STRING)
 	private Specijalizacija specijalizacija;
 
 	@OneToMany(mappedBy = "lekar", cascade = CascadeType.ALL)
