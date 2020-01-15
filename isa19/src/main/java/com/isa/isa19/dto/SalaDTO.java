@@ -17,7 +17,6 @@ public class SalaDTO {
 
 	public SalaDTO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Long getIdSala() {

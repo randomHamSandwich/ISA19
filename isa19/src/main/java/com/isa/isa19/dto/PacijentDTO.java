@@ -26,7 +26,6 @@ public class PacijentDTO {
 
 	public PacijentDTO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public PacijentDTO(long idOsoba, String email, String lozinka, String ime, String prezime, String ulica,

@@ -13,7 +13,6 @@ public class KartonDTO {
 	
 	public KartonDTO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public KartonDTO(Long idKarton, int visina, int tezina, int krvnaGrupa) {
 		super();

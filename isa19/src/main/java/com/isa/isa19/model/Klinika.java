@@ -52,7 +52,6 @@ public class Klinika {
 
 	public Klinika() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Klinika(Long idKlinika, String naziv, String ulica, String brojUlice, String grad, String drzava,

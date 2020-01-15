@@ -66,7 +66,6 @@ public class Dijagnoza {
 
 	public Dijagnoza() {
 		super();
-		// TODO Auto-generated constructor stub
 	} 
 	
 	

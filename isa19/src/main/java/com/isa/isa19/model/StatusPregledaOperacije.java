@@ -1,0 +1,10 @@
+package com.isa.isa19.model;
+
+public enum StatusPregledaOperacije {
+	ZAKAZAN_PREGLED,
+	OTKAZAN_PREGLED,
+	IZVRSEN_PREGLED,
+	ZAKAZANA_OPERACIJA,
+	OTKAZANA_OPERACIJA,
+	IZVRSENA_OPERACIJA
+}

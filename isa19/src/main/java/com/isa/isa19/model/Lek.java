@@ -72,7 +72,6 @@ public class Lek {
 
 	public Lek() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Lek(Long idLek, String naziv, Set<Pregled> pregled,

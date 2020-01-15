@@ -10,6 +10,8 @@ import java.util.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -46,6 +48,11 @@ public class Pregled {
 
 	@Column(nullable = true)
 	private int ocenaKilinike;
+	
+	@Column( nullable = true)
+	@Enumerated(EnumType.STRING)
+	private StatusPregledaOperacije status;
+
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_pacijent")
@@ -74,11 +81,10 @@ public class Pregled {
 
 	public Pregled() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Pregled(Long idPregleda, Calendar vremePocetka, Calendar vremeZavrsetka, float cena, float popust,
-			float cenaSaPopustom, int ocenaLekara, int ocenaKilinike, Pacijent pacijent,
+			float cenaSaPopustom, int ocenaLekara, int ocenaKilinike, StatusPregledaOperacije status, Pacijent pacijent,
 			MedicinskaSestra medicinskaSestra, Lekar lekar, Sala sala, Dijagnoza dijagnoza, Set<Lek> lek) {
 		super();
 		this.idPregleda = idPregleda;
@@ -89,6 +95,7 @@ public class Pregled {
 		this.cenaSaPopustom = cenaSaPopustom;
 		this.ocenaLekara = ocenaLekara;
 		this.ocenaKilinike = ocenaKilinike;
+		this.status = status;
 		this.pacijent = pacijent;
 		this.medicinskaSestra = medicinskaSestra;
 		this.lekar = lekar;
@@ -161,6 +168,14 @@ public class Pregled {
 		this.ocenaKilinike = ocenaKilinike;
 	}
 
+	public StatusPregledaOperacije getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusPregledaOperacije status) {
+		this.status = status;
+	}
+
 	public Pacijent getPacijent() {
 		return pacijent;
 	}
@@ -208,6 +223,7 @@ public class Pregled {
 	public void setLek(Set<Lek> lek) {
 		this.lek = lek;
 	}
+
 
 	
 

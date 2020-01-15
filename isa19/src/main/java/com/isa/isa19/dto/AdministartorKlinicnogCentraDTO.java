@@ -28,7 +28,6 @@ public class AdministartorKlinicnogCentraDTO {
 
 	public AdministartorKlinicnogCentraDTO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public AdministartorKlinicnogCentraDTO(long idOsoba, String email, String lozinka, String ime, String prezime,

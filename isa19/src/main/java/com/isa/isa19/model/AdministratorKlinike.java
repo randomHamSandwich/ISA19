@@ -31,7 +31,6 @@ public class AdministratorKlinike extends Korisnik {
 
 	public AdministratorKlinike() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	

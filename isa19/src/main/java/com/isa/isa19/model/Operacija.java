@@ -11,6 +11,8 @@ import java.util.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,6 +35,9 @@ public class Operacija {
 	private int ocenaKlinke;
 	@Column
 	private int ocenaLekara;
+	@Column( nullable = true)
+	@Enumerated(EnumType.STRING)
+	private StatusPregledaOperacije status;
 
 
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -49,17 +54,18 @@ public class Operacija {
 
 	public Operacija() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Operacija(Long idOperacija, Calendar vremePocetka, Calendar vremeZavrsetka, int ocenaKlinke, int ocenaLekara,
-			Pacijent pacijent, Set<Lekar> lekar, Set<MedicinskaSestra> medicinskaSestra) {
+			StatusPregledaOperacije status, Pacijent pacijent, Set<Lekar> lekar,
+			Set<MedicinskaSestra> medicinskaSestra) {
 		super();
 		this.idOperacija = idOperacija;
 		this.vremePocetka = vremePocetka;
 		this.vremeZavrsetka = vremeZavrsetka;
 		this.ocenaKlinke = ocenaKlinke;
 		this.ocenaLekara = ocenaLekara;
+		this.status = status;
 		this.pacijent = pacijent;
 		this.lekar = lekar;
 		this.medicinskaSestra = medicinskaSestra;
@@ -105,6 +111,14 @@ public class Operacija {
 		this.ocenaLekara = ocenaLekara;
 	}
 
+	public StatusPregledaOperacije getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusPregledaOperacije status) {
+		this.status = status;
+	}
+
 	public Pacijent getPacijent() {
 		return pacijent;
 	}
@@ -129,8 +143,5 @@ public class Operacija {
 		this.medicinskaSestra = medicinskaSestra;
 	}
 
-	
-
-	
 
 }

@@ -19,7 +19,6 @@ public class DijagnozaDTO {
 
 	public DijagnozaDTO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Long getIdDijagnoza() {

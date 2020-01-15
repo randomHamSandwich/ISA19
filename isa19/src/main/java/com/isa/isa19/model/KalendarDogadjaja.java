@@ -34,7 +34,6 @@ public class KalendarDogadjaja {
 
 	public KalendarDogadjaja() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public KalendarDogadjaja(Long idKalendar, Calendar pocetak, Calendar kraj, TipDogadjajaKalendar tipDogadjaja,

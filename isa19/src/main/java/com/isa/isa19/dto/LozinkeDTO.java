@@ -7,7 +7,6 @@ public class LozinkeDTO {
 	
 	public LozinkeDTO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public LozinkeDTO(String lozinkaStara, String lozinkaNova) {
 		super();

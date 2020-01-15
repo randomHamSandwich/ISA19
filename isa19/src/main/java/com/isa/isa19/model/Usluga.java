@@ -42,7 +42,6 @@ public class Usluga {
 
 	public Usluga() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Long getIdSuluge() {

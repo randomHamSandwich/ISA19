@@ -58,7 +58,6 @@ public class Pacijent extends Korisnik {
 
 	public Pacijent() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

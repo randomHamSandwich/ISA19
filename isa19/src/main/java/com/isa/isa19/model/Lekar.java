@@ -91,7 +91,6 @@ public class Lekar extends Korisnik {
 
 	public Lekar() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 }

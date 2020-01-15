@@ -18,12 +18,10 @@ public class PregledDTO {
 	public PregledDTO(Pregled p) {
 		this(p.getIdPregleda(), p.getVremePocetka(), p.getVremeZavrsetka(), p.getCena(), p.getPopust(),
 				p.getCenaSaPopustom(), p.getOcenaLekara(), p.getOcenaKilinike());
-		// TODO Auto-generated constructor stub
 	}
 
 	public PregledDTO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public PregledDTO(Long idPregleda, Calendar vremePocetka, Calendar vremeZavrsetka, float cena, float popust,

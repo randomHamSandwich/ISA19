@@ -42,7 +42,6 @@ public class Karton {
 
 	public Karton() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Karton(Long idKarton, int visina, int tezina, int krvnaGrupa, Pacijent pacijent) {

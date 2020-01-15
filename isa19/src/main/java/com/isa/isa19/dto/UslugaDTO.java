@@ -14,7 +14,6 @@ public class UslugaDTO {
 	
 	public UslugaDTO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public UslugaDTO(Long idSuluge, int nazivUsluge, int opisUsluge, float cena) {

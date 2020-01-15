@@ -20,7 +20,6 @@ public class KlinikaDTO {
 
 	public KlinikaDTO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public KlinikaDTO(Long idKlinika, String naziv, String ulica, String brojUlice, String grad, String drzava,

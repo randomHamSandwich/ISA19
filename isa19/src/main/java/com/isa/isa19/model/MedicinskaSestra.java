@@ -27,7 +27,6 @@ public class MedicinskaSestra extends Korisnik{
 
 	public MedicinskaSestra() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Set<Operacija> getOperacija() {

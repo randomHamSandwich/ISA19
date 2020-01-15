@@ -19,7 +19,6 @@ public class OperacijaDTO {
 
 	public OperacijaDTO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public OperacijaDTO(Long idOperacija, Calendar vremePocetka, Calendar vremeZavrsetka, int ocenaKlinke, int ocenaLekara) {
