@@ -35,13 +35,13 @@ public class Pregled {
 	private Calendar vremeZavrsetka;
 
 	@Column(nullable = true)
-	private float cena;
+	private Float cena;
 
 	@Column(nullable = true)
-	private float popust;
+	private Float popust;
 
 	@Column(nullable = true)
-	private float cenaSaPopustom;
+	private Float cenaSaPopustom;
 
 	@Column(nullable = true)
 	private int ocenaLekara;
@@ -83,8 +83,8 @@ public class Pregled {
 		super();
 	}
 
-	public Pregled(Long idPregleda, Calendar vremePocetka, Calendar vremeZavrsetka, float cena, float popust,
-			float cenaSaPopustom, int ocenaLekara, int ocenaKilinike, StatusPregledaOperacije status, Pacijent pacijent,
+	public Pregled(Long idPregleda, Calendar vremePocetka, Calendar vremeZavrsetka, Float cena, Float popust,
+			Float cenaSaPopustom, int ocenaLekara, int ocenaKilinike, StatusPregledaOperacije status, Pacijent pacijent,
 			MedicinskaSestra medicinskaSestra, Lekar lekar, Sala sala, Dijagnoza dijagnoza, Set<Lek> lek) {
 		super();
 		this.idPregleda = idPregleda;
@@ -128,27 +128,27 @@ public class Pregled {
 		this.vremeZavrsetka = vremeZavrsetka;
 	}
 
-	public float getCena() {
+	public Float getCena() {
 		return cena;
 	}
 
-	public void setCena(float cena) {
+	public void setCena(Float cena) {
 		this.cena = cena;
 	}
 
-	public float getPopust() {
+	public Float getPopust() {
 		return popust;
 	}
 
-	public void setPopust(float popust) {
+	public void setPopust(Float popust) {
 		this.popust = popust;
 	}
 
-	public float getCenaSaPopustom() {
+	public Float getCenaSaPopustom() {
 		return cenaSaPopustom;
 	}
 
-	public void setCenaSaPopustom(float cenaSaPopustom) {
+	public void setCenaSaPopustom(Float cenaSaPopustom) {
 		this.cenaSaPopustom = cenaSaPopustom;
 	}
 

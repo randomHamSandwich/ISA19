@@ -4,9 +4,9 @@ import com.isa.isa19.model.Usluga;
 
 public class UslugaDTO {
 	private Long idSuluge;
-	private int nazivUsluge;
-	private int opisUsluge;
-	private float cena;
+	private String nazivUsluge;
+	private String opisUsluge;
+	private Float cena;
 
 	public UslugaDTO(Usluga u) {
 		this(u.getIdSuluge(), u.getNazivUsluge(), u.getOpisUsluge(), u.getCena());
@@ -16,7 +16,7 @@ public class UslugaDTO {
 		super();
 	}
 
-	public UslugaDTO(Long idSuluge, int nazivUsluge, int opisUsluge, float cena) {
+	public UslugaDTO(Long idSuluge, String nazivUsluge, String opisUsluge, Float cena) {
 		super();
 		this.idSuluge = idSuluge;
 		this.nazivUsluge = nazivUsluge;
@@ -32,28 +32,29 @@ public class UslugaDTO {
 		this.idSuluge = idSuluge;
 	}
 
-	public int getNazivUsluge() {
+	public String getNazivUsluge() {
 		return nazivUsluge;
 	}
 
-	public void setNazivUsluge(int nazivUsluge) {
+	public void setNazivUsluge(String nazivUsluge) {
 		this.nazivUsluge = nazivUsluge;
 	}
 
-	public int getOpisUsluge() {
+	public String getOpisUsluge() {
 		return opisUsluge;
 	}
 
-	public void setOpisUsluge(int opisUsluge) {
+	public void setOpisUsluge(String opisUsluge) {
 		this.opisUsluge = opisUsluge;
 	}
 
-	public float getCena() {
+	public Float getCena() {
 		return cena;
 	}
 
-	public void setCena(float cena) {
+	public void setCena(Float cena) {
 		this.cena = cena;
 	}
+
 
 }

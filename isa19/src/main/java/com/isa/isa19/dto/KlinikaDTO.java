@@ -11,7 +11,7 @@ public class KlinikaDTO {
 	private String grad;
 	private String drzava;
 	private String opis;
-	private float ocenaKlinike;
+	private Float ocenaKlinike;
 
 	public KlinikaDTO(Klinika k) {
 		this(k.getIdKlinika(), k.getNaziv(), k.getUlica(), k.getBrojUlice(), k.getGrad(), k.getDrzava(), k.getOpis(),
@@ -23,7 +23,7 @@ public class KlinikaDTO {
 	}
 
 	public KlinikaDTO(Long idKlinika, String naziv, String ulica, String brojUlice, String grad, String drzava,
-			String opis, float ocenaKlinike) {
+			String opis, Float ocenaKlinike) {
 		super();
 		this.idKlinika = idKlinika;
 		this.naziv = naziv;
@@ -91,11 +91,11 @@ public class KlinikaDTO {
 		this.opis = opis;
 	}
 
-	public float getOcenaKlinike() {
+	public Float getOcenaKlinike() {
 		return ocenaKlinike;
 	}
 
-	public void setOcenaKlinike(float ocenaKlinike) {
+	public void setOcenaKlinike(Float ocenaKlinike) {
 		this.ocenaKlinike = ocenaKlinike;
 	}
 

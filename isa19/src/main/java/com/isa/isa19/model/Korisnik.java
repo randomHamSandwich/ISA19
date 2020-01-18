@@ -36,34 +36,34 @@ public class Korisnik {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idOsoba;
 	@Column(unique = true, length = 50)
-	private java.lang.String email;
+	private String email;
 //    @NotBlank
 //    @Size(max = 60)
 	@Column
-	private java.lang.String lozinka;
+	private String lozinka;
 	@Column
-	private java.lang.String ime;
+	private String ime;
 	@Column
-	private java.lang.String prezime;
+	private String prezime;
 	@Column
-	private java.lang.String ulica;
+	private String ulica;
 	@Column
-	private java.lang.String brojUlice;
+	private String brojUlice;
 	@Column
-	private java.lang.String grad;
+	private String grad;
 	@Column
-	private java.lang.String drzava;
+	private String drzava;
 	@Column
-	private java.lang.String brojTelefona;
+	private String brojTelefona;
 	@Column
-	private java.lang.String jmbg;
+	private String jmbg;
 	@Enumerated(EnumType.STRING)
 	private StatusKorisnika statusKorisnika;
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "korisnik_role", joinColumns = @JoinColumn(name = "idOsoba"), inverseJoinColumns = @JoinColumn(name = "idRola"))
 	private Set<Roles> roles = new HashSet<>();
-// TODO URADI POSLE BRISANJA @@MappedSuperclass    
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_klinika")
 	private Klinika klinika;
@@ -73,9 +73,9 @@ public class Korisnik {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Korisnik(long idOsoba, String email, String lozinka, String ime, String prezime, String ulica,
+	public Korisnik(Long idOsoba, String email, String lozinka, String ime, String prezime, String ulica,
 			String brojUlice, String grad, String drzava, String brojTelefona, String jmbg,
-			StatusKorisnika statusKorisnika, Set<Roles> roles) {
+			StatusKorisnika statusKorisnika, Set<Roles> roles, Klinika klinika) {
 		super();
 		this.idOsoba = idOsoba;
 		this.email = email;
@@ -90,93 +90,94 @@ public class Korisnik {
 		this.jmbg = jmbg;
 		this.statusKorisnika = statusKorisnika;
 		this.roles = roles;
+		this.klinika = klinika;
 	}
 
-	public long getIdOsoba() {
+	public Long getIdOsoba() {
 		return idOsoba;
 	}
 
-	public void setIdOsoba(long idOsoba) {
+	public void setIdOsoba(Long idOsoba) {
 		this.idOsoba = idOsoba;
 	}
 
-	public java.lang.String getEmail() {
+	public String getEmail() {
 		return email;
 	}
 
-	public void setEmail(java.lang.String email) {
+	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	public java.lang.String getLozinka() {
+	public String getLozinka() {
 		return lozinka;
 	}
 
-	public void setLozinka(java.lang.String lozinka) {
+	public void setLozinka(String lozinka) {
 		this.lozinka = lozinka;
 	}
 
-	public java.lang.String getIme() {
+	public String getIme() {
 		return ime;
 	}
 
-	public void setIme(java.lang.String ime) {
+	public void setIme(String ime) {
 		this.ime = ime;
 	}
 
-	public java.lang.String getPrezime() {
+	public String getPrezime() {
 		return prezime;
 	}
 
-	public void setPrezime(java.lang.String prezime) {
+	public void setPrezime(String prezime) {
 		this.prezime = prezime;
 	}
 
-	public java.lang.String getUlica() {
+	public String getUlica() {
 		return ulica;
 	}
 
-	public void setUlica(java.lang.String ulica) {
+	public void setUlica(String ulica) {
 		this.ulica = ulica;
 	}
 
-	public java.lang.String getBrojUlice() {
+	public String getBrojUlice() {
 		return brojUlice;
 	}
 
-	public void setBrojUlice(java.lang.String brojUlice) {
+	public void setBrojUlice(String brojUlice) {
 		this.brojUlice = brojUlice;
 	}
 
-	public java.lang.String getGrad() {
+	public String getGrad() {
 		return grad;
 	}
 
-	public void setGrad(java.lang.String grad) {
+	public void setGrad(String grad) {
 		this.grad = grad;
 	}
 
-	public java.lang.String getDrzava() {
+	public String getDrzava() {
 		return drzava;
 	}
 
-	public void setDrzava(java.lang.String drzava) {
+	public void setDrzava(String drzava) {
 		this.drzava = drzava;
 	}
 
-	public java.lang.String getBrojTelefona() {
+	public String getBrojTelefona() {
 		return brojTelefona;
 	}
 
-	public void setBrojTelefona(java.lang.String brojTelefona) {
+	public void setBrojTelefona(String brojTelefona) {
 		this.brojTelefona = brojTelefona;
 	}
 
-	public java.lang.String getJmbg() {
+	public String getJmbg() {
 		return jmbg;
 	}
 
-	public void setJmbg(java.lang.String jmbg) {
+	public void setJmbg(String jmbg) {
 		this.jmbg = jmbg;
 	}
 
@@ -195,5 +196,15 @@ public class Korisnik {
 	public void setRoles(Set<Roles> roles) {
 		this.roles = roles;
 	}
+
+	public Klinika getKlinika() {
+		return klinika;
+	}
+
+	public void setKlinika(Klinika klinika) {
+		this.klinika = klinika;
+	}
+
+
 
 }

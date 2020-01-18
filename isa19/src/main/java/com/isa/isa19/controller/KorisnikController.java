@@ -1,5 +1,6 @@
 package com.isa.isa19.controller;
 
+import java.security.cert.PKIXRevocationChecker.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -21,14 +22,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.isa.isa19.dto.KorisnikDTO;
+import com.isa.isa19.dto.LekarDTO;
 import com.isa.isa19.dto.LozinkeDTO;
 import com.isa.isa19.message.response.ResponseMessage;
 import com.isa.isa19.model.Korisnik;
+import com.isa.isa19.model.Lekar;
 import com.isa.isa19.model.StatusKorisnika;
+import com.isa.isa19.model.Usluga;
 import com.isa.isa19.service.KorisnikService;
+import com.isa.isa19.service.UslugaService;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -41,22 +47,80 @@ public class KorisnikController {
 	@Autowired
 	PasswordEncoder encoder;
 
-	@GetMapping(value = "/all")
-	public ResponseEntity<List<KorisnikDTO>> getAllStudents() {
+	@Autowired
+	private UslugaService uslugaService;
 
-		List<Korisnik> korisnici = korisnikService.findAll();
+//	@GetMapping(value = "/all")
+//	public ResponseEntity<List<KorisnikDTO>> getAllKorisnik() {
+//
+//		List<Korisnik> korisnici = korisnikService.findAll();
+//
+//		List<KorisnikDTO> korisniciDTO = new ArrayList<>();
+//		for (Korisnik k : korisnici) {
+//			korisniciDTO.add(new KorisnikDTO(k));
+//		}
+//
+//		return new ResponseEntity<>(korisniciDTO, HttpStatus.OK);
+//	}
 
-		List<KorisnikDTO> korisniciDTO = new ArrayList<>();
+//	 const params = new HttpParams().set('idKlinike', idKlinike).set('spec', spec);
+	@GetMapping(value = "/lekari")
+	@PreAuthorize("hasAuthority('PACIJENT')")
+	public ResponseEntity<List<LekarDTO>> getLekariKlinike(@RequestParam String idKlinike, @RequestParam String spec) {
+		List<Korisnik> korisnici = korisnikService.findLekarKlSpec(idKlinike, spec);
+
+//		List<LekarDTO> lekariDTO = new ArrayList<>();
+//		for (Korisnik k : korisnici) {
+//			lekariDTO.add(new LekarDTO((Lekar) k));
+//		}
+		List<LekarDTO> lekariDTO = new ArrayList<>();
 		for (Korisnik k : korisnici) {
-			korisniciDTO.add(new KorisnikDTO(k));
+//			!!!!!!!! nemoze ovako da se radi jer dobijamo vise rzultata ako imam u vise redova istu specijalizaciju!!!!!
+//			Optional<Usluga> usluga =uslugaService.findByNazivUsluge(((Lekar)k).getSpecijalizacija().name());
+//			if (!usluga.isPresent()) {
+//				lekariDTO.add(new LekarDTO((Lekar) k));
+//			}else {
+//				lekariDTO.add(new LekarDTO((Lekar) k, usluga.get().getCena()));
+//			}
+
+			Optional<Usluga> usluga = uslugaService.findUsluga(((Lekar)k).getSpecijalizacija().name(),
+					idKlinike);
+			
+			if (!usluga.isPresent()) {
+				lekariDTO.add(new LekarDTO((Lekar) k));
+			} else {
+				lekariDTO.add(new LekarDTO((Lekar) k, usluga.get().getCena()));
+			}
+
 		}
 
-		return new ResponseEntity<>(korisniciDTO, HttpStatus.OK);
+		return new ResponseEntity<>(lekariDTO, HttpStatus.OK);
 	}
+	
+	@GetMapping(value = "/lekari/all")
+	@PreAuthorize("hasAuthority('PACIJENT')")
+	public ResponseEntity<List<LekarDTO>> getLekariKlinikeAll(@RequestParam String idKlinike) {
+		List<Korisnik> korisnici = korisnikService.findByIdKlinika(idKlinike);
+
+		List<LekarDTO> lekariDTO = new ArrayList<>();
+		for (Korisnik k : korisnici) {
+			Optional<Usluga> usluga = uslugaService.findUsluga(((Lekar)k).getSpecijalizacija().name(),
+					idKlinike);
+			
+			if (!usluga.isPresent()) {
+				lekariDTO.add(new LekarDTO((Lekar) k));
+			} else {
+				lekariDTO.add(new LekarDTO((Lekar) k, usluga.get().getCena()));
+			}
+		}
+		return new ResponseEntity<>(lekariDTO, HttpStatus.OK);
+	}
+	
+	
 
 	@GetMapping
 	@PreAuthorize("hasAuthority('PACIJENT')")
-	public ResponseEntity<List<KorisnikDTO>> getStudentsPage(Pageable page) {
+	public ResponseEntity<List<KorisnikDTO>> getKorisnikPage(Pageable page) {
 
 		// page object holds data about pagination and sorting
 		// the object is created based on the url parameters "page", "size" and "sort"
@@ -83,7 +147,7 @@ public class KorisnikController {
 
 	@GetMapping(value = "/{email}")
 	@PreAuthorize("hasAuthority('PACIJENT')")
-	public ResponseEntity<KorisnikDTO> getStudentEMail(@PathVariable String email) {
+	public ResponseEntity<KorisnikDTO> getKorisnikEMail(@PathVariable String email) {
 		Optional<Korisnik> korisnik = korisnikService.findByEmail(email);
 
 		if (!korisnik.isPresent()) {
@@ -95,7 +159,7 @@ public class KorisnikController {
 
 	@PostMapping(consumes = "application/json")
 	@PreAuthorize("hasAuthority('PACIJENT')")
-	public ResponseEntity<KorisnikDTO> saveStudent(@RequestBody KorisnikDTO korisnikDTO) {
+	public ResponseEntity<KorisnikDTO> saveKorisnik(@RequestBody KorisnikDTO korisnikDTO) {
 
 		Korisnik korisnik = new Korisnik();
 		korisnik.setEmail(korisnikDTO.getEmail());
@@ -139,13 +203,12 @@ public class KorisnikController {
 
 	@PutMapping(consumes = "application/json", value = "/{email}")
 	@PreAuthorize("hasAuthority('PACIJENT')")
-	public ResponseEntity<?> updateStudent(@PathVariable String email, @RequestBody KorisnikDTO korisnikDTO) {
+	public ResponseEntity<?> updateKorisnik(@PathVariable String email, @RequestBody KorisnikDTO korisnikDTO) {
 
 		Optional<Korisnik> korisnik = korisnikService.findByEmail(email);
 
 		if (!korisnik.isPresent()) {
-			return new ResponseEntity<>(new ResponseMessage("Fail -> This user does not exit!"),
-					HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(new ResponseMessage("Fail -> This user does not exit!"), HttpStatus.NOT_FOUND);
 		}
 
 		korisnik.get().setIme(korisnikDTO.getIme());
@@ -170,10 +233,8 @@ public class KorisnikController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
-
 		if (!encoder.matches(lozinkeDTO.getLozinkaStara(), korisnik.get().getLozinka())) {
-			return new ResponseEntity<>(new ResponseMessage("Fail -> old password is wrong!"),
-					HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(new ResponseMessage("Fail -> old password is wrong!"), HttpStatus.BAD_REQUEST);
 
 		}
 		korisnik.get().setLozinka(encoder.encode(lozinkeDTO.getLozinkaNova()));
@@ -183,17 +244,17 @@ public class KorisnikController {
 		return new ResponseEntity<>(new KorisnikDTO(k), HttpStatus.OK);
 	}
 
-	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Void> deleteStudent(@PathVariable Long id) {
-
-		Optional<Korisnik> korisnik = korisnikService.findOne(id);
-
-		if (!korisnik.isPresent()) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-
-		korisnikService.remove(id);
-		return new ResponseEntity<>(HttpStatus.OK);
-	}
+//	@DeleteMapping(value = "/{id}")
+//	public ResponseEntity<Void> deleteKorisnik(@PathVariable Long id) {
+//
+//		Optional<Korisnik> korisnik = korisnikService.findOne(id);
+//
+//		if (!korisnik.isPresent()) {
+//			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//		}
+//
+//		korisnikService.remove(id);
+//		return new ResponseEntity<>(HttpStatus.OK);
+//	}
 
 }

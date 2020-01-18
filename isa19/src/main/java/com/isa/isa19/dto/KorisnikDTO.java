@@ -7,17 +7,17 @@ import com.isa.isa19.model.StatusKorisnika;
 //@Deprecated
 public class KorisnikDTO {
 
-	public long idOsoba;
-	private java.lang.String email;
-	private java.lang.String lozinka;
-	private java.lang.String ime;
-	private java.lang.String prezime;
-	private java.lang.String ulica;
-	private java.lang.String brojUlice;
-	private java.lang.String grad;
-	private java.lang.String drzava;
-	private java.lang.String brojTelefona;
-	private java.lang.String jmbg;
+	private Long idOsoba;
+	private String email;
+	private String lozinka;
+	private String ime;
+	private String prezime;
+	private String ulica;
+	private String brojUlice;
+	private String grad;
+	private String drzava;
+	private String brojTelefona;
+	private String jmbg;
 
 	public KorisnikDTO(Korisnik k) {
 		this(k.getIdOsoba(), k.getEmail(), k.getLozinka(), k.getIme(), k.getPrezime(), k.getUlica(), k.getBrojUlice(),
@@ -28,7 +28,7 @@ public class KorisnikDTO {
 		super();
 	}
 
-	public KorisnikDTO(long idOsoba, String email, String lozinka, String ime, String prezime, String ulica,
+	public KorisnikDTO(Long idOsoba, String email, String lozinka, String ime, String prezime, String ulica,
 			String brojUlice, String grad, String drzava, String brojTelefona, String jmbg) {
 		super();
 		this.idOsoba = idOsoba;
@@ -44,91 +44,91 @@ public class KorisnikDTO {
 		this.jmbg = jmbg;
 	}
 
-	public long getIdOsoba() {
+	public Long getIdOsoba() {
 		return idOsoba;
 	}
 
-	public void setIdOsoba(long idOsoba) {
+	public void setIdOsoba(Long idOsoba) {
 		this.idOsoba = idOsoba;
 	}
 
-	public java.lang.String getEmail() {
+	public String getEmail() {
 		return email;
 	}
 
-	public void setEmail(java.lang.String email) {
+	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	public java.lang.String getLozinka() {
+	public String getLozinka() {
 		return lozinka;
 	}
 
-	public void setLozinka(java.lang.String lozinka) {
+	public void setLozinka(String lozinka) {
 		this.lozinka = lozinka;
 	}
 
-	public java.lang.String getIme() {
+	public String getIme() {
 		return ime;
 	}
 
-	public void setIme(java.lang.String ime) {
+	public void setIme(String ime) {
 		this.ime = ime;
 	}
 
-	public java.lang.String getPrezime() {
+	public String getPrezime() {
 		return prezime;
 	}
 
-	public void setPrezime(java.lang.String prezime) {
+	public void setPrezime(String prezime) {
 		this.prezime = prezime;
 	}
 
-	public java.lang.String getUlica() {
+	public String getUlica() {
 		return ulica;
 	}
 
-	public void setUlica(java.lang.String ulica) {
+	public void setUlica(String ulica) {
 		this.ulica = ulica;
 	}
 
-	public java.lang.String getBrojUlice() {
+	public String getBrojUlice() {
 		return brojUlice;
 	}
 
-	public void setBrojUlice(java.lang.String brojUlice) {
+	public void setBrojUlice(String brojUlice) {
 		this.brojUlice = brojUlice;
 	}
 
-	public java.lang.String getGrad() {
+	public String getGrad() {
 		return grad;
 	}
 
-	public void setGrad(java.lang.String grad) {
+	public void setGrad(String grad) {
 		this.grad = grad;
 	}
 
-	public java.lang.String getDrzava() {
+	public String getDrzava() {
 		return drzava;
 	}
 
-	public void setDrzava(java.lang.String drzava) {
+	public void setDrzava(String drzava) {
 		this.drzava = drzava;
 	}
 
-	public java.lang.String getBrojTelefona() {
+	public String getBrojTelefona() {
 		return brojTelefona;
 	}
 
-	public void setBrojTelefona(java.lang.String brojTelefona) {
+	public void setBrojTelefona(String brojTelefona) {
 		this.brojTelefona = brojTelefona;
 	}
 
-	public java.lang.String getJmbg() {
+	public String getJmbg() {
 		return jmbg;
 	}
 
-	public void setJmbg(java.lang.String jmbg) {
+	public void setJmbg(String jmbg) {
 		this.jmbg = jmbg;
 	}
 	

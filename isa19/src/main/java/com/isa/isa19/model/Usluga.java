@@ -21,27 +21,28 @@ public class Usluga {
 	private Long idSuluge;
 	
 	@Column
-	private int nazivUsluge;
+	private String nazivUsluge;
 	@Column
-	private int opisUsluge;
+	private String opisUsluge;
 	@Column
-	private float cena;
+	private Float cena;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_klinika")
 	private Klinika klinika;
 
-	public Usluga(Long idSuluge, int nazivUsluge, int opisUsluge, float cena, Klinika klinika) {
+	public Usluga() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Usluga(Long idSuluge, String nazivUsluge, String opisUsluge, Float cena, Klinika klinika) {
 		super();
 		this.idSuluge = idSuluge;
 		this.nazivUsluge = nazivUsluge;
 		this.opisUsluge = opisUsluge;
 		this.cena = cena;
 		this.klinika = klinika;
-	}
-
-	public Usluga() {
-		super();
 	}
 
 	public Long getIdSuluge() {
@@ -52,27 +53,27 @@ public class Usluga {
 		this.idSuluge = idSuluge;
 	}
 
-	public int getNazivUsluge() {
+	public String getNazivUsluge() {
 		return nazivUsluge;
 	}
 
-	public void setNazivUsluge(int nazivUsluge) {
+	public void setNazivUsluge(String nazivUsluge) {
 		this.nazivUsluge = nazivUsluge;
 	}
 
-	public int getOpisUsluge() {
+	public String getOpisUsluge() {
 		return opisUsluge;
 	}
 
-	public void setOpisUsluge(int opisUsluge) {
+	public void setOpisUsluge(String opisUsluge) {
 		this.opisUsluge = opisUsluge;
 	}
 
-	public float getCena() {
+	public Float getCena() {
 		return cena;
 	}
 
-	public void setCena(float cena) {
+	public void setCena(Float cena) {
 		this.cena = cena;
 	}
 
@@ -84,6 +85,7 @@ public class Usluga {
 		this.klinika = klinika;
 	}
 
+	
 	
 	
 }

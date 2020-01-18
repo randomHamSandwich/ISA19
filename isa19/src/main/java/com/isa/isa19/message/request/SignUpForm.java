@@ -35,7 +35,7 @@ public class SignUpForm {
 	private String brojTelefona;
 //	@NotBlank
 //    @Size(min = 3, max = 50)
-	private java.lang.String jmbg;
+	private String jmbg;
 
 	@NotBlank
 	@Size(max = 60)
@@ -108,11 +108,11 @@ public class SignUpForm {
 		this.brojTelefona = brojTelefona;
 	}
 
-	public java.lang.String getJmbg() {
+	public String getJmbg() {
 		return jmbg;
 	}
 
-	public void setJmbg(java.lang.String jmbg) {
+	public void setJmbg(String jmbg) {
 		this.jmbg = jmbg;
 	}
 

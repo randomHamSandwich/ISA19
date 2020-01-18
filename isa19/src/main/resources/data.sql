@@ -51,7 +51,13 @@ insert into korisnik(tipp, email,ime,prezime,lozinka,ulica,broj_ulice,grad,drzav
 ('SESTRA', 'milka@gmail.com','Milka', 'Saric','$2a$10$YDrhoDY60oavj/E0tHUQYOhpg1tm1kIM/m8xg.nvUl6GVF0qBjtIG', 'Zimanova', '145','Novi Sad', 'Srbija', 'jmbg777777777', 'ACTIVATED_IN_USE', '06444444444444');
 
 insert into korisnik(tipp, email,ime,prezime,lozinka,ulica,broj_ulice,grad,drzava,jmbg,status_korisnika,broj_telefona) values
-('PACIJENT', 'pera@gmail.com','pera', 'Pavlic','$2a$10$YDrhoDY60oavj/E0tHUQYOhpg1tm1kIM/m8xg.nvUl6GVF0qBjtIG', 'Pavla Papa', '13','Novi Sad', 'Srbija', 'jmb888888', 'ACTIVATED_IN_USE', '0655555555555');
+('PACIJENT', 'pera@gmail.com','Pera', 'Pavlic','$2a$10$YDrhoDY60oavj/E0tHUQYOhpg1tm1kIM/m8xg.nvUl6GVF0qBjtIG', 'Pavla Papa', '13','Novi Sad', 'Srbija', 'jmb888888', 'ACTIVATED_IN_USE', '0655555555555');
+
+insert into korisnik(tipp, email,ime,prezime,lozinka,ulica,broj_ulice,grad,drzava,jmbg,status_korisnika,broj_telefona) values
+('PACIJENT', 'mirjana@gmail.com','Mirjana', 'Mackic','$2a$10$YDrhoDY60oavj/E0tHUQYOhpg1tm1kIM/m8xg.nvUl6GVF0qBjtIG', 'Jug Bogdana', '67','Novi Sad', 'Srbija', 'jmbBBBBBBBB', 'ACTIVATED_IN_USE', '5468464431384');
+
+insert into korisnik(tipp, email,ime,prezime,lozinka,ulica,broj_ulice,grad,drzava,jmbg,status_korisnika,broj_telefona) values
+('PACIJENT', 'milan@gmail.com','Milan', 'Kovacevic','$2a$10$YDrhoDY60oavj/E0tHUQYOhpg1tm1kIM/m8xg.nvUl6GVF0qBjtIG', 'Majevicka', '11','Beograd', 'Srbija', 'jmbCCCCCCCCC', 'ACTIVATED_IN_USE', '498432185498786');
 
 --insert into karton
 
@@ -69,7 +75,7 @@ insert into korisnik_role (id_osoba, id_rola) select id_osoba , id_rola from kor
 insert into korisnik_role (id_osoba, id_rola) select id_osoba , id_rola from korisnik , roles where email = 'milka@gmail.com' and naziv_role='MEDICINSKA_SESTRA';
 insert into korisnik_role (id_osoba, id_rola) select id_osoba , id_rola from korisnik , roles where email = 'pera@gmail.com' and naziv_role='PACIJENT';
 
-update korisnik ko, klinika kl set ko.id_klinika = kl.id_klinika where ko.email ="antonije@gmail.com" and kl.naziv ="Klinika1111";
+--update korisnik ko, klinika kl set ko.id_klinika = kl.id_klinika where ko.email ="antonije@gmail.com" and kl.naziv ="Klinika1111";
 update korisnik ko, klinika kl set ko.id_klinika = kl.id_klinika where ko.email ="andrej@gmail.com" and kl.naziv ="Klinika1111";
 update korisnik ko, klinika kl set ko.id_klinika = kl.id_klinika where ko.email ="leonard@gmail.com" and kl.naziv ="Klinika1111";
 update korisnik ko, klinika kl set ko.id_klinika = kl.id_klinika where ko.email ="milka@gmail.com" and kl.naziv ="Klinika1111";
@@ -85,4 +91,12 @@ update korisnik ko, klinika kl set ko.id_klinika = kl.id_klinika where ko.email 
 
 
 insert into `kalendar_dogadjaja` (pocetak,kraj,tip_dogadjaja, id_medicinsko_osoblje) values (CURDATE(),CURDATE() + INTERVAL 5 DAY, 'ODOBRENI_ODMOR', '3');
+
+insert into usluga (naziv_usluge,id_klinika, cena) values ('NEUROLOGIJA',1,3000);
+insert into usluga (naziv_usluge,id_klinika, cena) values ('INFEKTOLOGIJA',1,4000);
+
+insert into usluga (naziv_usluge,id_klinika, cena) values ('OFTALMOLOGIJA',2,5000);
+
+insert into usluga (naziv_usluge,id_klinika, cena) values ('INFEKTOLOGIJA',3,3500);
+
 

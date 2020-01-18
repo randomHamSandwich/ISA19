@@ -21,9 +21,12 @@ import javax.persistence.OneToMany;
 public class Dijagnoza {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public Long idDijagnoza;
+	private Long idDijagnoza;
 	@Column
-	public java.lang.String nazivDijagnoza;
+	private String nazivDijagnoza;
+	
+	@Column
+	private String opis;
 
 	@OneToMany(mappedBy = "dijagnoza", cascade =CascadeType.ALL)
 	public Set<Pregled> pregled;
@@ -40,11 +43,11 @@ public class Dijagnoza {
 		this.idDijagnoza = idDijagnoza;
 	}
 
-	public java.lang.String getNazivDijagnoza() {
+	public String getNazivDijagnoza() {
 		return nazivDijagnoza;
 	}
 
-	public void setNazivDijagnoza(java.lang.String nazivDijagnoza) {
+	public void setNazivDijagnoza(String nazivDijagnoza) {
 		this.nazivDijagnoza = nazivDijagnoza;
 	}
 

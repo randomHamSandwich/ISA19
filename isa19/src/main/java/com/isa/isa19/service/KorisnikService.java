@@ -10,33 +10,42 @@ import org.springframework.stereotype.Service;
 
 import com.isa.isa19.model.Korisnik;
 import com.isa.isa19.repository.KorisnikRepo;
+
 @Service
 public class KorisnikService {
 
 	@Autowired
-	private KorisnikRepo krisnikRepo;
+	private KorisnikRepo korisnikRepo;
 
 	public Optional<Korisnik> findOne(Long id) {
-		return krisnikRepo.findById(id);
+		return korisnikRepo.findById(id);
 	}
-	
-	public Optional<Korisnik> findByEmail(String email){
-		return krisnikRepo.findByEmail(email);
+
+	public Optional<Korisnik> findByEmail(String email) {
+		return korisnikRepo.findByEmail(email);
 	}
 
 	public List<Korisnik> findAll() {
-		return krisnikRepo.findAll();
+		return korisnikRepo.findAll();
 	}
 
 	public Korisnik save(Korisnik pacijent) {
-		return krisnikRepo.save(pacijent);
+		return korisnikRepo.save(pacijent);
 	}
 
 	public void remove(Long id) {
-		krisnikRepo.deleteById(id);
+		korisnikRepo.deleteById(id);
 	}
 
 	public Page<Korisnik> findAll(Pageable page) {
-		return krisnikRepo.findAll(page);
+		return korisnikRepo.findAll(page);
+	}
+
+	public List<Korisnik> findLekarKlSpec(String idKlinika, String spec) {
+		return korisnikRepo.findLekarKlSpec(idKlinika, spec);
+	}
+
+	public List<Korisnik> findByIdKlinika(String idKlinika) {
+		return korisnikRepo.findByIdKlinika(idKlinika);
 	}
 }

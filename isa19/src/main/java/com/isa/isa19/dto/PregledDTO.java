@@ -9,9 +9,9 @@ public class PregledDTO {
 	private Long idPregleda;
 	private Calendar vremePocetka;
 	private Calendar vremeZavrsetka;
-	private float cena;
-	private float popust;
-	private float cenaSaPopustom;
+	private Float cena;
+	private Float popust;
+	private Float cenaSaPopustom;
 	private int ocenaLekara;
 	private int ocenaKilinike;
 
@@ -24,8 +24,8 @@ public class PregledDTO {
 		super();
 	}
 
-	public PregledDTO(Long idPregleda, Calendar vremePocetka, Calendar vremeZavrsetka, float cena, float popust,
-			float cenaSaPopustom, int ocenaLekara, int ocenaKilinike) {
+	public PregledDTO(Long idPregleda, Calendar vremePocetka, Calendar vremeZavrsetka, Float cena, Float popust,
+			Float cenaSaPopustom, int ocenaLekara, int ocenaKilinike) {
 		super();
 		this.idPregleda = idPregleda;
 		this.vremePocetka = vremePocetka;
@@ -61,27 +61,27 @@ public class PregledDTO {
 		this.vremeZavrsetka = vremeZavrsetka;
 	}
 
-	public float getCena() {
+	public Float getCena() {
 		return cena;
 	}
 
-	public void setCena(float cena) {
+	public void setCena(Float cena) {
 		this.cena = cena;
 	}
 
-	public float getPopust() {
+	public Float getPopust() {
 		return popust;
 	}
 
-	public void setPopust(float popust) {
+	public void setPopust(Float popust) {
 		this.popust = popust;
 	}
 
-	public float getCenaSaPopustom() {
+	public Float getCenaSaPopustom() {
 		return cenaSaPopustom;
 	}
 
-	public void setCenaSaPopustom(float cenaSaPopustom) {
+	public void setCenaSaPopustom(Float cenaSaPopustom) {
 		this.cenaSaPopustom = cenaSaPopustom;
 	}
 

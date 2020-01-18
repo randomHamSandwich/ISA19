@@ -38,15 +38,15 @@ public class KlinikaController {
 //	@PreAuthorize("hasRole('PACIJENT') or hasRole('pacijent')")
 	@PreAuthorize("hasAuthority('PACIJENT')")
 	public ResponseEntity<List<KlinikaDTO>> getAllKlinike(@RequestParam String spec) {
-		
-		List<Klinika> klinike ;
-		if(!spec.isEmpty() ) {
+
+		List<Klinika> klinike;
+		if (!spec.isEmpty()) {
 			klinike = klinikaSevice.findClincSpec(spec);
-			
-		}else {
+
+		} else {
 			klinike = klinikaSevice.findAll();
 		}
-		
+
 		List<KlinikaDTO> klinikaiDTO = new ArrayList<>();
 		for (Klinika k : klinike) {
 			klinikaiDTO.add(new KlinikaDTO(k));
@@ -56,8 +56,7 @@ public class KlinikaController {
 		}
 
 		return new ResponseEntity<>(klinikaiDTO, HttpStatus.OK);
-		
-		
+
 	}
 
 	@GetMapping(value = "/spec")

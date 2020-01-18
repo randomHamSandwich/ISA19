@@ -32,18 +32,14 @@ public class Klinika {
 	@Column
 	private String opis;
 	@Column
-	private float ocenaKlinike;
+	private Float ocenaKlinike;
 
 	@OneToMany(mappedBy = "klinika")
 	private Set<Usluga> usluga;
 
-	@OneToMany(mappedBy = "klinika")
-	private Set<AdministratorKlinike> administratorKlinike;
-//	nije vishe snigleTable medicniskop osbolje nego svi useri su SingleTable korisnik
 //	@OneToMany(mappedBy = "klinika")
-//	private Set<MedicinskoOsoblje> medicinskoOsoblje;
+//	private Set<AdministratorKlinike> administratorKlinike;
 
-	// TODO URADI POSLE BRISANJA @@MappedSuperclass    	
 	@OneToMany(mappedBy = "klinika")
 	private Set<Korisnik> korisnik;
 
@@ -55,8 +51,7 @@ public class Klinika {
 	}
 
 	public Klinika(Long idKlinika, String naziv, String ulica, String brojUlice, String grad, String drzava,
-			String opis, float ocenaKlinike, Set<Usluga> usluga, Set<AdministratorKlinike> administratorKlinike,
-			Set<Sala> sala) {
+			String opis, Float ocenaKlinike, Set<Usluga> usluga, Set<Korisnik> korisnik, Set<Sala> sala) {
 		super();
 		this.idKlinika = idKlinika;
 		this.naziv = naziv;
@@ -67,7 +62,7 @@ public class Klinika {
 		this.opis = opis;
 		this.ocenaKlinike = ocenaKlinike;
 		this.usluga = usluga;
-		this.administratorKlinike = administratorKlinike;
+		this.korisnik = korisnik;
 		this.sala = sala;
 	}
 
@@ -127,11 +122,11 @@ public class Klinika {
 		this.opis = opis;
 	}
 
-	public float getOcenaKlinike() {
+	public Float getOcenaKlinike() {
 		return ocenaKlinike;
 	}
 
-	public void setOcenaKlinike(float ocenaKlinike) {
+	public void setOcenaKlinike(Float ocenaKlinike) {
 		this.ocenaKlinike = ocenaKlinike;
 	}
 
@@ -143,14 +138,6 @@ public class Klinika {
 		this.usluga = usluga;
 	}
 
-	public Set<AdministratorKlinike> getAdministratorKlinike() {
-		return administratorKlinike;
-	}
-
-	public void setAdministratorKlinike(Set<AdministratorKlinike> administratorKlinike) {
-		this.administratorKlinike = administratorKlinike;
-	}
-
 	public Set<Sala> getSala() {
 		return sala;
 	}
@@ -158,9 +145,5 @@ public class Klinika {
 	public void setSala(Set<Sala> sala) {
 		this.sala = sala;
 	}
-
-
-
-	
 
 }

@@ -23,7 +23,7 @@ import javax.persistence.OneToMany;
 @DiscriminatorValue("LEKAR")
 public class Lekar extends Korisnik {
 	@Column(unique = false, nullable = true)
-	private float ocenaLekar;
+	private Float ocenaLekar;
 
 	@Column(unique = false, nullable = true)
 	@Enumerated(EnumType.STRING)
@@ -39,11 +39,11 @@ public class Lekar extends Korisnik {
 	@OneToMany(mappedBy = "lekar", cascade = CascadeType.ALL)
 	public Set<KalendarDogadjaja> kalendarDogadjaja;
 
-	public float getOcenaLekar() {
+	public Float getOcenaLekar() {
 		return ocenaLekar;
 	}
 
-	public void setOcenaLekar(float ocenaLekar) {
+	public void setOcenaLekar(Float ocenaLekar) {
 		this.ocenaLekar = ocenaLekar;
 	}
 
@@ -79,7 +79,7 @@ public class Lekar extends Korisnik {
 		this.kalendarDogadjaja = kalendarDogadjaja;
 	}
 
-	public Lekar(float ocenaLekar, Specijalizacija specijalizacija, Set<Pregled> pregled, Set<Operacija> operacija,
+	public Lekar(Float ocenaLekar, Specijalizacija specijalizacija, Set<Pregled> pregled, Set<Operacija> operacija,
 			Set<KalendarDogadjaja> kalendarDogadjaja) {
 		super();
 		this.ocenaLekar = ocenaLekar;
@@ -92,5 +92,15 @@ public class Lekar extends Korisnik {
 	public Lekar() {
 		super();
 	}
+
+	@Override
+	public String toString() {
+		return "Lekar [ocenaLekar=" + ocenaLekar + ", specijalizacija=" + specijalizacija + ", pregled=" + pregled
+				+ ", operacija=" + operacija + ", kalendarDogadjaja=" + kalendarDogadjaja + ", getIdOsoba()="
+				+ getIdOsoba() + ", getEmail()=" + getEmail() + ", getIme()=" + getIme() + ", getPrezime()="
+				+ getPrezime() + ", getRoles()=" + getRoles() + ", getKlinika()=" + getKlinika() + "]";
+	}
+	
+	
 
 }

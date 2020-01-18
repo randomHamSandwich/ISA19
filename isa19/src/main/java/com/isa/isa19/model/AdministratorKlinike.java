@@ -17,21 +17,23 @@ import javax.persistence.DiscriminatorValue;
 @DiscriminatorValue("AK")
 public class AdministratorKlinike extends Korisnik {
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="id_klinika" ,nullable =true)
-	private Klinika klinika;
-
-	public Klinika getKlinika() {
-		return klinika;
-	}
-
-	public void setKlinika(Klinika klinika) {
-		this.klinika = klinika;
-	}
-
-	public AdministratorKlinike() {
-		super();
-	}
+//vec postoji idKlinike u Korisnik tabeli	
+	
+//	@ManyToOne(cascade = CascadeType.ALL)
+//	@JoinColumn(name="id_klinika_admin" ,nullable =true)
+//	private Klinika klinika;
+//
+//	public Klinika getKlinika() {
+//		return klinika;
+//	}
+//
+//	public void setKlinika(Klinika klinika) {
+//		this.klinika = klinika;
+//	}
+//
+//	public AdministratorKlinike() {
+//		super();
+//	}
 	
 	
 	
