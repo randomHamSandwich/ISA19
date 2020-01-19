@@ -49,6 +49,7 @@ import com.isa.isa19.repository.KorisnikRepo;
 import com.isa.isa19.repository.PacijentRepo;
 import com.isa.isa19.security.jwt.JwtProvider;
 import com.isa.isa19.security.repository.RoleRepo;
+import com.isa.isa19.security.service.UserDetailsImpl;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -85,8 +86,8 @@ public class AuthController {
 
 		String jwt = jwtProvider.generateJwtToken(authentication);
 		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-
-		return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUsername(), userDetails.getAuthorities()));
+		
+		return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUsername(), userDetails.getAuthorities(), String.valueOf(((UserDetailsImpl)authentication.getPrincipal()).getId())));
 	}
 
 	@PostMapping("/signup")

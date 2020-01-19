@@ -17,6 +17,10 @@ public class PregledService {
 	@Autowired
 	private PregledRepo pregledRepo;
 	
+	public List<Pregled> findByIdPacijent(String id){
+		return pregledRepo.findByIdPacijent(id);
+	}
+	
 	public Optional<Pregled> findOne(Long id) {
 		return pregledRepo.findById(id);
 	}

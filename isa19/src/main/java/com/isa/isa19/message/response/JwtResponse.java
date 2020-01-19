@@ -8,12 +8,22 @@ public class JwtResponse {
 	private String token;
 	private String type = "Bearer";
 	private String username;
+	private String idKorisnik;
 	private Collection<? extends GrantedAuthority> authorities;
 
-	public JwtResponse(String accessToken, String username, Collection<? extends GrantedAuthority> authorities) {
+	public JwtResponse(String accessToken, String username, Collection<? extends GrantedAuthority> authorities, String idKorsnik) {
 		this.token = accessToken;
 		this.username = username;
 		this.authorities = authorities;
+		this.idKorisnik = idKorsnik;
+	}
+
+	public String getIdKorisnik() {
+		return idKorisnik;
+	}
+
+	public void setIdKorisnik(String idKorisnik) {
+		this.idKorisnik = idKorisnik;
 	}
 
 	public String getAccessToken() {
@@ -39,8 +49,8 @@ public class JwtResponse {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
-    }
+
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return authorities;
+	}
 }

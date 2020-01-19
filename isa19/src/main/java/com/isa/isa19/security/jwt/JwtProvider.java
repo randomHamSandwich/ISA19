@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 import com.isa.isa19.security.service.UserDetailsImpl;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Component
@@ -26,11 +28,19 @@ public class JwtProvider {
     public String generateJwtToken(Authentication authentication) {
 
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
-
+        
+        
+        //
+        Map<String, Object> idMap = new HashMap<String, Object>();
+        idMap.put("idKo", userPrincipal.getId());
+        //
         return Jwts.builder()
 		                .setSubject((userPrincipal.getUsername()))
 		                .setIssuedAt(new Date())
 		                .setExpiration(new Date((new Date()).getTime() + jwtExpiration*1000))
+		                //
+		                .addClaims(idMap)
+		                //
 		                .signWith(SignatureAlgorithm.HS512, jwtSecret)
 		                .compact();
     }
