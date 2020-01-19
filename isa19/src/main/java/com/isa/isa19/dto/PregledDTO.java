@@ -9,28 +9,27 @@ public class PregledDTO {
 	private Long idPregleda;
 	private Calendar vremePocetka;
 	private Calendar vremeZavrsetka;
-	private Float cena;
+//	private Float cena;
 	private Float popust;
 	private Float cenaSaPopustom;
-	private int ocenaLekara;
-	private int ocenaKilinike;
+	private Integer ocenaLekara;
+	private Integer ocenaKilinike;
 
 	public PregledDTO(Pregled p) {
-		this(p.getIdPregleda(), p.getVremePocetka(), p.getVremeZavrsetka(), p.getCena(), p.getPopust(),
-				p.getCenaSaPopustom(), p.getOcenaLekara(), p.getOcenaKilinike());
+		this(p.getIdPregleda(), p.getVremePocetka(), p.getVremeZavrsetka(), p.getPopust(), p.getCenaSaPopustom(),
+				p.getOcenaLekara(), p.getOcenaKilinike());
 	}
 
 	public PregledDTO() {
 		super();
 	}
 
-	public PregledDTO(Long idPregleda, Calendar vremePocetka, Calendar vremeZavrsetka, Float cena, Float popust,
-			Float cenaSaPopustom, int ocenaLekara, int ocenaKilinike) {
+	public PregledDTO(Long idPregleda, Calendar vremePocetka, Calendar vremeZavrsetka, Float popust,
+			Float cenaSaPopustom, Integer ocenaLekara, Integer ocenaKilinike) {
 		super();
 		this.idPregleda = idPregleda;
 		this.vremePocetka = vremePocetka;
 		this.vremeZavrsetka = vremeZavrsetka;
-		this.cena = cena;
 		this.popust = popust;
 		this.cenaSaPopustom = cenaSaPopustom;
 		this.ocenaLekara = ocenaLekara;
@@ -61,14 +60,6 @@ public class PregledDTO {
 		this.vremeZavrsetka = vremeZavrsetka;
 	}
 
-	public Float getCena() {
-		return cena;
-	}
-
-	public void setCena(Float cena) {
-		this.cena = cena;
-	}
-
 	public Float getPopust() {
 		return popust;
 	}
@@ -85,22 +76,20 @@ public class PregledDTO {
 		this.cenaSaPopustom = cenaSaPopustom;
 	}
 
-	public int getOcenaLekara() {
+	public Integer getOcenaLekara() {
 		return ocenaLekara;
 	}
 
-	public void setOcenaLekara(int ocenaLekara) {
+	public void setOcenaLekara(Integer ocenaLekara) {
 		this.ocenaLekara = ocenaLekara;
 	}
 
-	public int getOcenaKilinike() {
+	public Integer getOcenaKilinike() {
 		return ocenaKilinike;
 	}
 
-	public void setOcenaKilinike(int ocenaKilinike) {
+	public void setOcenaKilinike(Integer ocenaKilinike) {
 		this.ocenaKilinike = ocenaKilinike;
 	}
-
-	
 
 }

@@ -32,9 +32,9 @@ public class Operacija {
 	@Column
 	private Calendar vremeZavrsetka;
 	@Column
-	private int ocenaKlinke;
+	private Integer ocenaKlinke;
 	@Column
-	private int ocenaLekara;
+	private Integer ocenaLekara;
 	@Column( nullable = true)
 	@Enumerated(EnumType.STRING)
 	private StatusPregledaOperacije status;
@@ -56,7 +56,7 @@ public class Operacija {
 		super();
 	}
 
-	public Operacija(Long idOperacija, Calendar vremePocetka, Calendar vremeZavrsetka, int ocenaKlinke, int ocenaLekara,
+	public Operacija(Long idOperacija, Calendar vremePocetka, Calendar vremeZavrsetka, Integer ocenaKlinke, Integer ocenaLekara,
 			StatusPregledaOperacije status, Pacijent pacijent, Set<Lekar> lekar,
 			Set<MedicinskaSestra> medicinskaSestra) {
 		super();
@@ -95,19 +95,19 @@ public class Operacija {
 		this.vremeZavrsetka = vremeZavrsetka;
 	}
 
-	public int getOcenaKlinke() {
+	public Integer getOcenaKlinke() {
 		return ocenaKlinke;
 	}
 
-	public void setOcenaKlinke(int ocenaKlinke) {
+	public void setOcenaKlinke(Integer ocenaKlinke) {
 		this.ocenaKlinke = ocenaKlinke;
 	}
 
-	public int getOcenaLekara() {
+	public Integer getOcenaLekara() {
 		return ocenaLekara;
 	}
 
-	public void setOcenaLekara(int ocenaLekara) {
+	public void setOcenaLekara(Integer ocenaLekara) {
 		this.ocenaLekara = ocenaLekara;
 	}
 

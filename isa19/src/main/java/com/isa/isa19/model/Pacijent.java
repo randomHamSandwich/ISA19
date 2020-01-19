@@ -28,9 +28,13 @@ public class Pacijent extends Korisnik {
 	@OneToMany(mappedBy = "pacijent", cascade = CascadeType.ALL)
 	private Set<Operacija> operacija;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_karton" , nullable = true)
+	
+//	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//	@JoinColumn(name = "id_karton" , nullable = true)
+//	private Karton karton;
+	@OneToOne(mappedBy = "pacijent", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
 	private Karton karton;
+	
 
 	public Set<Pregled> getPregled() {
 		return pregled;

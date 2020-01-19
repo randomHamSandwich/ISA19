@@ -20,6 +20,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Pregled {
@@ -33,9 +34,12 @@ public class Pregled {
 
 	@Column(nullable = true)
 	private Calendar vremeZavrsetka;
+//  vec imamo cenu u  Usluga
+//	@Column(nullable = true)
+//	private Float cena;
 
 	@Column(nullable = true)
-	private Float cena;
+	private String izvestajOPregledu;
 
 	@Column(nullable = true)
 	private Float popust;
@@ -44,15 +48,14 @@ public class Pregled {
 	private Float cenaSaPopustom;
 
 	@Column(nullable = true)
-	private int ocenaLekara;
+	private Integer ocenaLekara;
 
 	@Column(nullable = true)
-	private int ocenaKilinike;
-	
-	@Column( nullable = true)
+	private Integer ocenaKilinike;
+
+	@Column(nullable = true)
 	@Enumerated(EnumType.STRING)
 	private StatusPregledaOperacije status;
-
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_pacijent")
@@ -79,18 +82,22 @@ public class Pregled {
 	@JoinTable(name = "terapija", joinColumns = @JoinColumn(name = "id_pregled"), inverseJoinColumns = @JoinColumn(name = "id_lek"))
 	private Set<Lek> lek;
 
+//	@OneToOne(mappedBy = "pregled", cascade = CascadeType.ALL)
+//	private izveshtajOPregledu izveshtajOPregledu;
+
 	public Pregled() {
 		super();
 	}
 
-	public Pregled(Long idPregleda, Calendar vremePocetka, Calendar vremeZavrsetka, Float cena, Float popust,
-			Float cenaSaPopustom, int ocenaLekara, int ocenaKilinike, StatusPregledaOperacije status, Pacijent pacijent,
-			MedicinskaSestra medicinskaSestra, Lekar lekar, Sala sala, Dijagnoza dijagnoza, Set<Lek> lek) {
+	public Pregled(Long idPregleda, Calendar vremePocetka, Calendar vremeZavrsetka, String izvestajOPregledu,
+			Float popust, Float cenaSaPopustom, Integer ocenaLekara, Integer ocenaKilinike, StatusPregledaOperacije status,
+			Pacijent pacijent, MedicinskaSestra medicinskaSestra, Lekar lekar, Sala sala, Dijagnoza dijagnoza,
+			Set<Lek> lek) {
 		super();
 		this.idPregleda = idPregleda;
 		this.vremePocetka = vremePocetka;
 		this.vremeZavrsetka = vremeZavrsetka;
-		this.cena = cena;
+		this.izvestajOPregledu = izvestajOPregledu;
 		this.popust = popust;
 		this.cenaSaPopustom = cenaSaPopustom;
 		this.ocenaLekara = ocenaLekara;
@@ -128,14 +135,6 @@ public class Pregled {
 		this.vremeZavrsetka = vremeZavrsetka;
 	}
 
-	public Float getCena() {
-		return cena;
-	}
-
-	public void setCena(Float cena) {
-		this.cena = cena;
-	}
-
 	public Float getPopust() {
 		return popust;
 	}
@@ -152,19 +151,19 @@ public class Pregled {
 		this.cenaSaPopustom = cenaSaPopustom;
 	}
 
-	public int getOcenaLekara() {
+	public Integer getOcenaLekara() {
 		return ocenaLekara;
 	}
 
-	public void setOcenaLekara(int ocenaLekara) {
+	public void setOcenaLekara(Integer ocenaLekara) {
 		this.ocenaLekara = ocenaLekara;
 	}
 
-	public int getOcenaKilinike() {
+	public Integer getOcenaKilinike() {
 		return ocenaKilinike;
 	}
 
-	public void setOcenaKilinike(int ocenaKilinike) {
+	public void setOcenaKilinike(Integer ocenaKilinike) {
 		this.ocenaKilinike = ocenaKilinike;
 	}
 
@@ -224,9 +223,14 @@ public class Pregled {
 		this.lek = lek;
 	}
 
+	public String getIzvestajOPregledu() {
+		return izvestajOPregledu;
+	}
 
+	public void setIzvestajOPregledu(String izvestajOPregledu) {
+		this.izvestajOPregledu = izvestajOPregledu;
+	}
 	
-
-
+	
 
 }

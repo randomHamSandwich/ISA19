@@ -10,8 +10,8 @@ public class OperacijaDTO {
 	private Long idOperacija;
 	private Calendar vremePocetka;
 	private Calendar vremeZavrsetka;
-	private int ocenaKlinke;
-	private int ocenaLekara;
+	private Integer ocenaKlinke;
+	private Integer ocenaLekara;
 
 	public OperacijaDTO(Operacija o) {
 		this(o.getIdOperacija(), o.getVremePocetka(), o.getVremeZavrsetka(), o.getOcenaKlinke(), o.getOcenaLekara());
@@ -21,7 +21,7 @@ public class OperacijaDTO {
 		super();
 	}
 
-	public OperacijaDTO(Long idOperacija, Calendar vremePocetka, Calendar vremeZavrsetka, int ocenaKlinke, int ocenaLekara) {
+	public OperacijaDTO(Long idOperacija, Calendar vremePocetka, Calendar vremeZavrsetka, Integer ocenaKlinke, Integer ocenaLekara) {
 		super();
 		this.idOperacija = idOperacija;
 		this.vremePocetka = vremePocetka;
@@ -54,19 +54,19 @@ public class OperacijaDTO {
 		this.vremeZavrsetka = vremeZavrsetka;
 	}
 
-	public int getOcenaKlinke() {
+	public Integer getOcenaKlinke() {
 		return ocenaKlinke;
 	}
 
-	public void setOcenaKlinke(int ocenaKlinke) {
+	public void setOcenaKlinke(Integer ocenaKlinke) {
 		this.ocenaKlinke = ocenaKlinke;
 	}
 
-	public int getOcenaLekara() {
+	public Integer getOcenaLekara() {
 		return ocenaLekara;
 	}
 
-	public void setOcenaLekara(int ocenaLekara) {
+	public void setOcenaLekara(Integer ocenaLekara) {
 		this.ocenaLekara = ocenaLekara;
 	}
 

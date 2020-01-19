@@ -59,6 +59,13 @@ insert into korisnik(tipp, email,ime,prezime,lozinka,ulica,broj_ulice,grad,drzav
 insert into korisnik(tipp, email,ime,prezime,lozinka,ulica,broj_ulice,grad,drzava,jmbg,status_korisnika,broj_telefona) values
 ('PACIJENT', 'milan@gmail.com','Milan', 'Kovacevic','$2a$10$YDrhoDY60oavj/E0tHUQYOhpg1tm1kIM/m8xg.nvUl6GVF0qBjtIG', 'Majevicka', '11','Beograd', 'Srbija', 'jmbCCCCCCCCC', 'ACTIVATED_IN_USE', '498432185498786');
 
+insert into korisnik(tipp, email,ime,prezime,lozinka,ulica,broj_ulice,grad,drzava,jmbg,status_korisnika,broj_telefona) values
+('SESTRA', 'sonja@gmail.com','Sonja', 'Sanjic','$2a$10$YDrhoDY60oavj/E0tHUQYOhpg1tm1kIM/m8xg.nvUl6GVF0qBjtIG', 'Hopova', '231','Novi Sad', 'Srbija', 'jmbgDDDDDDD', 'ACTIVATED_IN_USE', '1231231231');
+
+insert into korisnik(tipp, email,ime,prezime,lozinka,ulica,broj_ulice,grad,drzava,jmbg,status_korisnika,broj_telefona) values
+('SESTRA', 'ivanka@gmail.com','Ivanka', 'Ostric','$2a$10$YDrhoDY60oavj/E0tHUQYOhpg1tm1kIM/m8xg.nvUl6GVF0qBjtIG', 'Zimanova', '145','Becek', 'Srbija', 'jmbgEEEEEEE', 'ACTIVATED_IN_USE', '333333333333');
+
+
 --insert into karton
 
 
@@ -73,7 +80,11 @@ insert into korisnik_role (id_osoba, id_rola) select id_osoba , id_rola from kor
 insert into korisnik_role (id_osoba, id_rola) select id_osoba , id_rola from korisnik , roles where email = 'lekar7777@gmail.com' and naziv_role='LEKAR';
 
 insert into korisnik_role (id_osoba, id_rola) select id_osoba , id_rola from korisnik , roles where email = 'milka@gmail.com' and naziv_role='MEDICINSKA_SESTRA';
+insert into korisnik_role (id_osoba, id_rola) select id_osoba , id_rola from korisnik , roles where email = 'sonja@gmail.com' and naziv_role='MEDICINSKA_SESTRA';
+insert into korisnik_role (id_osoba, id_rola) select id_osoba , id_rola from korisnik , roles where email = 'ivanka@gmail.com' and naziv_role='MEDICINSKA_SESTRA';
 insert into korisnik_role (id_osoba, id_rola) select id_osoba , id_rola from korisnik , roles where email = 'pera@gmail.com' and naziv_role='PACIJENT';
+insert into korisnik_role (id_osoba, id_rola) select id_osoba , id_rola from korisnik , roles where email = 'mirjana@gmail.com' and naziv_role='PACIJENT';
+insert into korisnik_role (id_osoba, id_rola) select id_osoba , id_rola from korisnik , roles where email = 'milan@gmail.com' and naziv_role='PACIJENT';
 
 --update korisnik ko, klinika kl set ko.id_klinika = kl.id_klinika where ko.email ="antonije@gmail.com" and kl.naziv ="Klinika1111";
 update korisnik ko, klinika kl set ko.id_klinika = kl.id_klinika where ko.email ="andrej@gmail.com" and kl.naziv ="Klinika1111";
@@ -89,8 +100,14 @@ update korisnik ko, klinika kl set ko.id_klinika = kl.id_klinika where ko.email 
 update korisnik ko, klinika kl set ko.id_klinika = kl.id_klinika where ko.email ="lekar66666@gmail.com" and kl.naziv ="Klinika33333333";
 update korisnik ko, klinika kl set ko.id_klinika = kl.id_klinika where ko.email ="lekar7777@gmail.com" and kl.naziv ="Klinika1111";
 
+update korisnik ko, klinika kl set ko.id_klinika = kl.id_klinika where ko.email ="sonja@gmail.com" and kl.naziv ="Klinika222222";
+update korisnik ko, klinika kl set ko.id_klinika = kl.id_klinika where ko.email ="ivanka@gmail.com" and kl.naziv ="Klinika33333333";
 
-insert into `kalendar_dogadjaja` (pocetak,kraj,tip_dogadjaja, id_medicinsko_osoblje) values (CURDATE(),CURDATE() + INTERVAL 5 DAY, 'ODOBRENI_ODMOR', '3');
+
+
+
+insert into kalendar_dogadjaja (pocetak,kraj,tip_dogadjaja, id_medicinsko_osoblje) values (CURDATE(),CURDATE() + INTERVAL 5 DAY, 'ODOBRENI_ODMOR', '3');
+insert into kalendar_dogadjaja (pocetak,kraj,tip_dogadjaja, id_medicinsko_osoblje) values (CURDATE(),CURDATE() + INTERVAL 5 DAY, 'ODOBRENI_ODMOR', '3');
 
 insert into usluga (naziv_usluge,id_klinika, cena) values ('NEUROLOGIJA',1,3000);
 insert into usluga (naziv_usluge,id_klinika, cena) values ('INFEKTOLOGIJA',1,4000);
@@ -99,4 +116,34 @@ insert into usluga (naziv_usluge,id_klinika, cena) values ('OFTALMOLOGIJA',2,500
 
 insert into usluga (naziv_usluge,id_klinika, cena) values ('INFEKTOLOGIJA',3,3500);
 
+
+
+INSERT INTO dijagnoza(naziv_dijagnoza, id_administartor_klinicnog_centra) values ('Erozija roznjace', 1);
+INSERT INTO dijagnoza(naziv_dijagnoza, id_administartor_klinicnog_centra) values ('Astigmatizam', 1);
+INSERT INTO dijagnoza(naziv_dijagnoza, id_administartor_klinicnog_centra) values ('Dalekovidost', 1);
+INSERT INTO dijagnoza(naziv_dijagnoza, id_administartor_klinicnog_centra) values ('Kratkovidost', 1);
+INSERT INTO dijagnoza(naziv_dijagnoza, id_administartor_klinicnog_centra) values ('FRAXA', 1);
+INSERT INTO dijagnoza(naziv_dijagnoza, id_administartor_klinicnog_centra) values ('SBMA', 1);
+INSERT INTO dijagnoza(naziv_dijagnoza, id_administartor_klinicnog_centra) values ('CADSIL', 1);
+INSERT INTO dijagnoza(naziv_dijagnoza, id_administartor_klinicnog_centra) values ('CMT/HNPP', 1);
+INSERT INTO dijagnoza(naziv_dijagnoza, id_administartor_klinicnog_centra) values ('Lajmska bolest', 1);
+INSERT INTO dijagnoza(naziv_dijagnoza, id_administartor_klinicnog_centra) values ('Groznica zapadnog Nila', 1);
+INSERT INTO dijagnoza(naziv_dijagnoza, id_administartor_klinicnog_centra) values ('Kostolomna groznica', 1);
+INSERT INTO dijagnoza(naziv_dijagnoza, id_administartor_klinicnog_centra) values ('Hepatitis A', 1);
+INSERT INTO dijagnoza(naziv_dijagnoza, id_administartor_klinicnog_centra) values ('Hepatitis B', 1);
+INSERT INTO dijagnoza(naziv_dijagnoza, id_administartor_klinicnog_centra) values ('Hepatitis C', 1);
+INSERT INTO dijagnoza(naziv_dijagnoza, id_administartor_klinicnog_centra) values ('Hepatitis D', 1);
+INSERT INTO dijagnoza(naziv_dijagnoza, id_administartor_klinicnog_centra) values ('Hepatitis E', 1);
+
+
+INSERT INTO pregled (vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra,id_pacijent,status, id_dijagnoza) 
+values(CURDATE() - INTERVAL 2 MONTH + INTERVAL  8 HOUR + INTERVAL 30 MINUTE, CURDATE() - INTERVAL 2 MONTH + INTERVAL  9 HOUR , 3, 10, 11,  'IZVRSEN_PREGLED', 6);  
+INSERT INTO pregled (vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra,id_pacijent,status, id_dijagnoza) 
+values(CURDATE() - INTERVAL 3 MONTH + INTERVAL  9 HOUR + INTERVAL 30 MINUTE, CURDATE() - INTERVAL 2 MONTH + INTERVAL  10 HOUR , 5, 14, 11,  'IZVRSEN_PREGLED', 1);  
+INSERT INTO pregled (vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra,id_pacijent,status, id_dijagnoza) 
+values(CURDATE() - INTERVAL 4 MONTH + INTERVAL  10 HOUR + INTERVAL 30 MINUTE, CURDATE() - INTERVAL 2 MONTH + INTERVAL  11 HOUR , 5, 14, 11,  'IZVRSEN_PREGLED', 2); 
+
+INSERT INTO karton (krvna_grupa,tezina,visina,id_pacijent) values('A+', 89, 180, 11);
+INSERT INTO karton (krvna_grupa,tezina,visina,id_pacijent) values('AB-', 67, 168, 12);
+INSERT INTO karton (krvna_grupa,tezina,visina,id_pacijent) values('B+', 77, 177, 13);
 

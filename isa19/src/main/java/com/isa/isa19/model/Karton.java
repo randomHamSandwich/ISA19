@@ -5,8 +5,7 @@
  ***********************************************************************/
 package com.isa.isa19.model;
 
-import java.util.*;
-
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +14,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -24,32 +25,36 @@ public class Karton {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idKarton;
 	@Column(nullable = true)
-	private int visina;
+	private String visina;
 	@Column(nullable = true)
-	private int tezina;
+	private String tezina;
 	@Column(nullable = true)
-	private int krvnaGrupa;
-//	TODO alergije na lek
-//	TODO izveshtaj o pregledu
+	private String krvnaGrupa;
 
-//	@OneToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "id_pacijent")
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "alergije", joinColumns = @JoinColumn(name = "id_karton"), inverseJoinColumns = @JoinColumn(name = "id_lek"))
+	private Set<Lek> lek;
+
+//	izveshtaj o pregledu se nalazi u smom pregledu
+
+//	@OneToOne(mappedBy = "karton", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
 //	private Pacijent pacijent;
-//	
 
-	@OneToOne(mappedBy = "karton", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_pacijent")
 	private Pacijent pacijent;
 
 	public Karton() {
 		super();
 	}
 
-	public Karton(Long idKarton, int visina, int tezina, int krvnaGrupa, Pacijent pacijent) {
+	public Karton(Long idKarton, String visina, String tezina, String krvnaGrupa, Set<Lek> lek, Pacijent pacijent) {
 		super();
 		this.idKarton = idKarton;
 		this.visina = visina;
 		this.tezina = tezina;
 		this.krvnaGrupa = krvnaGrupa;
+		this.lek = lek;
 		this.pacijent = pacijent;
 	}
 
@@ -61,27 +66,27 @@ public class Karton {
 		this.idKarton = idKarton;
 	}
 
-	public int getVisina() {
+	public String getVisina() {
 		return visina;
 	}
 
-	public void setVisina(int visina) {
+	public void setVisina(String visina) {
 		this.visina = visina;
 	}
 
-	public int getTezina() {
+	public String getTezina() {
 		return tezina;
 	}
 
-	public void setTezina(int tezina) {
+	public void setTezina(String tezina) {
 		this.tezina = tezina;
 	}
 
-	public int getKrvnaGrupa() {
+	public String getKrvnaGrupa() {
 		return krvnaGrupa;
 	}
 
-	public void setKrvnaGrupa(int krvnaGrupa) {
+	public void setKrvnaGrupa(String krvnaGrupa) {
 		this.krvnaGrupa = krvnaGrupa;
 	}
 
@@ -91,6 +96,14 @@ public class Karton {
 
 	public void setPacijent(Pacijent pacijent) {
 		this.pacijent = pacijent;
+	}
+
+	public Set<Lek> getLek() {
+		return lek;
+	}
+
+	public void setLek(Set<Lek> lek) {
+		this.lek = lek;
 	}
 
 }

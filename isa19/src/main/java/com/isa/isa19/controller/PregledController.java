@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +24,7 @@ import com.isa.isa19.dto.PregledDTO;
 import com.isa.isa19.model.Pregled;
 import com.isa.isa19.service.PregledService;
 
-
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value = "api/pregled")
 public class PregledController {
@@ -32,7 +34,8 @@ public class PregledController {
 	private PregledService pregledService;
 
 	@GetMapping(value = "/all")
-	public ResponseEntity<List<PregledDTO>> getAllStudents() {
+	@PreAuthorize("hasAuthority('PACIJENT')")
+	public ResponseEntity<List<PregledDTO>> getAllPregled(String idKorisnik) {
 
 		List<Pregled> pregledi = pregledService.findAll();
 
@@ -45,7 +48,7 @@ public class PregledController {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<PregledDTO>> getStudentsPage(Pageable page) {
+	public ResponseEntity<List<PregledDTO>> getPregledPage(Pageable page) {
 
 		// page object holds data about pagination and sorting
 		// the object is created based on the url parameters "page", "size" and "sort"
@@ -61,7 +64,7 @@ public class PregledController {
 	}
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<PregledDTO> getStudent(@PathVariable Long id) {
+	public ResponseEntity<PregledDTO> getPregled(@PathVariable Long id) {
 		Optional<Pregled> pregled = pregledService.findOne(id);
 
 		if (!pregled.isPresent()) {
@@ -77,7 +80,7 @@ public class PregledController {
 		Pregled pregled = new Pregled();
 		pregled.setVremePocetka(pregledDTO.getVremePocetka());
 		pregled.setVremeZavrsetka(pregledDTO.getVremeZavrsetka());
-		pregled.setCena(pregledDTO.getCena());
+//		pregled.setCena(pregledDTO.getCena());
 		pregled.setPopust(pregledDTO.getPopust());
 		pregled.setCenaSaPopustom(pregledDTO.getCenaSaPopustom());
 		pregled.setOcenaLekara(pregledDTO.getOcenaLekara());
@@ -88,7 +91,7 @@ public class PregledController {
 	}
 
 	@PutMapping(consumes = "application/json")
-	public ResponseEntity<PregledDTO> updateStudent(@RequestBody PregledDTO pregledDTO) {
+	public ResponseEntity<PregledDTO> updatePregled(@RequestBody PregledDTO pregledDTO) {
 
 		// a student must exist
 		Optional<Pregled> pregled = pregledService.findOne(pregledDTO.getIdPregleda());
@@ -98,7 +101,7 @@ public class PregledController {
 		}
 		pregled.get().setVremePocetka(pregledDTO.getVremePocetka());
 		pregled.get().setVremeZavrsetka(pregledDTO.getVremeZavrsetka());
-		pregled.get().setCena(pregledDTO.getCena());
+//		pregled.get().setCena(pregledDTO.getCena());
 		pregled.get().setPopust(pregledDTO.getPopust());
 		pregled.get().setCenaSaPopustom(pregledDTO.getCenaSaPopustom());
 		pregled.get().setOcenaLekara(pregledDTO.getOcenaLekara());

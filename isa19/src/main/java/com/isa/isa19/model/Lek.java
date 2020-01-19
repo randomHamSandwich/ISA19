@@ -19,7 +19,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
-
 @Entity
 public class Lek {
 	@Id
@@ -28,15 +27,34 @@ public class Lek {
 
 	@Column
 	private String naziv;
-	
+
 	// N-m ka pregldu
 	@ManyToMany
 	@JoinTable(name = "terapija", joinColumns = @JoinColumn(name = "id_lek"), inverseJoinColumns = @JoinColumn(name = "id_pregled"))
 	private Set<Pregled> pregled;
 
-	@ManyToOne(cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
+	@ManyToMany
+	@JoinTable(name = "alergije", joinColumns = @JoinColumn(name = "id_lek"), inverseJoinColumns = @JoinColumn(name = "id_karton"))
+	private Set<Karton> karton;
+
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_administartorKlinicnogCentra")
 	private AdministartorKlinicnogCentra administartorKlinicnogCentra;
+
+	public Lek() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Lek(Long idLek, String naziv, Set<Pregled> pregled, Set<Karton> karton,
+			AdministartorKlinicnogCentra administartorKlinicnogCentra) {
+		super();
+		this.idLek = idLek;
+		this.naziv = naziv;
+		this.pregled = pregled;
+		this.karton = karton;
+		this.administartorKlinicnogCentra = administartorKlinicnogCentra;
+	}
 
 	public Long getIdLek() {
 		return idLek;
@@ -70,17 +88,12 @@ public class Lek {
 		this.administartorKlinicnogCentra = administartorKlinicnogCentra;
 	}
 
-	public Lek() {
-		super();
+	public Set<Karton> getKarton() {
+		return karton;
 	}
 
-	public Lek(Long idLek, String naziv, Set<Pregled> pregled,
-			AdministartorKlinicnogCentra administartorKlinicnogCentra) {
-		super();
-		this.idLek = idLek;
-		this.naziv = naziv;
-		this.pregled = pregled;
-		this.administartorKlinicnogCentra = administartorKlinicnogCentra;
+	public void setKarton(Set<Karton> karton) {
+		this.karton = karton;
 	}
 
 	@Override
@@ -118,8 +131,5 @@ public class Lek {
 	public String toString() {
 		return "Lek [idLek=" + idLek + ", naziv=" + naziv + "]";
 	}
-	
-	
-	
-	
+
 }
