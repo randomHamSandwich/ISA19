@@ -1,6 +1,8 @@
 package com.isa.isa19.controller;
 
 import java.security.cert.PKIXRevocationChecker.Option;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -35,6 +37,7 @@ import com.isa.isa19.model.StatusKorisnika;
 import com.isa.isa19.model.Usluga;
 import com.isa.isa19.service.KorisnikService;
 import com.isa.isa19.service.UslugaService;
+import com.isa.isa19.util.DateChecker;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -66,57 +69,66 @@ public class KorisnikController {
 //	 const params = new HttpParams().set('idKlinike', idKlinike).set('spec', spec);
 	@GetMapping(value = "/lekari")
 	@PreAuthorize("hasAuthority('PACIJENT')")
-	public ResponseEntity<List<LekarDTO>> getLekariKlinike(@RequestParam String idKlinike, @RequestParam String spec) {
-		List<Korisnik> korisnici = korisnikService.findLekarKlSpec(idKlinike, spec);
+	public ResponseEntity<List<LekarDTO>> getLekariKlinike(@RequestParam String idKlinike, @RequestParam String spec,
+			@RequestParam String date) {
+		if (spec.isEmpty() || date.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
 
-//		List<LekarDTO> lekariDTO = new ArrayList<>();
-//		for (Korisnik k : korisnici) {
-//			lekariDTO.add(new LekarDTO((Lekar) k));
-//		}
+		LocalDate specifiedDate = DateChecker.parseToLocalDate(date);
+
+		List<Lekar> lekari = korisnikService.findLekarKlSpec(idKlinike, spec);
 		List<LekarDTO> lekariDTO = new ArrayList<>();
-		for (Korisnik k : korisnici) {
-//			!!!!!!!! nemoze ovako da se radi jer dobijamo vise rzultata ako imam u vise redova istu specijalizaciju!!!!!
-//			Optional<Usluga> usluga =uslugaService.findByNazivUsluge(((Lekar)k).getSpecijalizacija().name());
-//			if (!usluga.isPresent()) {
-//				lekariDTO.add(new LekarDTO((Lekar) k));
-//			}else {
-//				lekariDTO.add(new LekarDTO((Lekar) k, usluga.get().getCena()));
-//			}
+		List<Lekar> slobodniLekari = new ArrayList<>();
 
-			Optional<Usluga> usluga = uslugaService.findUsluga(((Lekar)k).getSpecijalizacija().name(),
-					idKlinike);
-			
+		for (Lekar lekar : lekari) {
+			boolean imaOdsustvo = DateChecker.daLiLekarImaOdsustvo(lekar, specifiedDate);
+			boolean imaTermin = DateChecker.daLiLekarImaPreglede(lekar, specifiedDate);
+			boolean imaOperaciju = DateChecker.daLiLekarImaOperaciju(lekar, specifiedDate);
+
+			System.out.println("oooooooooooooOOOooooo idLekar: " + lekar.getIdOsoba() + " imaOdsustvo: " + imaOdsustvo
+					+ " imaTermin: " + imaTermin + " imaOperaciju: " + imaOperaciju);
+			if (!imaOdsustvo && !imaTermin && !imaOperaciju) {
+				slobodniLekari.add(lekar);
+
+				System.out.println(
+						"****************** lekar: " + lekar.getIdOsoba() + "  sobodniLekaro: " + slobodniLekari);
+			}
+		}
+
+		for (Lekar l : slobodniLekari) {
+			Optional<Usluga> usluga = uslugaService.findUsluga(l.getSpecijalizacija().name(), idKlinike);
+
 			if (!usluga.isPresent()) {
-				lekariDTO.add(new LekarDTO((Lekar) k));
+				lekariDTO.add(new LekarDTO(l));
 			} else {
-				lekariDTO.add(new LekarDTO((Lekar) k, usluga.get().getCena()));
+				lekariDTO.add(new LekarDTO(l, usluga.get().getCena()));
 			}
 
 		}
-
+		if (lekariDTO.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
 		return new ResponseEntity<>(lekariDTO, HttpStatus.OK);
 	}
-	
+
 	@GetMapping(value = "/lekari/all")
 	@PreAuthorize("hasAuthority('PACIJENT')")
 	public ResponseEntity<List<LekarDTO>> getLekariKlinikeAll(@RequestParam String idKlinike) {
-		List<Korisnik> korisnici = korisnikService.findByIdKlinika(idKlinike);
+		List<Lekar> lekari = korisnikService.findByIdKlinika(idKlinike);
 
 		List<LekarDTO> lekariDTO = new ArrayList<>();
-		for (Korisnik k : korisnici) {
-			Optional<Usluga> usluga = uslugaService.findUsluga(((Lekar)k).getSpecijalizacija().name(),
-					idKlinike);
-			
+		for (Lekar lekar : lekari) {
+			Optional<Usluga> usluga = uslugaService.findUsluga(lekar.getSpecijalizacija().name(), idKlinike);
+
 			if (!usluga.isPresent()) {
-				lekariDTO.add(new LekarDTO((Lekar) k));
+				lekariDTO.add(new LekarDTO(lekar));
 			} else {
-				lekariDTO.add(new LekarDTO((Lekar) k, usluga.get().getCena()));
+				lekariDTO.add(new LekarDTO(lekar, usluga.get().getCena()));
 			}
 		}
 		return new ResponseEntity<>(lekariDTO, HttpStatus.OK);
 	}
-	
-	
 
 	@GetMapping
 	@PreAuthorize("hasAuthority('PACIJENT')")

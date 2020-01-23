@@ -107,7 +107,7 @@ update korisnik ko, klinika kl set ko.id_klinika = kl.id_klinika where ko.email 
 
 
 insert into kalendar_dogadjaja (pocetak,kraj,tip_dogadjaja, id_medicinsko_osoblje) values (CURDATE(),CURDATE() + INTERVAL 5 DAY, 'ODOBRENI_ODMOR', '3');
-insert into kalendar_dogadjaja (pocetak,kraj,tip_dogadjaja, id_medicinsko_osoblje) values (CURDATE(),CURDATE() + INTERVAL 5 DAY, 'ODOBRENI_ODMOR', '3');
+--insert into kalendar_dogadjaja (pocetak,kraj,tip_dogadjaja, id_medicinsko_osoblje) values (CURDATE(),CURDATE() + INTERVAL 5 DAY, 'ODOBRENI_ODMOR', '3');
 
 insert into usluga (naziv_usluge,id_klinika, cena) values ('NEUROLOGIJA',1,3000);
 insert into usluga (naziv_usluge,id_klinika, cena) values ('INFEKTOLOGIJA',1,4000);

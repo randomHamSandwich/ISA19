@@ -146,4 +146,10 @@ public class Klinika {
 		this.sala = sala;
 	}
 
+	@Override
+	public String toString() {
+		return "Klinika [idKlinika=" + idKlinika +"]";
+	}
+
+	
 }

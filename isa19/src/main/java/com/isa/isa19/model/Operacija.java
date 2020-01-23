@@ -7,6 +7,8 @@
 
 package com.isa.isa19.model;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -28,9 +30,9 @@ public class Operacija {
 	private Long idOperacija;
 
 	@Column
-	private Calendar vremePocetka;
+	private LocalDateTime vremePocetka;
 	@Column
-	private Calendar vremeZavrsetka;
+	private LocalDateTime vremeZavrsetka;
 	@Column
 	private Integer ocenaKlinke;
 	@Column
@@ -56,7 +58,7 @@ public class Operacija {
 		super();
 	}
 
-	public Operacija(Long idOperacija, Calendar vremePocetka, Calendar vremeZavrsetka, Integer ocenaKlinke, Integer ocenaLekara,
+	public Operacija(Long idOperacija, LocalDateTime vremePocetka, LocalDateTime vremeZavrsetka, Integer ocenaKlinke, Integer ocenaLekara,
 			StatusPregledaOperacije status, Pacijent pacijent, Set<Lekar> lekar,
 			Set<MedicinskaSestra> medicinskaSestra) {
 		super();
@@ -79,19 +81,19 @@ public class Operacija {
 		this.idOperacija = idOperacija;
 	}
 
-	public Calendar getVremePocetka() {
+	public LocalDateTime getVremePocetka() {
 		return vremePocetka;
 	}
 
-	public void setVremePocetka(Calendar vremePocetka) {
+	public void setVremePocetka(LocalDateTime vremePocetka) {
 		this.vremePocetka = vremePocetka;
 	}
 
-	public Calendar getVremeZavrsetka() {
+	public LocalDateTime getVremeZavrsetka() {
 		return vremeZavrsetka;
 	}
 
-	public void setVremeZavrsetka(Calendar vremeZavrsetka) {
+	public void setVremeZavrsetka(LocalDateTime vremeZavrsetka) {
 		this.vremeZavrsetka = vremeZavrsetka;
 	}
 

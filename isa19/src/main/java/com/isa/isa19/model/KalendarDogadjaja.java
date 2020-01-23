@@ -1,6 +1,6 @@
 package com.isa.isa19.model;
-import java.util.Calendar;
-import java.util.Set;
+
+import java.time.LocalDate;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,32 +11,31 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 @Entity
 public class KalendarDogadjaja {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idKalendar;
-	
+
 	@Column
-	private Calendar pocetak;
-	
+	private LocalDate pocetak;
+
 	@Column
-	private Calendar kraj;
-	
+	private LocalDate kraj;
+
 	@Enumerated(EnumType.STRING)
 	private TipDogadjajaKalendar tipDogadjaja;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="id_medicinsko_osoblje" ,nullable =true)
-	private Lekar lekar ;
+	@JoinColumn(name = "id_medicinsko_osoblje", nullable = true)
+	private Lekar lekar;
 
 	public KalendarDogadjaja() {
 		super();
 	}
 
-	public KalendarDogadjaja(Long idKalendar, Calendar pocetak, Calendar kraj, TipDogadjajaKalendar tipDogadjaja,
+	public KalendarDogadjaja(Long idKalendar, LocalDate pocetak, LocalDate kraj, TipDogadjajaKalendar tipDogadjaja,
 			Lekar lekar) {
 		super();
 		this.idKalendar = idKalendar;
@@ -54,19 +53,19 @@ public class KalendarDogadjaja {
 		this.idKalendar = idKalendar;
 	}
 
-	public Calendar getPocetak() {
+	public LocalDate getPocetak() {
 		return pocetak;
 	}
 
-	public void setPocetak(Calendar pocetak) {
+	public void setPocetak(LocalDate pocetak) {
 		this.pocetak = pocetak;
 	}
 
-	public Calendar getKraj() {
+	public LocalDate getKraj() {
 		return kraj;
 	}
 
-	public void setKraj(Calendar kraj) {
+	public void setKraj(LocalDate kraj) {
 		this.kraj = kraj;
 	}
 
@@ -85,8 +84,5 @@ public class KalendarDogadjaja {
 	public void setLekar(Lekar lekar) {
 		this.lekar = lekar;
 	}
-	
-	
-	
 
 }

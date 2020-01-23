@@ -12,11 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.isa.isa19.message.response.ResponseMessage;
 import com.isa.isa19.model.Korisnik;
-import com.isa.isa19.model.Lek;
-import com.isa.isa19.model.Pacijent;
 import com.isa.isa19.model.StatusKorisnika;
 import com.isa.isa19.service.KorisnikService;
-import com.isa.isa19.service.PacijentService;
 
 @RestController
 @RequestMapping("/api/auth/activate")

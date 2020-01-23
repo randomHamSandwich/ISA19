@@ -1,7 +1,7 @@
 package com.isa.isa19.controller;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
@@ -167,10 +167,10 @@ public class AuthController {
 	@Async
 	public void sendMail(String recipentMail) {
 
-		Calendar calendar = Calendar.getInstance();
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-
-		System.out.println(formatter.format(calendar.getTime()));
+		LocalDate dateNow = LocalDate.now();
+//		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+//
+//		System.out.println(formatter.format(calendar.getTime()));
 		// slanje emaila
 		final String username = env.getProperty("spring.mail.username");
 		final String password = env.getProperty("spring.mail.password");
@@ -199,7 +199,7 @@ public class AuthController {
 			MimeBodyPart messageBodyPart = new MimeBodyPart();
 
 			messageBodyPart.setText(
-					"welcome " + formatter.format(calendar.getTime()) + "<p>click on the link to activate</p>"
+					"welcome " + dateNow + "<p>click on the link to activate</p>"
 							+ "<a href=\"http://127.0.0.1:8080/api/auth/activate/" + recipentMail + " \">link</a>",
 					"UTF-8", "html");
 

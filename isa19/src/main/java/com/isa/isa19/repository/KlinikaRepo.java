@@ -14,6 +14,10 @@ public interface KlinikaRepo extends JpaRepository<Klinika, Long>{
 	
 	@Query(value ="SELECT distinct kl.*  FROM klinika kl inner join korisnik le on kl.id_klinika= le.id_klinika where le.specijalizacija = ?1", nativeQuery= true)
 	List<Klinika> findClincSpec(String spec);
+	
+	@Query(value ="select * from korisnik le inner join kalendar_dogadjaja kd on  kd.id_medicinsko_osoblje= le.id_osoba where le.specijalizacija =?1", nativeQuery= true)
+	List<Klinika> findClincDate(String date);
+//	List<Klinika> findClinicSpecDate(String spec, String date);
 
 //	@Query(value ="SELECT * FROM klinika kl inner join korisnik le on kl.id_klinika= le.id_klinika where le.specijalizacija = ?1", nativeQuery=true)
 //	@Query(value ="SELECT distinct kl.*  FROM klinika kl inner join korisnik le on kl.id_klinika= le.id_klinika where le.specijalizacija = ?1", nativeQuery= true)

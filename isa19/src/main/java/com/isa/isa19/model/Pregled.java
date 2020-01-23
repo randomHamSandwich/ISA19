@@ -5,6 +5,8 @@
  ***********************************************************************/
 package com.isa.isa19.model;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 import javax.persistence.CascadeType;
@@ -30,10 +32,10 @@ public class Pregled {
 	private Long idPregleda;
 
 	@Column(nullable = true)
-	private Calendar vremePocetka;
+	private LocalDateTime vremePocetka;
 
 	@Column(nullable = true)
-	private Calendar vremeZavrsetka;
+	private LocalDateTime vremeZavrsetka;
 //  vec imamo cenu u  Usluga
 //	@Column(nullable = true)
 //	private Float cena;
@@ -89,7 +91,7 @@ public class Pregled {
 		super();
 	}
 
-	public Pregled(Long idPregleda, Calendar vremePocetka, Calendar vremeZavrsetka, String izvestajOPregledu,
+	public Pregled(Long idPregleda, LocalDateTime vremePocetka, LocalDateTime vremeZavrsetka, String izvestajOPregledu,
 			Float popust, Float cenaSaPopustom, Integer ocenaLekara, Integer ocenaKilinike, StatusPregledaOperacije status,
 			Pacijent pacijent, MedicinskaSestra medicinskaSestra, Lekar lekar, Sala sala, Dijagnoza dijagnoza,
 			Set<Lek> lek) {
@@ -119,19 +121,19 @@ public class Pregled {
 		this.idPregleda = idPregleda;
 	}
 
-	public Calendar getVremePocetka() {
+	public LocalDateTime getVremePocetka() {
 		return vremePocetka;
 	}
 
-	public void setVremePocetka(Calendar vremePocetka) {
+	public void setVremePocetka(LocalDateTime vremePocetka) {
 		this.vremePocetka = vremePocetka;
 	}
 
-	public Calendar getVremeZavrsetka() {
+	public LocalDateTime getVremeZavrsetka() {
 		return vremeZavrsetka;
 	}
 
-	public void setVremeZavrsetka(Calendar vremeZavrsetka) {
+	public void setVremeZavrsetka(LocalDateTime vremeZavrsetka) {
 		this.vremeZavrsetka = vremeZavrsetka;
 	}
 

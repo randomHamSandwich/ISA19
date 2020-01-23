@@ -1,27 +1,27 @@
 package com.isa.isa19.dto;
 
+import java.time.LocalDate;
 import java.util.Calendar;
-import java.util.Date;
 
 import com.isa.isa19.model.Operacija;
 
 public class OperacijaDTO {
 
 	private Long idOperacija;
-	private Calendar vremePocetka;
-	private Calendar vremeZavrsetka;
+	private String vremePocetka;
+	private String vremeZavrsetka;
 	private Integer ocenaKlinke;
 	private Integer ocenaLekara;
 
 	public OperacijaDTO(Operacija o) {
-		this(o.getIdOperacija(), o.getVremePocetka(), o.getVremeZavrsetka(), o.getOcenaKlinke(), o.getOcenaLekara());
+		this(o.getIdOperacija(), o.getVremePocetka().toString(), o.getVremeZavrsetka().toString(), o.getOcenaKlinke(), o.getOcenaLekara());
 	}
 
 	public OperacijaDTO() {
 		super();
 	}
 
-	public OperacijaDTO(Long idOperacija, Calendar vremePocetka, Calendar vremeZavrsetka, Integer ocenaKlinke, Integer ocenaLekara) {
+	public OperacijaDTO(Long idOperacija, String vremePocetka, String vremeZavrsetka, Integer ocenaKlinke, Integer ocenaLekara) {
 		super();
 		this.idOperacija = idOperacija;
 		this.vremePocetka = vremePocetka;
@@ -38,19 +38,19 @@ public class OperacijaDTO {
 		this.idOperacija = idOperacija;
 	}
 
-	public Calendar getVremePocetka() {
+	public String getVremePocetka() {
 		return vremePocetka;
 	}
 
-	public void setVremePocetka(Calendar vremePocetka) {
+	public void setVremePocetka(String vremePocetka) {
 		this.vremePocetka = vremePocetka;
 	}
 
-	public Calendar getVremeZavrsetka() {
+	public String getVremeZavrsetka() {
 		return vremeZavrsetka;
 	}
 
-	public void setVremeZavrsetka(Calendar vremeZavrsetka) {
+	public void setVremeZavrsetka(String vremeZavrsetka) {
 		this.vremeZavrsetka = vremeZavrsetka;
 	}
 

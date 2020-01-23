@@ -71,50 +71,50 @@ public class OperacijaController {
 		return new ResponseEntity<>(new OperacijaDTO(operacija.get()), HttpStatus.OK);
 	}
 
-	@PostMapping(consumes = "application/json")
-	public ResponseEntity<OperacijaDTO> saveStudent(@RequestBody OperacijaDTO operacijaDTO) {
-
-		Operacija operacija = new Operacija();
-		
-		operacija.setVremePocetka(operacijaDTO.getVremePocetka());
-		operacija.setVremeZavrsetka(operacijaDTO.getVremeZavrsetka());
-		operacija.setOcenaKlinke(operacijaDTO.getOcenaKlinke());
-		operacija.setOcenaLekara(operacijaDTO.getOcenaLekara());
-
-		operacija = operacijaService.save(operacija);
-		return new ResponseEntity<>(new OperacijaDTO(operacija), HttpStatus.CREATED);
-	}
-
-	@PutMapping(consumes = "application/json")
-	public ResponseEntity<OperacijaDTO> updateStudent(@RequestBody OperacijaDTO operacijaDTO) {
-
-		// a student must exist
-		Optional<Operacija> operacija = operacijaService.findOne(operacijaDTO.getIdOperacija());
-
-		if (!operacija.isPresent()) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-
-//		operacija.get().setNaziv(OperacijaDTO.getNaziv());
-
-		operacija.get().setVremePocetka(operacijaDTO.getVremePocetka());
-		operacija.get().setVremeZavrsetka(operacijaDTO.getVremeZavrsetka());
-		operacija.get().setOcenaKlinke(operacijaDTO.getOcenaKlinke());
-		operacija.get().setOcenaLekara(operacijaDTO.getOcenaLekara());
-
-		Operacija o = operacija.get();
-		o = operacijaService.save(o);
-		return new ResponseEntity<>(new OperacijaDTO(o), HttpStatus.OK);
-	}
-
-	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Void> deleteStudent(@PathVariable Long id) {
-		Optional<Operacija> operacija = operacijaService.findOne(id);
-		if (!operacija.isPresent()) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-
-		operacijaService.remove(id);
-		return new ResponseEntity<>(HttpStatus.OK);
-	}
+//	@PostMapping(consumes = "application/json")
+//	public ResponseEntity<OperacijaDTO> saveStudent(@RequestBody OperacijaDTO operacijaDTO) {
+//
+//		Operacija operacija = new Operacija();
+//		
+//		operacija.setVremePocetka(operacijaDTO.getVremePocetka());
+//		operacija.setVremeZavrsetka(operacijaDTO.getVremeZavrsetka());
+//		operacija.setOcenaKlinke(operacijaDTO.getOcenaKlinke());
+//		operacija.setOcenaLekara(operacijaDTO.getOcenaLekara());
+//
+//		operacija = operacijaService.save(operacija);
+//		return new ResponseEntity<>(new OperacijaDTO(operacija), HttpStatus.CREATED);
+//	}
+//
+//	@PutMapping(consumes = "application/json")
+//	public ResponseEntity<OperacijaDTO> updateStudent(@RequestBody OperacijaDTO operacijaDTO) {
+//
+//		// a student must exist
+//		Optional<Operacija> operacija = operacijaService.findOne(operacijaDTO.getIdOperacija());
+//
+//		if (!operacija.isPresent()) {
+//			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//		}
+//
+////		operacija.get().setNaziv(OperacijaDTO.getNaziv());
+//
+//		operacija.get().setVremePocetka(operacijaDTO.getVremePocetka());
+//		operacija.get().setVremeZavrsetka(operacijaDTO.getVremeZavrsetka());
+//		operacija.get().setOcenaKlinke(operacijaDTO.getOcenaKlinke());
+//		operacija.get().setOcenaLekara(operacijaDTO.getOcenaLekara());
+//
+//		Operacija o = operacija.get();
+//		o = operacijaService.save(o);
+//		return new ResponseEntity<>(new OperacijaDTO(o), HttpStatus.OK);
+//	}
+//
+//	@DeleteMapping(value = "/{id}")
+//	public ResponseEntity<Void> deleteStudent(@PathVariable Long id) {
+//		Optional<Operacija> operacija = operacijaService.findOne(id);
+//		if (!operacija.isPresent()) {
+//			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//		}
+//
+//		operacijaService.remove(id);
+//		return new ResponseEntity<>(HttpStatus.OK);
+//	}
 }

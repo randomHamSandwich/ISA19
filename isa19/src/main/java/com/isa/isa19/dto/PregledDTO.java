@@ -1,22 +1,19 @@
 package com.isa.isa19.dto;
 
-import java.util.Calendar;
-import java.util.Date;
-
 import com.isa.isa19.model.Pregled;
 
 public class PregledDTO {
 	private Long idPregleda;
-	private Calendar vremePocetka;
-	private Calendar vremeZavrsetka;
+	private String vremePocetka;
+	private String vremeZavrsetka;
 //	private Float cena;
 	private Float popust;
 	private Float cenaSaPopustom;
 	private Integer ocenaLekara;
 	private Integer ocenaKilinike;
 
-	public PregledDTO(Pregled p) {
-		this(p.getIdPregleda(), p.getVremePocetka(), p.getVremeZavrsetka(), p.getPopust(), p.getCenaSaPopustom(),
+	public PregledDTO(Pregled p, String pocetak, String kraj) {
+		this(p.getIdPregleda(), pocetak, kraj, p.getPopust(), p.getCenaSaPopustom(),
 				p.getOcenaLekara(), p.getOcenaKilinike());
 	}
 
@@ -24,7 +21,7 @@ public class PregledDTO {
 		super();
 	}
 
-	public PregledDTO(Long idPregleda, Calendar vremePocetka, Calendar vremeZavrsetka, Float popust,
+	public PregledDTO(Long idPregleda, String vremePocetka, String vremeZavrsetka, Float popust,
 			Float cenaSaPopustom, Integer ocenaLekara, Integer ocenaKilinike) {
 		super();
 		this.idPregleda = idPregleda;
@@ -44,19 +41,19 @@ public class PregledDTO {
 		this.idPregleda = idPregleda;
 	}
 
-	public Calendar getVremePocetka() {
+	public String getVremePocetka() {
 		return vremePocetka;
 	}
 
-	public void setVremePocetka(Calendar vremePocetka) {
+	public void setVremePocetka(String vremePocetka) {
 		this.vremePocetka = vremePocetka;
 	}
 
-	public Calendar getVremeZavrsetka() {
+	public String getVremeZavrsetka() {
 		return vremeZavrsetka;
 	}
 
-	public void setVremeZavrsetka(Calendar vremeZavrsetka) {
+	public void setVremeZavrsetka(String vremeZavrsetka) {
 		this.vremeZavrsetka = vremeZavrsetka;
 	}
 

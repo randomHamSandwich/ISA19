@@ -1,5 +1,8 @@
 package com.isa.isa19.controller;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -32,18 +35,16 @@ public class PregledController {
 
 	@Autowired
 	private PregledService pregledService;
+	private SimpleDateFormat format1 = new SimpleDateFormat("dd-MM-yyyy");
 
 	@GetMapping(value = "/all")
 	@PreAuthorize("hasAuthority('PACIJENT')")
 	public ResponseEntity<List<PregledDTO>> getAllPregled(@RequestParam String idKorisnik) {
 
 		List<Pregled> pregledi = pregledService.findByIdPacijent(idKorisnik);
-		
-
 		List<PregledDTO> preglediDTO = new ArrayList<>();
-
 		for (Pregled p : pregledi) {
-			preglediDTO.add(new PregledDTO(p));
+			preglediDTO.add(new PregledDTO(p, p.getVremePocetka().format( DateTimeFormatter.ofPattern("dd-MM-yyyy")), p.getVremeZavrsetka().format( DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
 		}
 
 		return new ResponseEntity<>(preglediDTO, HttpStatus.OK);

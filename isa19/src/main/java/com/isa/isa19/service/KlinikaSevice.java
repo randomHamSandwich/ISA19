@@ -1,43 +1,31 @@
 package com.isa.isa19.service;
 
+import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 
+import com.isa.isa19.dto.KlinikaDTO;
 import com.isa.isa19.model.Klinika;
-import com.isa.isa19.repository.KlinikaRepo;
+import com.isa.isa19.model.Specijalizacija;
 
-@Service
-public class KlinikaSevice {
-	@Autowired
-	private KlinikaRepo klinikaRepo;
+public interface KlinikaSevice {
 
-	public Optional<Klinika> findOne(Long id) {
-		return klinikaRepo.findById(id);
-	}
+	Optional<Klinika> findOne(Long id);
 
-	public List<Klinika> findAll() {
-		return klinikaRepo.findAll();
-	}
+	List<Klinika> findAll();
 
-	public Klinika save(Klinika Klinika) {
-		return klinikaRepo.save(Klinika);
-	}
+	Klinika save(Klinika Klinika);
 
-	public void remove(Long id) {
-		klinikaRepo.deleteById(id);
-	}
+	void remove(Long id);
 
-	public Page<Klinika> findAll(Pageable page) {
-		return klinikaRepo.findAll(page);
-	}
-	
-	public List<Klinika> findClincSpec(String spec){
-		return klinikaRepo.findClincSpec(spec);
-	}
+	Page<Klinika> findAll(Pageable page);
 
+	List<Klinika> findClincSpec(String spec);
+
+	List<KlinikaDTO> findBySpecAndDate(Specijalizacija specijalizacija, LocalDate date);
 }
