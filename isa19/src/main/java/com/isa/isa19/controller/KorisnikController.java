@@ -27,17 +27,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.isa.isa19.dto.KlinikaDTO;
 import com.isa.isa19.dto.KorisnikDTO;
 import com.isa.isa19.dto.LekarDTO;
 import com.isa.isa19.dto.LozinkeDTO;
 import com.isa.isa19.message.response.ResponseMessage;
 import com.isa.isa19.model.Korisnik;
 import com.isa.isa19.model.Lekar;
+import com.isa.isa19.model.Specijalizacija;
 import com.isa.isa19.model.StatusKorisnika;
 import com.isa.isa19.model.Usluga;
 import com.isa.isa19.service.KorisnikService;
 import com.isa.isa19.service.UslugaService;
 import com.isa.isa19.util.DateChecker;
+
+import ch.qos.logback.classic.pattern.DateConverter;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -53,20 +57,6 @@ public class KorisnikController {
 	@Autowired
 	private UslugaService uslugaService;
 
-//	@GetMapping(value = "/all")
-//	public ResponseEntity<List<KorisnikDTO>> getAllKorisnik() {
-//
-//		List<Korisnik> korisnici = korisnikService.findAll();
-//
-//		List<KorisnikDTO> korisniciDTO = new ArrayList<>();
-//		for (Korisnik k : korisnici) {
-//			korisniciDTO.add(new KorisnikDTO(k));
-//		}
-//
-//		return new ResponseEntity<>(korisniciDTO, HttpStatus.OK);
-//	}
-
-//	 const params = new HttpParams().set('idKlinike', idKlinike).set('spec', spec);
 	@GetMapping(value = "/lekari")
 	@PreAuthorize("hasAuthority('PACIJENT')")
 	public ResponseEntity<List<LekarDTO>> getLekariKlinike(@RequestParam String idKlinike, @RequestParam String spec,
@@ -74,38 +64,16 @@ public class KorisnikController {
 		if (spec.isEmpty() || date.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
-
-		LocalDate specifiedDate = DateChecker.parseToLocalDate(date);
-
-		List<Lekar> lekari = korisnikService.findLekarKlSpec(idKlinike, spec);
-		List<LekarDTO> lekariDTO = new ArrayList<>();
-		List<Lekar> slobodniLekari = new ArrayList<>();
-
-		for (Lekar lekar : lekari) {
-			boolean imaOdsustvo = DateChecker.daLiLekarImaOdsustvo(lekar, specifiedDate);
-			boolean imaTermin = DateChecker.daLiLekarImaPreglede(lekar, specifiedDate);
-			boolean imaOperaciju = DateChecker.daLiLekarImaOperaciju(lekar, specifiedDate);
-
-			System.out.println("oooooooooooooOOOooooo idLekar: " + lekar.getIdOsoba() + " imaOdsustvo: " + imaOdsustvo
-					+ " imaTermin: " + imaTermin + " imaOperaciju: " + imaOperaciju);
-			if (!imaOdsustvo && !imaTermin && !imaOperaciju) {
-				slobodniLekari.add(lekar);
-
-				System.out.println(
-						"****************** lekar: " + lekar.getIdOsoba() + "  sobodniLekaro: " + slobodniLekari);
-			}
+		LocalDate specifiedDate;
+		if (date.length() == 10) {
+			specifiedDate= DateChecker.parseChoppedDateToLocalDate(date);
+		} else {
+			 specifiedDate = DateChecker.parseToLocalDate(date);
 		}
 
-		for (Lekar l : slobodniLekari) {
-			Optional<Usluga> usluga = uslugaService.findUsluga(l.getSpecijalizacija().name(), idKlinike);
+		List<LekarDTO> lekariDTO = korisnikService.findLekarBySpecAndDate(idKlinike, Specijalizacija.valueOf(spec),
+				specifiedDate);
 
-			if (!usluga.isPresent()) {
-				lekariDTO.add(new LekarDTO(l));
-			} else {
-				lekariDTO.add(new LekarDTO(l, usluga.get().getCena()));
-			}
-
-		}
 		if (lekariDTO.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
@@ -146,17 +114,6 @@ public class KorisnikController {
 		return new ResponseEntity<>(korisniciDTO, HttpStatus.OK);
 	}
 
-//	@GetMapping(value = "/{id}")
-//	public ResponseEntity<KorisnikDTO> getStudent(@PathVariable Long id) {
-//		Optional<Korisnik> korisnik = korisnikService.findOne(id);
-//
-//		if (!korisnik.isPresent()) {
-//			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//		}
-//
-//		return new ResponseEntity<>(new KorisnikDTO(korisnik.get()), HttpStatus.OK);
-//	}
-
 	@GetMapping(value = "/{email}")
 	@PreAuthorize("hasAuthority('PACIJENT')")
 	public ResponseEntity<KorisnikDTO> getKorisnikEMail(@PathVariable String email) {
@@ -188,30 +145,6 @@ public class KorisnikController {
 		korisnik = korisnikService.save(korisnik);
 		return new ResponseEntity<>(new KorisnikDTO(korisnik), HttpStatus.CREATED);
 	}
-
-//	@PutMapping(consumes = "application/json")
-//	public ResponseEntity<KorisnikDTO> updateStudent(@RequestBody KorisnikDTO korisnikDTO) {
-//
-//		Optional<Korisnik> korisnik = korisnikService.findOne(korisnikDTO.getIdOsoba());
-//
-//		if (!korisnik.isPresent()) {
-//			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//		}
-//
-//		korisnik.get().setEmail(korisnikDTO.getEmail());
-//		korisnik.get().setLozinka(korisnikDTO.getLozinka());
-//		korisnik.get().setIme(korisnikDTO.getIme());
-//		korisnik.get().setPrezime(korisnikDTO.getPrezime());
-//		korisnik.get().setUlica(korisnikDTO.getUlica());
-//		korisnik.get().setBrojUlice(korisnikDTO.getBrojUlice());
-//		korisnik.get().setGrad(korisnikDTO.getGrad());
-//		korisnik.get().setDrzava(korisnikDTO.getDrzava());
-//		korisnik.get().setBrojTelefona(korisnikDTO.getBrojTelefona());
-//		korisnik.get().setJmbg(korisnikDTO.getJmbg());
-//		Korisnik k = korisnik.get();
-//		k = korisnikService.save(k);
-//		return new ResponseEntity<>(new KorisnikDTO(k), HttpStatus.OK);
-//	}
 
 	@PutMapping(consumes = "application/json", value = "/{email}")
 	@PreAuthorize("hasAuthority('PACIJENT')")
@@ -249,24 +182,12 @@ public class KorisnikController {
 			return new ResponseEntity<>(new ResponseMessage("Fail -> old password is wrong!"), HttpStatus.BAD_REQUEST);
 
 		}
+		System.out.println("/*/*/*/*/*/*/*/**/**/*/*/*/*/*/*/*/*/*/* Pre:" + korisnik.get().getLozinka());
 		korisnik.get().setLozinka(encoder.encode(lozinkeDTO.getLozinkaNova()));
-
+		System.out.println("/*/*/*/*/*/*/*/**/**/*/*/*/*/*/*/*/*/*/* Posle: " + korisnik.get().getLozinka());
 		Korisnik k = korisnik.get();
 		k = korisnikService.save(k);
 		return new ResponseEntity<>(new KorisnikDTO(k), HttpStatus.OK);
 	}
-
-//	@DeleteMapping(value = "/{id}")
-//	public ResponseEntity<Void> deleteKorisnik(@PathVariable Long id) {
-//
-//		Optional<Korisnik> korisnik = korisnikService.findOne(id);
-//
-//		if (!korisnik.isPresent()) {
-//			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//		}
-//
-//		korisnikService.remove(id);
-//		return new ResponseEntity<>(HttpStatus.OK);
-//	}
 
 }

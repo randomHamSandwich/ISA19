@@ -143,6 +143,12 @@ values(CURDATE() - INTERVAL 3 MONTH + INTERVAL  9 HOUR + INTERVAL 30 MINUTE, CUR
 INSERT INTO pregled (vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra,id_pacijent,status, id_dijagnoza) 
 values(CURDATE() - INTERVAL 4 MONTH + INTERVAL  10 HOUR + INTERVAL 30 MINUTE, CURDATE() - INTERVAL 2 MONTH + INTERVAL  11 HOUR , 5, 14, 11,  'IZVRSEN_PREGLED', 2); 
 
+INSERT INTO pregled (vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra,id_pacijent,status) 
+values(CURDATE() + INTERVAL 3 DAY + INTERVAL  8 HOUR , CURDATE()  + INTERVAL 3 DAY  + INTERVAL  8 HOUR + INTERVAL 30 MINUTE, 4, 10, 11,  'ZAKAZAN_PREGLED'); 
+INSERT INTO pregled (vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra,id_pacijent,status) 
+values(CURDATE() + INTERVAL 3 DAY + INTERVAL  8 HOUR + INTERVAL 30 MINUTE, CURDATE()  + INTERVAL 3 DAY  + INTERVAL  9 HOUR , 4, 10, 11,  'ZAKAZAN_PREGLED'); 
+
+
 INSERT INTO karton (krvna_grupa,tezina,visina,id_pacijent) values('A+', 89, 180, 11);
 INSERT INTO karton (krvna_grupa,tezina,visina,id_pacijent) values('AB-', 67, 168, 12);
 INSERT INTO karton (krvna_grupa,tezina,visina,id_pacijent) values('B+', 77, 177, 13);

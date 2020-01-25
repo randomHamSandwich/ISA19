@@ -15,7 +15,6 @@ public class DateChecker {
 
 	public DateChecker() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public static boolean daLiLekarImaOdsustvo(Lekar lekar, LocalDate specifiedDate) {
@@ -37,21 +36,38 @@ public class DateChecker {
 		for (Pregled pregled : lekar.getPregled()) {
 
 			if (pregled.getStatus().equals(StatusPregledaOperacije.ZAKAZAN_PREGLED)
-					&& isDateBetweenDate(pregled.getVremePocetka().toLocalDate(), pregled.getVremeZavrsetka().toLocalDate(), specifiedDate)) {
+					&& isDateBetweenDate(pregled.getVremePocetka().toLocalDate(),
+							pregled.getVremeZavrsetka().toLocalDate(), specifiedDate)) {
 				pregledCounter++;
 			}
 		}
 		System.out.println("-------------- pregledCounter kje :" + pregledCounter);
-		if (pregledCounter == 16) {
+		if (pregledCounter >= 16) {
 			result = true;
 		}
 		return result;
+	}
+	
+	
+	public static boolean daLiLekarImaZakazanPregled(Lekar lekar, LocalDateTime start) {
+		boolean result =false;
+		for(Pregled pregled : lekar.getPregled()) {
+			if(pregled.getStatus().equals(StatusPregledaOperacije.ZAKAZAN_PREGLED)
+					&& pregled.getVremePocetka().equals(start)) {
+				result= true;
+				break;
+			}
+		}
+		return result;
+		
 	}
 
 	public static boolean daLiLekarImaOperaciju(Lekar lekar, LocalDate specifiedDate) {
 		boolean result = false;
 		for (Operacija operacija : lekar.getOperacija()) {
-			if ( operacija.getStatus().equals(StatusPregledaOperacije.ZAKAZANA_OPERACIJA) && isDateBetweenDate(operacija.getVremePocetka().toLocalDate(), operacija.getVremeZavrsetka().toLocalDate(), specifiedDate)) {
+			if (operacija.getStatus().equals(StatusPregledaOperacije.ZAKAZANA_OPERACIJA)
+					&& isDateBetweenDate(operacija.getVremePocetka().toLocalDate(),
+							operacija.getVremeZavrsetka().toLocalDate(), specifiedDate)) {
 				result = true;
 			}
 		}
@@ -62,14 +78,32 @@ public class DateChecker {
 		return (startDate.isBefore(specifiedDate) && endDate.isAfter(specifiedDate)) || startDate.equals(specifiedDate)
 				|| endDate.equals(specifiedDate);
 	}
-	
-	public static boolean isDateBetweenDateAndTime(LocalDateTime startDateTime, LocalDateTime endDateTime, LocalDateTime specifiedDateTime) {
-		return (startDateTime.isBefore(specifiedDateTime) && endDateTime.isAfter(specifiedDateTime)) || startDateTime.equals(specifiedDateTime)
-				|| endDateTime.equals(specifiedDateTime);
+
+	public static boolean isDateBetweenDateAndTime(LocalDateTime startDateTime, LocalDateTime endDateTime,
+			LocalDateTime specifiedDateTime) {
+		return (startDateTime.isBefore(specifiedDateTime) && endDateTime.isAfter(specifiedDateTime))
+				|| startDateTime.equals(specifiedDateTime) || endDateTime.equals(specifiedDateTime);
 	}
-	
+
 	public static LocalDate parseToLocalDate(String date) {
-	String dateString = date.substring(4, 15);
-	return  LocalDate.parse(dateString, DateTimeFormatter.ofPattern("MMM dd yyyy"));
+		String dateString = date.substring(4, 15);
+		return LocalDate.parse(dateString, DateTimeFormatter.ofPattern("MMM dd yyyy"));
 	}
+
+	public static LocalDate parseChoppedDateToLocalDate(String date) {
+		return LocalDate.parse(date, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+	}
+
+	public static LocalDateTime parseToLocalDateAndTime(String date, String time) {
+		String dateTimeString = date.substring(4, 15);
+		dateTimeString += " " + time;
+		return LocalDateTime.parse(dateTimeString, DateTimeFormatter.ofPattern("MMM dd yyyy HH mm"));
+	}
+	
+	public static LocalDateTime parseChoppedDateToLocalDateAndTime(String date, String time) {
+		return LocalDateTime.parse(date+" " + time, DateTimeFormatter.ofPattern("dd-MM-yyyy HH mm"));
+	}
+
+
+
 }

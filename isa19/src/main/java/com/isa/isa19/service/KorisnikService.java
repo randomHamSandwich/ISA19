@@ -1,32 +1,43 @@
 package com.isa.isa19.service;
 
+import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import com.isa.isa19.dto.LekarDTO;
 import com.isa.isa19.model.Korisnik;
 import com.isa.isa19.model.Lekar;
+import com.isa.isa19.model.Pacijent;
 import com.isa.isa19.model.Specijalizacija;
 
 public interface KorisnikService {
 
-	public Optional<Korisnik> findOne(Long id);
+	Lekar findLekarById(Long id);
+	
+	Pacijent findPacijentById(Long id);
 
-	public Optional<Korisnik> findByEmail(String email);
+	Optional<Korisnik> findByEmail(String email);
 
-	public List<Korisnik> findAll();
+	List<Korisnik> findAll();
 
-	public Korisnik save(Korisnik pacijent);
+	Korisnik save(Korisnik pacijent);
 
-	public void remove(Long id);
+	void remove(Long id);
 
-	public Page<Korisnik> findAll(Pageable page);
+	Page<Korisnik> findAll(Pageable page);
 
-	public List<Lekar> findLekarKlSpec(String idKlinika, String spec);
+	List<Lekar> findLekarKlSpec(String idKlinika, String spec);
 
-	public List<Lekar> findByIdKlinika(String idKlinika);
+	List<Lekar> findByIdKlinika(String idKlinika);
 
-	public List<Lekar> findBySpecijalizacija(Specijalizacija specijalizacija);
+	List<Lekar> findBySpecijalizacija(Specijalizacija specijalizacija);
+
+	List<LekarDTO> findLekarBySpecAndDate(String idKlinika, Specijalizacija specijalizacija, LocalDate date);
+	
+	
+	List<LekarDTO> convertDataToDTO(Collection<Lekar> slobodniLekari, String idKlinika, LocalDate specifiedDate);
 }

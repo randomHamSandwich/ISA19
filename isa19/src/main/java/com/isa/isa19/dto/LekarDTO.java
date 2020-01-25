@@ -1,5 +1,7 @@
 package com.isa.isa19.dto;
 
+import java.util.List;
+
 import com.isa.isa19.model.Lekar;
 import com.isa.isa19.model.Specijalizacija;
 
@@ -13,21 +15,30 @@ public class LekarDTO {
 	private Long idKlinika;
 	private String klinikaNaziv;
 	private Float cena;
+	private List<String> slobodniTermini;
 
 	public LekarDTO(Lekar l) {
 		this(l.getIdOsoba(), l.getIme(), l.getPrezime(), l.getOcenaLekar(), l.getSpecijalizacija(),
 				l.getKlinika().getIdKlinika(), l.getKlinika().getNaziv());
 	}
-	
+
 	public LekarDTO(Lekar l, Float cena) {
 		this(l.getIdOsoba(), l.getIme(), l.getPrezime(), l.getOcenaLekar(), l.getSpecijalizacija(),
 				l.getKlinika().getIdKlinika(), l.getKlinika().getNaziv());
-		this.cena= cena;
+		this.cena = cena;
 	}
 
-	public LekarDTO() {
-		super();
-		// TODO Auto-generated constructor stub
+	public LekarDTO(Lekar l, List<String> slobodniTermini) {
+		this(l.getIdOsoba(), l.getIme(), l.getPrezime(), l.getOcenaLekar(), l.getSpecijalizacija(),
+				l.getKlinika().getIdKlinika(), l.getKlinika().getNaziv());
+		this.slobodniTermini = slobodniTermini;
+	}
+
+	public LekarDTO(Lekar l, Float cena, List<String> slobodniTermini) {
+		this(l.getIdOsoba(), l.getIme(), l.getPrezime(), l.getOcenaLekar(), l.getSpecijalizacija(),
+				l.getKlinika().getIdKlinika(), l.getKlinika().getNaziv());
+		this.cena = cena;
+		this.slobodniTermini = slobodniTermini;
 	}
 
 	public LekarDTO(Long idOsoba, String ime, String prezime, Float ocenaLekar, Specijalizacija specijalizacija,
@@ -105,6 +116,13 @@ public class LekarDTO {
 	public void setCena(Float cena) {
 		this.cena = cena;
 	}
-	
+
+	public List<String> getSlobodniTermini() {
+		return slobodniTermini;
+	}
+
+	public void setSlobodniTermini(List<String> slobodniTermini) {
+		this.slobodniTermini = slobodniTermini;
+	}
 
 }

@@ -70,7 +70,6 @@ public class Korisnik {
 
 	public Korisnik() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Korisnik(Long idOsoba, String email, String lozinka, String ime, String prezime, String ulica,

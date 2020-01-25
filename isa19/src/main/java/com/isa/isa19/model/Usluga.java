@@ -33,7 +33,6 @@ public class Usluga {
 
 	public Usluga() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Usluga(Long idSuluge, String nazivUsluge, String opisUsluge, Float cena, Klinika klinika) {

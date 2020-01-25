@@ -1,6 +1,5 @@
 package com.isa.isa19.controller;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Properties;
@@ -19,6 +18,7 @@ import javax.mail.internet.MimeMultipart;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
@@ -33,7 +33,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.core.env.Environment;
 
 import com.isa.isa19.message.request.LoginForm;
 import com.isa.isa19.message.request.SignUpForm;
@@ -46,7 +45,6 @@ import com.isa.isa19.model.Roles;
 import com.isa.isa19.model.StatusKorisnika;
 import com.isa.isa19.repository.KartonRepo;
 import com.isa.isa19.repository.KorisnikRepo;
-import com.isa.isa19.repository.PacijentRepo;
 import com.isa.isa19.security.jwt.JwtProvider;
 import com.isa.isa19.security.repository.RoleRepo;
 import com.isa.isa19.security.service.UserDetailsImpl;

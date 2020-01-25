@@ -36,9 +36,6 @@ public class KlinikaController {
 	@PreAuthorize("hasAuthority('PACIJENT')")
 	public ResponseEntity<List<KlinikaDTO>> getAllKlinike(@RequestParam String spec, @RequestParam String date) {
 		LocalDate specifiedDate = DateChecker.parseToLocalDate(date);
-
-		System.out.println("________________________________________________________________" + specifiedDate);
-
 		if (!spec.isEmpty() && !date.isEmpty()) {
 			List<KlinikaDTO> klinikaiDTO = klinikaSevice.findBySpecAndDate(Specijalizacija.valueOf(spec),
 					specifiedDate);
@@ -46,7 +43,6 @@ public class KlinikaController {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
 			return new ResponseEntity<>(klinikaiDTO, HttpStatus.OK);
-
 		}
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
@@ -55,28 +51,29 @@ public class KlinikaController {
 	@PreAuthorize("hasAuthority('PACIJENT')")
 	public ResponseEntity<List<KlinikaDTO>> getKlinikeSpec() {
 
-		List<Klinika> klinikai = klinikaSevice.findAll();
+		List<KlinikaDTO> klinikeDTO = klinikaSevice.findAll();
 
-		List<KlinikaDTO> klinikaiDTO = new ArrayList<>();
-		for (Klinika k : klinikai) {
-			klinikaiDTO.add(new KlinikaDTO(k));
-		}
-		if (klinikaiDTO.isEmpty()) {
+//		List<KlinikaDTO> klinikaiDTO = new ArrayList<>();
+//		for (Klinika k : klinikai) {
+//			klinikaiDTO.add(new KlinikaDTO(k));
+//		}
+		
+		if (klinikeDTO.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 
-		return new ResponseEntity<>(klinikaiDTO, HttpStatus.OK);
+		return new ResponseEntity<>(klinikeDTO, HttpStatus.OK);
 	}
 
-	@GetMapping(value = "/{id}")
-	public ResponseEntity<KlinikaDTO> getKlinika(@PathVariable Long id) {
-		Optional<Klinika> klinika = klinikaSevice.findOne(id);
-
-		if (!klinika.isPresent()) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-
-		return new ResponseEntity<>(new KlinikaDTO(klinika.get()), HttpStatus.OK);
-	}
+//	@GetMapping(value = "/{id}")
+//	public ResponseEntity<KlinikaDTO> getKlinika(@PathVariable Long id) {
+//		Optional<Klinika> klinika = klinikaSevice.findOne(id);
+//
+//		if (!klinika.isPresent()) {
+//			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//		}
+//
+//		return new ResponseEntity<>(new KlinikaDTO(klinika.get()), HttpStatus.OK);
+//	}
 
 }

@@ -6,7 +6,6 @@ public class PregledDTO {
 	private Long idPregleda;
 	private String vremePocetka;
 	private String vremeZavrsetka;
-//	private Float cena;
 	private Float popust;
 	private Float cenaSaPopustom;
 	private Integer ocenaLekara;

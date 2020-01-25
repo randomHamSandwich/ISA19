@@ -2,6 +2,7 @@ package com.isa.isa19.service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -34,8 +35,8 @@ public class KlinikaServiceImpl implements KlinikaSevice {
 		return klinikaRepo.findById(id);
 	}
 
-	public List<Klinika> findAll() {
-		return klinikaRepo.findAll();
+	public List<KlinikaDTO> findAll() {
+		return convertDataToDTO(klinikaRepo.findAll());
 	}
 
 	@Transactional
@@ -77,11 +78,18 @@ public class KlinikaServiceImpl implements KlinikaSevice {
 			}
 		}
 
-		List<KlinikaDTO> klinikaiDTO = new ArrayList<>();
-		for (Klinika k : slobodneKlinike) {
-			klinikaiDTO.add(new KlinikaDTO(k));
+		return convertDataToDTO(slobodneKlinike);
+
+	}
+
+	@Override
+	public List<KlinikaDTO> convertDataToDTO(Collection<Klinika> klinike) {
+
+		List<KlinikaDTO> klinikeDTO = new ArrayList<>();
+		for (Klinika k : klinike) {
+			klinikeDTO.add(new KlinikaDTO(k));
 		}
-		return klinikaiDTO;
+		return klinikeDTO;
 	}
 
 }

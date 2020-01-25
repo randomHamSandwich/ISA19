@@ -10,9 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.isa.isa19.model.Korisnik;
-import com.isa.isa19.model.Pacijent;
 import com.isa.isa19.repository.KorisnikRepo;
-import com.isa.isa19.repository.PacijentRepo;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {

@@ -1,6 +1,7 @@
 package com.isa.isa19.service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -17,7 +18,7 @@ public interface KlinikaSevice {
 
 	Optional<Klinika> findOne(Long id);
 
-	List<Klinika> findAll();
+	List<KlinikaDTO> findAll();
 
 	Klinika save(Klinika Klinika);
 
@@ -28,4 +29,7 @@ public interface KlinikaSevice {
 	List<Klinika> findClincSpec(String spec);
 
 	List<KlinikaDTO> findBySpecAndDate(Specijalizacija specijalizacija, LocalDate date);
+	
+	List<KlinikaDTO> convertDataToDTO(Collection<Klinika> klinike);
+	
 }
