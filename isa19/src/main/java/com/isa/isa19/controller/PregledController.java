@@ -130,15 +130,12 @@ public class PregledController {
 	@PreAuthorize("hasAuthority('PACIJENT')")
 	public ResponseEntity<PregledDTO> oceniLekaraPregled(@RequestBody PregledDTO pregledDTO) {
 
-		System.out.println("pregled Lekar dto: " + pregledDTO.getIdPregleda()+ " " + pregledDTO.getOcenaLekara() );
 		Optional<Pregled> pregled = pregledService.findOne(pregledDTO.getIdPregleda());
-		System.out.println("pregled Lekar dto: " + pregledDTO.getIdPregleda()+ " " + pregledDTO.getOcenaLekara() );
-		if (!pregled.isPresent() || pregled.get().getStatus() != StatusPregledaOperacije.IZVRSEN_PREGLED) {
+		if (!pregled.isPresent() || pregled.get().getStatus() != StatusPregledaOperacije.IZVRSEN_PREGLED  || pregledDTO.getOcenaLekara()== null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 //		TODO u ovom momentu update golobalnu ocenu LEKARA- nalazi se u svakom lekaru
 		pregled.get().setOcenaLekara(pregledDTO.getOcenaLekara());
-		System.out.println("pregled Lekar dto: " + pregledDTO.getIdPregleda()+ " " + pregledDTO.getOcenaLekara() );
 		Pregled p = pregled.get();
 		p = pregledService.save(p);
 		return new ResponseEntity<>(new PregledDTO(p, null, null), HttpStatus.OK);
@@ -151,7 +148,7 @@ public class PregledController {
 		// a student must exist
 		Optional<Pregled> pregled = pregledService.findOne(pregledDTO.getIdPregleda());
 
-		if (!pregled.isPresent() || pregled.get().getStatus() != StatusPregledaOperacije.IZVRSEN_PREGLED) {
+		if (!pregled.isPresent() || pregled.get().getStatus() != StatusPregledaOperacije.IZVRSEN_PREGLED || pregledDTO.getOcenaKilinike()== null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 //		TODO u ovom momentu update golobalnu ocenu KLINIKE- nalazi se u svakoj klinici
