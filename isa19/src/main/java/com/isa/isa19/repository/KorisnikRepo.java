@@ -16,10 +16,10 @@ public interface KorisnikRepo extends JpaRepository<Korisnik, Long> {
 	Boolean existsByEmail(String email);
 
 	@Query(value = "SELECT * FROM korisnik le where le.id_klinika= ?1 and le.tipp ='LEKAR'", nativeQuery = true)
-	List<Lekar> findByIdKlinika(String idKlinika);
+	List<Lekar> findByIdKlinika(Long idKlinika);
 
 	@Query(value = "SELECT le.* FROM korisnik le WHERE le.id_klinika = ?1 AND le.specijalizacija = ?2 and le.tipp ='LEKAR'", nativeQuery = true)
-	List<Lekar> findLekarKlSpec(String idKlinika, String spec);
+	List<Lekar> findLekarKlSpec(Long idKlinika, String spec);
 
 	List<Lekar> findBySpecijalizacija(Specijalizacija specijalizacija);
 }

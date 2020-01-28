@@ -40,7 +40,7 @@ public class Operacija {
 	@Column( nullable = true)
 	@Enumerated(EnumType.STRING)
 	private StatusPregledaOperacije status;
-
+	
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_pacijent")
@@ -54,13 +54,17 @@ public class Operacija {
 	@JoinTable(name = "medicinska_sestra_operacija", joinColumns = @JoinColumn(name = "id_operacija"), inverseJoinColumns = @JoinColumn(name = "id_medicinska_sestra"))
 	private Set<MedicinskaSestra> medicinskaSestra;
 
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_klinika")
+	private Klinika klinika;
+	
 	public Operacija() {
 		super();
 	}
 
-	public Operacija(Long idOperacija, LocalDateTime vremePocetka, LocalDateTime vremeZavrsetka, Integer ocenaKlinke, Integer ocenaLekara,
-			StatusPregledaOperacije status, Pacijent pacijent, Set<Lekar> lekar,
-			Set<MedicinskaSestra> medicinskaSestra) {
+	public Operacija(Long idOperacija, LocalDateTime vremePocetka, LocalDateTime vremeZavrsetka, Integer ocenaKlinke,
+			Integer ocenaLekara, StatusPregledaOperacije status, Pacijent pacijent, Set<Lekar> lekar,
+			Set<MedicinskaSestra> medicinskaSestra, Klinika klinika) {
 		super();
 		this.idOperacija = idOperacija;
 		this.vremePocetka = vremePocetka;
@@ -71,6 +75,7 @@ public class Operacija {
 		this.pacijent = pacijent;
 		this.lekar = lekar;
 		this.medicinskaSestra = medicinskaSestra;
+		this.klinika = klinika;
 	}
 
 	public Long getIdOperacija() {
@@ -144,6 +149,16 @@ public class Operacija {
 	public void setMedicinskaSestra(Set<MedicinskaSestra> medicinskaSestra) {
 		this.medicinskaSestra = medicinskaSestra;
 	}
+
+	public Klinika getKlinika() {
+		return klinika;
+	}
+
+	public void setKlinika(Klinika klinika) {
+		this.klinika = klinika;
+	}
+	
+	
 
 
 }

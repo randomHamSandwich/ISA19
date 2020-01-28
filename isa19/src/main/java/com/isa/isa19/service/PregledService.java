@@ -5,17 +5,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-
+import com.isa.isa19.dto.PregledDTO;
+import com.isa.isa19.dto.PregledZakaziDTO;
 import com.isa.isa19.model.Pregled;
-import com.isa.isa19.repository.PregledRepo;
 
 public interface PregledService {
 
-	public List<Pregled> findByIdPacijentAndStatus(String id, String status);
+	public List<Pregled> findByIdPacijentAndStatus(Long id, String status);
 
 	public Optional<Pregled> findOne(Long id);
 
@@ -23,8 +19,22 @@ public interface PregledService {
 
 	public Pregled save(Pregled pregled);
 	
-	public List<String> getZauzetiPreglediVreme(String idLekar, LocalDate date);
-	
-	
+	public List<String> getZauzetiPreglediVreme(Long idLekar, LocalDate date);
 
+	public List<Pregled> findPregledByIdLekarAndOcenALekraNotNull(Long idOsoba);
+	
+	public List<Pregled> findByIdKlinikaAndOcenaKlinikaNotNull (Long idKlinika);
+
+	public List<PregledDTO> getIzvrseniPreglediByIdKorisnik(Long idKorisnik);
+
+	public List<PregledDTO> getZakazaniPreglediByIdKorisnik(Long idKorisnik);
+
+	public Optional<PregledDTO> zakaziPregled(PregledZakaziDTO pregledZakaziDTO, LocalDateTime start);
+
+	public Optional<PregledDTO> otkaziPregled(PregledDTO pregledDTO);
+
+	public Optional<PregledDTO> oceniLekaraPregled(PregledDTO pregledDTO);
+
+	public Optional<PregledDTO> oceniKlinikuPregled(PregledDTO pregledDTO);
+	
 }

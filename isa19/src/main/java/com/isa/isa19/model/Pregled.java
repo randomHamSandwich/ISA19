@@ -86,6 +86,10 @@ public class Pregled {
 
 //	@OneToOne(mappedBy = "pregled", cascade = CascadeType.ALL)
 //	private izveshtajOPregledu izveshtajOPregledu;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_klinika")
+	private Klinika klinika;
 
 	public Pregled() {
 		super();
@@ -231,6 +235,14 @@ public class Pregled {
 
 	public void setIzvestajOPregledu(String izvestajOPregledu) {
 		this.izvestajOPregledu = izvestajOPregledu;
+	}
+
+	public Klinika getKlinika() {
+		return klinika;
+	}
+
+	public void setKlinika(Klinika klinika) {
+		this.klinika = klinika;
 	}
 	
 	

@@ -1,4 +1,5 @@
 package com.isa.isa19.service;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -7,33 +8,26 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.isa.isa19.dto.OperacijaDTO;
 import com.isa.isa19.model.Operacija;
 import com.isa.isa19.repository.OperacijaRepo;
 
-@Service
-public class OperacijaService {
-	
-	@Autowired
-	private OperacijaRepo operacijaRepo;
-	
-	public Optional<Operacija> findOne(Long id) {
-		return operacijaRepo.findById(id);
-	}
+public interface OperacijaService {
 
-	public List<Operacija> findAll() {
-		return operacijaRepo.findAll();
-	}
+	public Optional<Operacija> findOne(Long id);
 
-	public Operacija save(Operacija operacija) {
-		return operacijaRepo.save(operacija);
-	}
+	public List<Operacija> findAll();
 
-	public void remove(Long id) {
-		operacijaRepo.deleteById(id);
-	}
+	public Operacija save(Operacija operacija);
 
-	public Page<Operacija> findAll(Pageable page) {
-		return operacijaRepo.findAll(page);
-	}
+	public List<Operacija> findByIdKlinikaAndOcenaKlinikaNotNull(Long idKlinika);
+
+	public List<Operacija> findByIdLekarAndOcenaLekaraNotNull(Long idLekar);
+
+	public List<Operacija> findByIdPacijentAndStatus(Long idKorisnik, String status);
+
+	public List<OperacijaDTO> getAllIzvrseneOperacije(Long idKorisnik);
+
+	public List<OperacijaDTO> getAllZakazaneOperacije(Long idKorisnik);
 
 }

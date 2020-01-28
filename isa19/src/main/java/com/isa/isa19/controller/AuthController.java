@@ -95,10 +95,10 @@ public class AuthController {
 					HttpStatus.BAD_REQUEST);
 		}
 
-		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-			return new ResponseEntity<>(new ResponseMessage("Fail -> Email is already in use!"),
-					HttpStatus.BAD_REQUEST);
-		}
+//		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+//			return new ResponseEntity<>(new ResponseMessage("Fail -> Email is already in use!"),
+//					HttpStatus.BAD_REQUEST);
+//		}
 
 		// Creating user's account
 		Pacijent user = new Pacijent();

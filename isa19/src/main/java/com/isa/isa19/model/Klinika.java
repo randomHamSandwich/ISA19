@@ -37,9 +37,13 @@ public class Klinika {
 	@OneToMany(mappedBy = "klinika")
 	private Set<Usluga> usluga;
 
-//	@OneToMany(mappedBy = "klinika")
-//	private Set<AdministratorKlinike> administratorKlinike;
+	@OneToMany(mappedBy = "klinika")
+	private Set<Operacija> operacije;
 
+	@OneToMany(mappedBy = "klinika")
+	private Set<Pregled> pregledi;
+
+// korisnik zato sto moze da bude lekar, medicinska Sestra, administrator klinike
 	@OneToMany(mappedBy = "klinika")
 	private Set<Korisnik> korisnik;
 
@@ -51,7 +55,8 @@ public class Klinika {
 	}
 
 	public Klinika(Long idKlinika, String naziv, String ulica, String brojUlice, String grad, String drzava,
-			String opis, Float ocenaKlinike, Set<Usluga> usluga, Set<Korisnik> korisnik, Set<Sala> sala) {
+			String opis, Float ocenaKlinike, Set<Usluga> usluga, Set<Operacija> operacije, Set<Pregled> pregledi,
+			Set<Korisnik> korisnik, Set<Sala> sala) {
 		super();
 		this.idKlinika = idKlinika;
 		this.naziv = naziv;
@@ -62,6 +67,8 @@ public class Klinika {
 		this.opis = opis;
 		this.ocenaKlinike = ocenaKlinike;
 		this.usluga = usluga;
+		this.operacije = operacije;
+		this.pregledi = pregledi;
 		this.korisnik = korisnik;
 		this.sala = sala;
 	}
@@ -146,10 +153,33 @@ public class Klinika {
 		this.sala = sala;
 	}
 
-	@Override
-	public String toString() {
-		return "Klinika [idKlinika=" + idKlinika +"]";
+	public Set<Operacija> getOperacije() {
+		return operacije;
 	}
 
-	
+	public void setOperacije(Set<Operacija> operacije) {
+		this.operacije = operacije;
+	}
+
+	public Set<Korisnik> getKorisnik() {
+		return korisnik;
+	}
+
+	public void setKorisnik(Set<Korisnik> korisnik) {
+		this.korisnik = korisnik;
+	}
+
+	public Set<Pregled> getPregledi() {
+		return pregledi;
+	}
+
+	public void setPregledi(Set<Pregled> pregledi) {
+		this.pregledi = pregledi;
+	}
+
+	@Override
+	public String toString() {
+		return "Klinika [idKlinika=" + idKlinika + "]";
+	}
+
 }

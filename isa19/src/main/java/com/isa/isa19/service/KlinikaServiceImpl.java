@@ -17,6 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.isa.isa19.dto.KlinikaDTO;
 import com.isa.isa19.model.Klinika;
 import com.isa.isa19.model.Lekar;
+import com.isa.isa19.model.Operacija;
+import com.isa.isa19.model.Pregled;
 import com.isa.isa19.model.Specijalizacija;
 import com.isa.isa19.repository.KlinikaRepo;
 import com.isa.isa19.util.DateChecker;
@@ -31,28 +33,29 @@ public class KlinikaServiceImpl implements KlinikaSevice {
 	@Autowired
 	private KorisnikService korisnikService;
 
+	@Autowired
+	private OperacijaService operacijaService;
+
+	@Autowired
+	private PregledService pregledService;
+
+	@Override
 	public Optional<Klinika> findOne(Long id) {
 		return klinikaRepo.findById(id);
 	}
 
+	@Override
 	public List<KlinikaDTO> findAll() {
 		return convertDataToDTO(klinikaRepo.findAll());
 	}
 
+	@Override
 	@Transactional
 	public Klinika save(Klinika Klinika) {
 		return klinikaRepo.save(Klinika);
 	}
 
-	@Transactional
-	public void remove(Long id) {
-		klinikaRepo.deleteById(id);
-	}
-
-	public Page<Klinika> findAll(Pageable page) {
-		return klinikaRepo.findAll(page);
-	}
-
+	@Override
 	public List<Klinika> findClincSpec(String spec) {
 		return klinikaRepo.findClincSpec(spec);
 	}
@@ -90,6 +93,23 @@ public class KlinikaServiceImpl implements KlinikaSevice {
 			klinikeDTO.add(new KlinikaDTO(k));
 		}
 		return klinikeDTO;
+	}
+
+	@Override
+	@Transactional
+	public Klinika updateKlinikaOcena(Klinika k) {
+		List<Pregled> pregledi = pregledService.findByIdKlinikaAndOcenaKlinikaNotNull(k.getIdKlinika());
+		float konacnaOcenaKlinika = 0;
+		for (Pregled pregled : pregledi) {
+			konacnaOcenaKlinika += pregled.getOcenaKilinike();
+		}
+		List<Operacija> operacije = operacijaService.findByIdKlinikaAndOcenaKlinikaNotNull(k.getIdKlinika());
+
+		for (Operacija operacija : operacije) {
+			konacnaOcenaKlinika += operacija.getOcenaKlinke();
+		}
+		k.setOcenaKlinike(konacnaOcenaKlinika / (operacije.size() + pregledi.size()));
+		return klinikaRepo.save(k);
 	}
 
 }

@@ -11,5 +11,4 @@ import com.isa.isa19.model.Lek;
 public interface LekRepo extends JpaRepository<Lek, Long>{
 	
 
-	Page<Lek> findAll(Pageable pageable);
 }

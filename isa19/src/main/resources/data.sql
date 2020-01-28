@@ -11,12 +11,12 @@ insert into roles (naziv_role) values ('PACIJENT');
 
 
 
-insert into klinika(naziv,ulica,broj_ulice,drzava,grad,opis,ocena_klinike) values
-('Klinika1111','Ulica111','12','Srbija','Novi Sad','opis',4.5);
-insert into klinika(naziv,ulica,broj_ulice,drzava,grad,opis,ocena_klinike) values
-('Klinika222222','Ulica2222','13','Srbija','Novi Sad','opis',4.1);
-insert into klinika(naziv,ulica,broj_ulice,drzava,grad,opis,ocena_klinike) values
-('Klinika33333333','Ulica33333','14','Srbija','Novi Sad','opis',3.7);
+insert into klinika(naziv,ulica,broj_ulice,drzava,grad,opis) values
+('Klinika1111','Ulica111','12','Srbija','Novi Sad','opis');
+insert into klinika(naziv,ulica,broj_ulice,drzava,grad,opis) values
+('Klinika222222','Ulica2222','13','Srbija','Novi Sad','opis');
+insert into klinika(naziv,ulica,broj_ulice,drzava,grad,opis) values
+('Klinika33333333','Ulica33333','14','Srbija','Novi Sad','opis');
 
 insert into korisnik(tipp, email,ime,prezime,lozinka,ulica,broj_ulice,grad,drzava,jmbg,status_korisnika,broj_telefona) values
 ('AK', 'antonije@gmail.com','Antonije', 'Akelic','$2a$10$YDrhoDY60oavj/E0tHUQYOhpg1tm1kIM/m8xg.nvUl6GVF0qBjtIG', 'Cara Dusana', '15','Novi Sad', 'Srbija', 'jmbg1111111111', 'ACTIVATED_IN_USE', '061111111111');
@@ -136,12 +136,12 @@ INSERT INTO dijagnoza(naziv_dijagnoza, id_administartor_klinicnog_centra) values
 INSERT INTO dijagnoza(naziv_dijagnoza, id_administartor_klinicnog_centra) values ('Hepatitis E', 1);
 
 
-INSERT INTO pregled (vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra,id_pacijent,status, id_dijagnoza) 
-values(CURDATE() - INTERVAL 2 MONTH + INTERVAL  8 HOUR + INTERVAL 30 MINUTE, CURDATE() - INTERVAL 2 MONTH + INTERVAL  9 HOUR , 3, 10, 11,  'IZVRSEN_PREGLED', 6);  
-INSERT INTO pregled (vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra,id_pacijent,status, id_dijagnoza) 
-values(CURDATE() - INTERVAL 3 MONTH + INTERVAL  9 HOUR + INTERVAL 30 MINUTE, CURDATE() - INTERVAL 2 MONTH + INTERVAL  10 HOUR , 5, 14, 11,  'IZVRSEN_PREGLED', 1);  
-INSERT INTO pregled (vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra,id_pacijent,status, id_dijagnoza) 
-values(CURDATE() - INTERVAL 4 MONTH + INTERVAL  10 HOUR + INTERVAL 30 MINUTE, CURDATE() - INTERVAL 2 MONTH + INTERVAL  11 HOUR , 5, 14, 11,  'IZVRSEN_PREGLED', 2); 
+INSERT INTO pregled (vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra,id_pacijent,status, id_dijagnoza, id_klinika) 
+values(CURDATE() - INTERVAL 2 MONTH + INTERVAL  8 HOUR + INTERVAL 30 MINUTE, CURDATE() - INTERVAL 2 MONTH + INTERVAL  9 HOUR , 3, 10, 11,  'IZVRSEN_PREGLED', 6, 1);  
+INSERT INTO pregled (vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra,id_pacijent,status, id_dijagnoza, id_klinika) 
+values(CURDATE() - INTERVAL 3 MONTH + INTERVAL  9 HOUR + INTERVAL 30 MINUTE, CURDATE() - INTERVAL 2 MONTH + INTERVAL  10 HOUR , 5, 14, 11,  'IZVRSEN_PREGLED', 1, 2);  
+INSERT INTO pregled (vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra,id_pacijent,status, id_dijagnoza, id_klinika) 
+values(CURDATE() - INTERVAL 4 MONTH + INTERVAL  10 HOUR + INTERVAL 30 MINUTE, CURDATE() - INTERVAL 2 MONTH + INTERVAL  11 HOUR , 5, 14, 11,  'IZVRSEN_PREGLED', 2, 2); 
 
 INSERT INTO pregled (vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra,id_pacijent,status) 
 values(CURDATE() + INTERVAL 3 DAY + INTERVAL  8 HOUR , CURDATE()  + INTERVAL 3 DAY  + INTERVAL  8 HOUR + INTERVAL 30 MINUTE, 4, 10, 11,  'ZAKAZAN_PREGLED'); 

@@ -10,17 +10,16 @@ import com.isa.isa19.model.Pregled;
 
 public interface PregledRepo extends JpaRepository<Pregled, Long>{
 
-//	@Query(value="SELECT * FROM Pregled pr where pr.id_pacijent = :idPacijent")
-//	List<Pregled> findByIdPacijent(@Param("idPacijent") String idPacijent);
-	
-//	@Query(value="select p from Pregled p where p.id_pacijent = ?1" )
-//	List<Pregled> findByIdPacijent(String idPacijent);
-	
 	@Query(value="SELECT * FROM Pregled pr where pr.id_pacijent = ?1 and pr.status =?2" , nativeQuery=true)
-	List<Pregled> findByIdPacijentAndStatus( String idPacijent, String status);
+	List<Pregled> findByIdPacijentAndStatus( Long idPacijent, String status);
 
 	@Query(value="SELECT * FROM test_test.pregled where id_lekar=?1 and cast(vreme_pocetka AS DATE) = ?2", nativeQuery=true)
-	List<Pregled> findByLekarAndDate(String idLekar, LocalDate date);
+	List<Pregled> findByLekarAndDate(Long idLekar, LocalDate date);
 	
+	@Query(value="SELECT * FROM test_test.pregled where id_lekar=?1 and ocena_lekara is not null", nativeQuery=true)
+	List<Pregled> findByLekarWhereOcenaLNotNull(Long idLekar);
+
+	@Query(value = "SELECT * FROM test_test.pregled where id_klinika = ?1 and ocena_kilinike is not null", nativeQuery= true)
+	List<Pregled>findByIdKlinikaAndOcenaKlinikaNotNull(Long idKlinika);
 
 }

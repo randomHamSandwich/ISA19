@@ -10,18 +10,20 @@ public class PregledDTO {
 	private Float cenaSaPopustom;
 	private Integer ocenaLekara;
 	private Integer ocenaKilinike;
+	private Long idLekara;
 
 	public PregledDTO(Pregled p, String pocetak, String kraj) {
 		this(p.getIdPregleda(), pocetak, kraj, p.getPopust(), p.getCenaSaPopustom(),
-				p.getOcenaLekara(), p.getOcenaKilinike());
+				p.getOcenaLekara(), p.getOcenaKilinike(), p.getLekar().getIdOsoba());
 	}
 
 	public PregledDTO() {
 		super();
 	}
 
-	public PregledDTO(Long idPregleda, String vremePocetka, String vremeZavrsetka, Float popust,
-			Float cenaSaPopustom, Integer ocenaLekara, Integer ocenaKilinike) {
+
+	public PregledDTO(Long idPregleda, String vremePocetka, String vremeZavrsetka, Float popust, Float cenaSaPopustom,
+			Integer ocenaLekara, Integer ocenaKilinike, Long idLekara) {
 		super();
 		this.idPregleda = idPregleda;
 		this.vremePocetka = vremePocetka;
@@ -30,6 +32,15 @@ public class PregledDTO {
 		this.cenaSaPopustom = cenaSaPopustom;
 		this.ocenaLekara = ocenaLekara;
 		this.ocenaKilinike = ocenaKilinike;
+		this.idLekara = idLekara;
+	}
+
+	public Long getIdLekara() {
+		return idLekara;
+	}
+
+	public void setIdLekara(Long idLekara) {
+		this.idLekara = idLekara;
 	}
 
 	public Long getIdPregleda() {

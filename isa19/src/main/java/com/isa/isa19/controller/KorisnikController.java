@@ -37,6 +37,7 @@ import com.isa.isa19.model.Lekar;
 import com.isa.isa19.model.Specijalizacija;
 import com.isa.isa19.model.StatusKorisnika;
 import com.isa.isa19.model.Usluga;
+import com.isa.isa19.service.KlinikaSevice;
 import com.isa.isa19.service.KorisnikService;
 import com.isa.isa19.service.UslugaService;
 import com.isa.isa19.util.DateChecker;
@@ -59,16 +60,16 @@ public class KorisnikController {
 
 	@GetMapping(value = "/lekari")
 	@PreAuthorize("hasAuthority('PACIJENT')")
-	public ResponseEntity<List<LekarDTO>> getLekariKlinike(@RequestParam String idKlinike, @RequestParam String spec,
+	public ResponseEntity<List<LekarDTO>> getLekariKlinike(@RequestParam Long idKlinike, @RequestParam String spec,
 			@RequestParam String date) {
 		if (spec.isEmpty() || date.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 		LocalDate specifiedDate;
 		if (date.length() == 10) {
-			specifiedDate= DateChecker.parseChoppedDateToLocalDate(date);
+			specifiedDate = DateChecker.parseChoppedDateToLocalDate(date);
 		} else {
-			 specifiedDate = DateChecker.parseToLocalDate(date);
+			specifiedDate = DateChecker.parseToLocalDate(date);
 		}
 
 		List<LekarDTO> lekariDTO = korisnikService.findLekarBySpecAndDate(idKlinike, Specijalizacija.valueOf(spec),
@@ -82,36 +83,10 @@ public class KorisnikController {
 
 	@GetMapping(value = "/lekari/all")
 	@PreAuthorize("hasAuthority('PACIJENT')")
-	public ResponseEntity<List<LekarDTO>> getLekariKlinikeAll(@RequestParam String idKlinike) {
-		List<Lekar> lekari = korisnikService.findByIdKlinika(idKlinike);
+	public ResponseEntity<List<LekarDTO>> getLekariKlinikeAll(@RequestParam Long idKlinike) {
 
-		List<LekarDTO> lekariDTO = new ArrayList<>();
-		for (Lekar lekar : lekari) {
-			Optional<Usluga> usluga = uslugaService.findUsluga(lekar.getSpecijalizacija().name(), idKlinike);
-
-			if (!usluga.isPresent()) {
-				lekariDTO.add(new LekarDTO(lekar));
-			} else {
-				lekariDTO.add(new LekarDTO(lekar, usluga.get().getCena()));
-			}
-		}
+		List<LekarDTO> lekariDTO = korisnikService.findByKlinika(idKlinike);
 		return new ResponseEntity<>(lekariDTO, HttpStatus.OK);
-	}
-
-	@GetMapping
-	@PreAuthorize("hasAuthority('PACIJENT')")
-	public ResponseEntity<List<KorisnikDTO>> getKorisnikPage(Pageable page) {
-
-		// page object holds data about pagination and sorting
-		// the object is created based on the url parameters "page", "size" and "sort"
-		Page<Korisnik> kroisnici = korisnikService.findAll(page);
-
-		List<KorisnikDTO> korisniciDTO = new ArrayList<>();
-		for (Korisnik k : kroisnici) {
-			korisniciDTO.add(new KorisnikDTO(k));
-		}
-
-		return new ResponseEntity<>(korisniciDTO, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/{email}")
@@ -129,48 +104,32 @@ public class KorisnikController {
 	@PostMapping(consumes = "application/json")
 	@PreAuthorize("hasAuthority('PACIJENT')")
 	public ResponseEntity<KorisnikDTO> saveKorisnik(@RequestBody KorisnikDTO korisnikDTO) {
+		
+		KorisnikDTO resultKorisnikDTO = korisnikService.saveKorisnik(korisnikDTO);
 
-		Korisnik korisnik = new Korisnik();
-		korisnik.setEmail(korisnikDTO.getEmail());
-		korisnik.setLozinka(korisnikDTO.getLozinka());
-		korisnik.setIme(korisnikDTO.getIme());
-		korisnik.setPrezime(korisnikDTO.getPrezime());
-		korisnik.setUlica(korisnikDTO.getUlica());
-		korisnik.setBrojUlice(korisnikDTO.getBrojUlice());
-		korisnik.setGrad(korisnikDTO.getGrad());
-		korisnik.setDrzava(korisnikDTO.getDrzava());
-		korisnik.setBrojTelefona(korisnikDTO.getBrojTelefona());
-		korisnik.setJmbg(korisnikDTO.getJmbg());
-		korisnik.setStatusKorisnika(StatusKorisnika.NOT_ACTIVATED);
-		korisnik = korisnikService.save(korisnik);
-		return new ResponseEntity<>(new KorisnikDTO(korisnik), HttpStatus.CREATED);
+		return new ResponseEntity<>(resultKorisnikDTO, HttpStatus.CREATED);
 	}
 
 	@PutMapping(consumes = "application/json", value = "/{email}")
 	@PreAuthorize("hasAuthority('PACIJENT')")
 	public ResponseEntity<?> updateKorisnik(@PathVariable String email, @RequestBody KorisnikDTO korisnikDTO) {
-
-		Optional<Korisnik> korisnik = korisnikService.findByEmail(email);
-
-		if (!korisnik.isPresent()) {
+		
+		
+		Optional<KorisnikDTO> resultKorisnikDTO = korisnikService.updateKorisnik(email, korisnikDTO);
+		
+		if (!resultKorisnikDTO.isPresent()) {
 			return new ResponseEntity<>(new ResponseMessage("Fail -> This user does not exit!"), HttpStatus.NOT_FOUND);
 		}
 
-		korisnik.get().setIme(korisnikDTO.getIme());
-		korisnik.get().setPrezime(korisnikDTO.getPrezime());
-		korisnik.get().setUlica(korisnikDTO.getUlica());
-		korisnik.get().setBrojUlice(korisnikDTO.getBrojUlice());
-		korisnik.get().setGrad(korisnikDTO.getGrad());
-		korisnik.get().setDrzava(korisnikDTO.getDrzava());
-		korisnik.get().setBrojTelefona(korisnikDTO.getBrojTelefona());
-		Korisnik k = korisnik.get();
-		k = korisnikService.save(k);
-		return new ResponseEntity<>(new KorisnikDTO(k), HttpStatus.OK);
+		return new ResponseEntity<>(resultKorisnikDTO.get(), HttpStatus.OK);
 	}
 
 	@PutMapping(consumes = "application/json", value = "/pass/{email}")
 	@PreAuthorize("hasAuthority('PACIJENT')")
 	public ResponseEntity<?> changePassword(@PathVariable String email, @RequestBody LozinkeDTO lozinkeDTO) {
+		
+//		TODO proveri ovde ili u servsImp
+//		Optional<KorisnikDto> resultKorisnikDTO = korisnikService.changePassword(email, lozinkeDTO);
 
 		Optional<Korisnik> korisnik = korisnikService.findByEmail(email);
 
@@ -182,12 +141,11 @@ public class KorisnikController {
 			return new ResponseEntity<>(new ResponseMessage("Fail -> old password is wrong!"), HttpStatus.BAD_REQUEST);
 
 		}
-		System.out.println("/*/*/*/*/*/*/*/**/**/*/*/*/*/*/*/*/*/*/* Pre:" + korisnik.get().getLozinka());
 		korisnik.get().setLozinka(encoder.encode(lozinkeDTO.getLozinkaNova()));
-		System.out.println("/*/*/*/*/*/*/*/**/**/*/*/*/*/*/*/*/*/*/* Posle: " + korisnik.get().getLozinka());
 		Korisnik k = korisnik.get();
 		k = korisnikService.save(k);
 		return new ResponseEntity<>(new KorisnikDTO(k), HttpStatus.OK);
+		
 	}
 
 }

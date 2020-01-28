@@ -22,14 +22,12 @@ public interface KlinikaSevice {
 
 	Klinika save(Klinika Klinika);
 
-	void remove(Long id);
-
-	Page<Klinika> findAll(Pageable page);
-
 	List<Klinika> findClincSpec(String spec);
 
 	List<KlinikaDTO> findBySpecAndDate(Specijalizacija specijalizacija, LocalDate date);
 	
 	List<KlinikaDTO> convertDataToDTO(Collection<Klinika> klinike);
+	
+	Klinika updateKlinikaOcena(Klinika k);
 	
 }
