@@ -6,7 +6,10 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import com.isa.isa19.model.Lekar;
 import com.isa.isa19.model.Pregled;
+import com.isa.isa19.model.Specijalizacija;
+import com.isa.isa19.model.StatusPregledaOperacije;
 
 public interface PregledRepo extends JpaRepository<Pregled, Long>{
 
@@ -21,5 +24,7 @@ public interface PregledRepo extends JpaRepository<Pregled, Long>{
 
 	@Query(value = "SELECT * FROM test_test.pregled where id_klinika = ?1 and ocena_kilinike is not null", nativeQuery= true)
 	List<Pregled>findByIdKlinikaAndOcenaKlinikaNotNull(Long idKlinika);
+	
+	List<Pregled> findByStatus(StatusPregledaOperacije status);
 
 }

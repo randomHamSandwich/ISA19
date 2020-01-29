@@ -160,6 +160,53 @@ insert into operacija (id_pacijent, id_klinika, status , vreme_pocetka, vreme_za
 insert into lekar_operacija (id_lekar, id_operacija) values (3,2);
 insert into lekar_operacija (id_lekar, id_operacija) values (4,2);
 
+INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status) 
+values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  8 HOUR , CURDATE()  + INTERVAL 25 DAY  + INTERVAL  8 HOUR + INTERVAL 30 MINUTE, 3, 10,    'BRZI_PREGLED'); 
+
+INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status) 
+values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  8 HOUR + INTERVAL 30 MINUTE, CURDATE()  + INTERVAL 25 DAY  + INTERVAL  9 HOUR , 3, 10,    'BRZI_PREGLED'); 
+
+INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status) 
+values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  9 HOUR , CURDATE()  + INTERVAL 25 DAY  + INTERVAL  9 HOUR  + INTERVAL 30 MINUTE, 3, 10,    'BRZI_PREGLED'); 
+
+INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status) 
+values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  9 HOUR + INTERVAL 30 MINUTE, CURDATE()  + INTERVAL 25 DAY  + INTERVAL  10 HOUR , 3, 10,    'BRZI_PREGLED'); 
+
+INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status) 
+values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  10 HOUR , CURDATE()  + INTERVAL 25 DAY  + INTERVAL  10 HOUR + INTERVAL 30 MINUTE, 3, 10,    'BRZI_PREGLED'); 
+
+INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status) 
+values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  10 HOUR + INTERVAL 30 MINUTE, CURDATE()  + INTERVAL 25 DAY  + INTERVAL  11 HOUR , 3, 10,    'BRZI_PREGLED'); 
+
+INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status) 
+values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  11 HOUR , CURDATE()  + INTERVAL 25 DAY  + INTERVAL  11 HOUR + INTERVAL 30 MINUTE, 3, 10,    'BRZI_PREGLED'); 
+
+INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status) 
+values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  11 HOUR + INTERVAL 30 MINUTE, CURDATE()  + INTERVAL 25 DAY  + INTERVAL  12 HOUR , 3, 10,    'BRZI_PREGLED'); 
+
+INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status) 
+values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  12 HOUR , CURDATE()  + INTERVAL 25 DAY  + INTERVAL  12 HOUR + INTERVAL 30 MINUTE, 3, 10,    'BRZI_PREGLED'); 
+
+INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status) 
+values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  12 HOUR + INTERVAL 30 MINUTE, CURDATE()  + INTERVAL 25 DAY  + INTERVAL  13 HOUR , 3, 10,    'BRZI_PREGLED'); 
+
+INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status) 
+values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  13 HOUR , CURDATE()  + INTERVAL 25 DAY  + INTERVAL  13 HOUR + INTERVAL 30 MINUTE, 3, 10,    'BRZI_PREGLED'); 
+
+INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status) 
+values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  13 HOUR + INTERVAL 30 MINUTE, CURDATE()  + INTERVAL 25 DAY  + INTERVAL  14 HOUR , 3, 10,    'BRZI_PREGLED'); 
+
+INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status) 
+values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  14 HOUR , CURDATE()  + INTERVAL 25 DAY  + INTERVAL  14 HOUR + INTERVAL 30 MINUTE, 3, 10,    'BRZI_PREGLED'); 
+
+INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status) 
+values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  14 HOUR + INTERVAL 30 MINUTE, CURDATE()  + INTERVAL 25 DAY  + INTERVAL  15 HOUR , 3, 10,    'BRZI_PREGLED'); 
+
+INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status) 
+values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  15 HOUR , CURDATE()  + INTERVAL 25 DAY  + INTERVAL  15 HOUR + INTERVAL 30 MINUTE, 3, 10,    'BRZI_PREGLED'); 
+
+INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status) 
+values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  15 HOUR + INTERVAL 30 MINUTE, CURDATE()  + INTERVAL 25 DAY  + INTERVAL  16 HOUR , 3, 10,    'BRZI_PREGLED'); 
 
 
 

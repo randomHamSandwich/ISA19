@@ -99,7 +99,7 @@ public class KorisnikServiceImpl implements KorisnikService {
 
 		for (Lekar lekar : lekari) {
 			boolean imaOdsustvo = DateChecker.daLiLekarImaOdsustvo(lekar, specifiedDate);
-			boolean imaTermin = DateChecker.daLiLekarImaPreglede(lekar, specifiedDate);
+			boolean imaTermin = DateChecker.daLiLekarImaZakazaneIliBrzePreglede(lekar, specifiedDate);
 			boolean imaOperaciju = DateChecker.daLiLekarImaOperaciju(lekar, specifiedDate);
 			System.out.println("\n\n+++++++++++++++++++++++++++++++  imaOdsustvo:" + imaOdsustvo + " imaTermin: "
 					+ imaTermin + " imaOperaciju: " + imaOperaciju);

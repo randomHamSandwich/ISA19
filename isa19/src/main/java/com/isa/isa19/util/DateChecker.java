@@ -30,37 +30,53 @@ public class DateChecker {
 	}
 
 	// radno vreme je od 8 do 16 pregledi traju 30 min
-	public static boolean daLiLekarImaPreglede(Lekar lekar, LocalDate specifiedDate) {
+	public static boolean daLiLekarImaZakazaneIliBrzePreglede(Lekar lekar, LocalDate specifiedDate) {
 		boolean result = false;
 		int pregledCounter = 0;
 		for (Pregled pregled : lekar.getPregled()) {
 
-			if (pregled.getStatus().equals(StatusPregledaOperacije.ZAKAZAN_PREGLED)
+			if ((pregled.getStatus().equals(StatusPregledaOperacije.ZAKAZAN_PREGLED) || pregled.getStatus().equals(StatusPregledaOperacije.BRZI_PREGLED))
 					&& isDateBetweenDate(pregled.getVremePocetka().toLocalDate(),
 							pregled.getVremeZavrsetka().toLocalDate(), specifiedDate)) {
 				pregledCounter++;
 			}
 		}
-		System.out.println("-------------- pregledCounter kje :" + pregledCounter);
+//		System.out.println("-------------- pregledCounter kje :" + pregledCounter);
 		if (pregledCounter >= 16) {
 			result = true;
 		}
 		return result;
 	}
 	
+//	public static boolean daliLekarImaBrziPregled(Lekar lekar, LocalDate specifiedDate) {
+//		boolean result = false;
+//		
+//		for(Pregled pregled :lekar.getPregled()) {
+//			if(pregled.getStatus().equals(StatusPregledaOperacije.BRZI_PREGLED)
+//					&& pregled.getVremePocetka().equals(specifiedDate)) {
+//				result =true;
+//				break;
+//			}
+//		}
+//		
+//		return result;
+//	}
+//	
 	
-	public static boolean daLiLekarImaZakazanPregled(Lekar lekar, LocalDateTime start) {
+	public static boolean daLiLekarImaZakazanIliBrziPregledTermin(Lekar lekar, LocalDateTime start) {
 		boolean result =false;
 		for(Pregled pregled : lekar.getPregled()) {
-			if(pregled.getStatus().equals(StatusPregledaOperacije.ZAKAZAN_PREGLED)
+			if((pregled.getStatus().equals(StatusPregledaOperacije.ZAKAZAN_PREGLED) ||  pregled.getStatus().equals(StatusPregledaOperacije.BRZI_PREGLED))
 					&& pregled.getVremePocetka().equals(start)) {
 				result= true;
 				break;
 			}
 		}
 		return result;
-		
 	}
+	
+	
+
 
 	public static boolean daLiLekarImaOperaciju(Lekar lekar, LocalDate specifiedDate) {
 		boolean result = false;
@@ -73,6 +89,8 @@ public class DateChecker {
 		}
 		return result;
 	}
+
+
 
 	public static boolean isDateBetweenDate(LocalDate startDate, LocalDate endDate, LocalDate specifiedDate) {
 		return (startDate.isBefore(specifiedDate) && endDate.isAfter(specifiedDate)) || startDate.equals(specifiedDate)
@@ -103,6 +121,7 @@ public class DateChecker {
 	public static LocalDateTime parseChoppedDateToLocalDateAndTime(String date, String time) {
 		return LocalDateTime.parse(date+" " + time, DateTimeFormatter.ofPattern("dd-MM-yyyy HH mm"));
 	}
+
 
 
 

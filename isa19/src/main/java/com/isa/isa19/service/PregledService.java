@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import com.isa.isa19.dto.BrziPregledDTO;
 import com.isa.isa19.dto.PregledDTO;
 import com.isa.isa19.dto.PregledZakaziDTO;
 import com.isa.isa19.model.Pregled;
@@ -36,5 +37,9 @@ public interface PregledService {
 	public Optional<PregledDTO> oceniLekaraPregled(PregledDTO pregledDTO);
 
 	public Optional<PregledDTO> oceniKlinikuPregled(PregledDTO pregledDTO);
+
+	public List<PregledDTO> getAllBrziPregledi();
+
+	public Optional<PregledDTO> zakaziBrziPregled(BrziPregledDTO brziPregldDTO);
 	
 }

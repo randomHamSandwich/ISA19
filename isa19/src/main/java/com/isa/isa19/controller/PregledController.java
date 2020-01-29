@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.isa.isa19.dto.BrziPregledDTO;
 import com.isa.isa19.dto.PregledDTO;
 import com.isa.isa19.dto.PregledZakaziDTO;
 import com.isa.isa19.service.KlinikaSevice;
@@ -31,6 +32,31 @@ public class PregledController {
 
 	@Autowired
 	private PregledService pregledService;
+	
+	
+	@GetMapping(value = "/brzi")
+	@PreAuthorize("hasAuthority('PACIJENT')")
+	public ResponseEntity<List<PregledDTO>> getAllBrziPregledi() {
+
+		List<PregledDTO> preglediDTO = pregledService.getAllBrziPregledi();
+
+		return new ResponseEntity<>(preglediDTO, HttpStatus.OK);
+	}
+	
+	@PostMapping(consumes = "application/json", value = "/brzi")
+	@PreAuthorize("hasAuthority('PACIJENT')")
+	public ResponseEntity<PregledDTO> zakaziBrziPregled(	@RequestBody BrziPregledDTO brziPregldDTO) {
+
+		Optional<PregledDTO> resultPregledDTO = pregledService.zakaziBrziPregled(brziPregldDTO);
+
+		if (resultPregledDTO.isPresent()) {
+			return new ResponseEntity<>(resultPregledDTO.get(), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+
 
 	@GetMapping(value = "/izvrseni")
 	@PreAuthorize("hasAuthority('PACIJENT')")

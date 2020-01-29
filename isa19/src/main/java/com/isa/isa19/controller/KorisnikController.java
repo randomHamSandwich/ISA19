@@ -128,7 +128,7 @@ public class KorisnikController {
 	@PreAuthorize("hasAuthority('PACIJENT')")
 	public ResponseEntity<?> changePassword(@PathVariable String email, @RequestBody LozinkeDTO lozinkeDTO) {
 		
-//		TODO proveri ovde ili u servsImp
+//		TODO proveri ovde ili u servsImp jer ja saljem <?> koji moze biti message response
 //		Optional<KorisnikDto> resultKorisnikDTO = korisnikService.changePassword(email, lozinkeDTO);
 
 		Optional<Korisnik> korisnik = korisnikService.findByEmail(email);
