@@ -13,7 +13,7 @@ public interface OperacijaRepo extends JpaRepository<Operacija, Long> {
 //	@Query(value="SELECT * FROM test_test.operacija where id_lekar=?1 ", nativeQuery=true)
 //	List<Operacija> findByLekar(String idLekar);
 
-	@Query(value = "SELECT * FROM test_test.operacija where id_klinika =2 and ocena_klinke is not null", nativeQuery = true)
+	@Query(value = "SELECT * FROM test_test.operacija where id_klinika =?1 and ocena_klinke is not null", nativeQuery = true)
 	List<Operacija> findByIdKlinikaAndOcenaKlinikaNotNull(Long idKlinika);
 
 	@Query(value = "SELECT op.* from operacija op inner join lekar_operacija on op.id_operacija= lekar_operacija.id_operacija where lekar_operacija.id_lekar= ?1 and op.ocena_lekara is not null", nativeQuery = true)

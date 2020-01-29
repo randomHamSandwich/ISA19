@@ -31,7 +31,7 @@ public class PregledServiceImp implements PregledService {
 
 	@Autowired
 	private KorisnikService korisnikService;
-	
+
 	@Autowired
 	private KlinikaSevice klinikaService;
 
@@ -85,7 +85,9 @@ public class PregledServiceImp implements PregledService {
 		List<PregledDTO> preglediDTO = new ArrayList<>();
 		for (Pregled p : pregledi) {
 			preglediDTO.add(new PregledDTO(p, p.getVremePocetka().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")),
-					p.getVremeZavrsetka().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
+					p.getVremeZavrsetka().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), p.getLekar().getIme(),
+					p.getLekar().getPrezime(), p.getDijagnoza().getNazivDijagnoza(),
+					p.getLekar().getSpecijalizacija().toString(), p.getKlinika().getNaziv()));
 		}
 		return preglediDTO;
 	}
@@ -97,7 +99,9 @@ public class PregledServiceImp implements PregledService {
 		List<PregledDTO> preglediDTO = new ArrayList<>();
 		for (Pregled p : pregledi) {
 			preglediDTO.add(new PregledDTO(p, p.getVremePocetka().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")),
-					p.getVremeZavrsetka().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
+					p.getVremeZavrsetka().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), p.getLekar().getIme(),
+					p.getLekar().getPrezime(), p.getLekar().getSpecijalizacija().toString(),
+					p.getKlinika().getNaziv(), p.getKlinika().getGrad(), p.getKlinika().getUlica(), p.getKlinika().getBrojUlice() ));
 		}
 		return preglediDTO;
 	}
@@ -152,7 +156,7 @@ public class PregledServiceImp implements PregledService {
 	@Override
 	@Transactional
 	public Optional<PregledDTO> oceniLekaraPregled(PregledDTO pregledDTO) {
-		
+
 		Optional<Pregled> pregled = pregledRepo.findById(pregledDTO.getIdPregleda());
 		if (!pregled.isPresent() || pregled.get().getStatus() != StatusPregledaOperacije.IZVRSEN_PREGLED
 				|| pregledDTO.getOcenaLekara() == null
@@ -167,16 +171,17 @@ public class PregledServiceImp implements PregledService {
 		p = pregledRepo.save(p);
 
 //		u ovom momentu update golobalnu ocenu LEKARA- nalazi se u svakom lekaru
-		Lekar lekar = korisnikService.findLekarById(pregledDTO.getIdLekara());
-		korisnikService.updateLekarOcena(lekar);
-
+//		Lekar lekar = korisnikService.findLekarById(pregledDTO.getIdLekara());
+//		korisnikService.updateLekarOcena(lekar);
+		korisnikService.updateLekarOcena(p.getLekar());
+		
 		return Optional.of(new PregledDTO(p, null, null));
 	}
 
 	@Override
 	@Transactional
 	public Optional<PregledDTO> oceniKlinikuPregled(PregledDTO pregledDTO) {
-		
+
 		Optional<Pregled> pregled = pregledRepo.findById(pregledDTO.getIdPregleda());
 
 		if (!pregled.isPresent() || pregled.get().getStatus() != StatusPregledaOperacije.IZVRSEN_PREGLED
@@ -193,8 +198,9 @@ public class PregledServiceImp implements PregledService {
 		p = pregledRepo.save(p);
 
 //		 u ovom momentu update golobalnu ocenu KLINIKE- nalazi se u svakoj klinici
-		Lekar lekar = korisnikService.findLekarById(pregledDTO.getIdLekara());
-		klinikaService.updateKlinikaOcena(lekar.getKlinika());
+//		Lekar lekar = korisnikService.findLekarById(pregledDTO.getIdLekara());
+//		klinikaService.updateKlinikaOcena(lekar.getKlinika());
+		klinikaService.updateKlinikaOcena(p.getKlinika());
 
 		return Optional.of(new PregledDTO(p, null, null));
 	}

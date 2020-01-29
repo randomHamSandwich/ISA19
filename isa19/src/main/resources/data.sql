@@ -143,13 +143,23 @@ values(CURDATE() - INTERVAL 3 MONTH + INTERVAL  9 HOUR + INTERVAL 30 MINUTE, CUR
 INSERT INTO pregled (vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra,id_pacijent,status, id_dijagnoza, id_klinika) 
 values(CURDATE() - INTERVAL 4 MONTH + INTERVAL  10 HOUR + INTERVAL 30 MINUTE, CURDATE() - INTERVAL 2 MONTH + INTERVAL  11 HOUR , 5, 14, 11,  'IZVRSEN_PREGLED', 2, 2); 
 
-INSERT INTO pregled (vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra,id_pacijent,status) 
-values(CURDATE() + INTERVAL 3 DAY + INTERVAL  8 HOUR , CURDATE()  + INTERVAL 3 DAY  + INTERVAL  8 HOUR + INTERVAL 30 MINUTE, 4, 10, 11,  'ZAKAZAN_PREGLED'); 
-INSERT INTO pregled (vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra,id_pacijent,status) 
-values(CURDATE() + INTERVAL 3 DAY + INTERVAL  8 HOUR + INTERVAL 30 MINUTE, CURDATE()  + INTERVAL 3 DAY  + INTERVAL  9 HOUR , 4, 10, 11,  'ZAKAZAN_PREGLED'); 
+INSERT INTO pregled (vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra,id_pacijent,status, id_klinika) 
+values(CURDATE() + INTERVAL 3 DAY + INTERVAL  8 HOUR , CURDATE()  + INTERVAL 3 DAY  + INTERVAL  8 HOUR + INTERVAL 30 MINUTE, 4, 10, 11,  'ZAKAZAN_PREGLED',1); 
+INSERT INTO pregled (vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra,id_pacijent,status, id_klinika) 
+values(CURDATE() + INTERVAL 3 DAY + INTERVAL  8 HOUR + INTERVAL 30 MINUTE, CURDATE()  + INTERVAL 3 DAY  + INTERVAL  9 HOUR , 4, 10, 11,  'ZAKAZAN_PREGLED',1); 
 
 
 INSERT INTO karton (krvna_grupa,tezina,visina,id_pacijent) values('A+', 89, 180, 11);
 INSERT INTO karton (krvna_grupa,tezina,visina,id_pacijent) values('AB-', 67, 168, 12);
 INSERT INTO karton (krvna_grupa,tezina,visina,id_pacijent) values('B+', 77, 177, 13);
+
+insert into operacija (id_pacijent, id_klinika, status , vreme_pocetka, vreme_zavrsetka) value (11, 2, 'IZVRSENA_OPERACIJA', CURDATE() - INTERVAL 6 MONTH + INTERVAL  9 HOUR, CURDATE() - INTERVAL 6 MONTH + INTERVAL  13 HOUR);
+insert into lekar_operacija (id_lekar, id_operacija) values (5,1);
+insert into lekar_operacija (id_lekar, id_operacija) values (6,1);
+insert into operacija (id_pacijent, id_klinika, status , vreme_pocetka, vreme_zavrsetka) value (11, 1, 'IZVRSENA_OPERACIJA', CURDATE() - INTERVAL 3 MONTH + INTERVAL 3 Day+ INTERVAL  14 HOUR, CURDATE() - INTERVAL 3 MONTH +INTERVAL 3 Day+ INTERVAL  13 HOUR);
+insert into lekar_operacija (id_lekar, id_operacija) values (3,2);
+insert into lekar_operacija (id_lekar, id_operacija) values (4,2);
+
+
+
 

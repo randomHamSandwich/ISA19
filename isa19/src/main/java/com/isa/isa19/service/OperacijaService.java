@@ -30,4 +30,8 @@ public interface OperacijaService {
 
 	public List<OperacijaDTO> getAllZakazaneOperacije(Long idKorisnik);
 
+	public Optional<OperacijaDTO> oceniLekaraPregled(OperacijaDTO operacijaDTO);
+
+	public Optional<OperacijaDTO> oceniKlinikuPregled(OperacijaDTO operacijaDTO);
+
 }

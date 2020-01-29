@@ -12,6 +12,13 @@ public class KlinikaDTO {
 	private String drzava;
 	private String opis;
 	private Float ocenaKlinike;
+	private Float cena;
+	
+	public KlinikaDTO(Klinika k, Float cena) {
+		this(k);
+		this.cena=cena;
+	}
+	
 
 	public KlinikaDTO(Klinika k) {
 		this(k.getIdKlinika(), k.getNaziv(), k.getUlica(), k.getBrojUlice(), k.getGrad(), k.getDrzava(), k.getOpis(),
@@ -98,5 +105,15 @@ public class KlinikaDTO {
 	public void setOcenaKlinike(Float ocenaKlinike) {
 		this.ocenaKlinike = ocenaKlinike;
 	}
+
+	public Float getCena() {
+		return cena;
+	}
+
+	public void setCena(Float cena) {
+		this.cena = cena;
+	}
+	
+	
 
 }

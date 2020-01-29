@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.isa.isa19.dto.OperacijaDTO;
+import com.isa.isa19.dto.PregledDTO;
 import com.isa.isa19.model.Operacija;
 import com.isa.isa19.model.StatusPregledaOperacije;
 import com.isa.isa19.service.OperacijaService;
@@ -50,6 +51,34 @@ public class OperacijaController {
 		List<OperacijaDTO> resultOperacijeDTO = operacijaService.getAllZakazaneOperacije(idKorisnik);
 
 		return new ResponseEntity<>(resultOperacijeDTO, HttpStatus.OK);
+	}
+	
+	@PutMapping(consumes = "application/json", value = "/oceniLekara")
+	@PreAuthorize("hasAuthority('PACIJENT')")
+	public ResponseEntity<OperacijaDTO> oceniLekaraPregled(@RequestBody OperacijaDTO operacijaDTO) {
+		
+		Optional<OperacijaDTO> operacijaResult = operacijaService.oceniLekaraPregled(operacijaDTO);
+		
+		if(operacijaResult.isPresent()) {
+			return new ResponseEntity<>(operacijaResult.get(), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+
+	}
+	
+	@PutMapping(consumes = "application/json", value = "/oceniKliniku")
+	@PreAuthorize("hasAuthority('PACIJENT')")
+	public ResponseEntity<OperacijaDTO> oceniKlinikuPregled(@RequestBody OperacijaDTO operacijaDTO) {
+		
+		Optional<OperacijaDTO> operacijaResult = operacijaService.oceniKlinikuPregled(operacijaDTO);
+
+		if(operacijaResult.isPresent()) {
+			return new ResponseEntity<>(operacijaResult.get(), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+
 	}
 
 }

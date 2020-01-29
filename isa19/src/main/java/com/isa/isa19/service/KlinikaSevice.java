@@ -26,8 +26,10 @@ public interface KlinikaSevice {
 
 	List<KlinikaDTO> findBySpecAndDate(Specijalizacija specijalizacija, LocalDate date);
 	
-	List<KlinikaDTO> convertDataToDTO(Collection<Klinika> klinike);
+	List<KlinikaDTO> getSlobodneKlinike(Collection<Klinika> klinike, Specijalizacija specijalizacija);
 	
 	Klinika updateKlinikaOcena(Klinika k);
+
+	List<KlinikaDTO> convertDataToDTO(Collection<Klinika> klinike);
 	
 }

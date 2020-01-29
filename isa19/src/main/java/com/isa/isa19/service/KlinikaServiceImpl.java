@@ -20,6 +20,7 @@ import com.isa.isa19.model.Lekar;
 import com.isa.isa19.model.Operacija;
 import com.isa.isa19.model.Pregled;
 import com.isa.isa19.model.Specijalizacija;
+import com.isa.isa19.model.Usluga;
 import com.isa.isa19.repository.KlinikaRepo;
 import com.isa.isa19.util.DateChecker;
 
@@ -81,16 +82,23 @@ public class KlinikaServiceImpl implements KlinikaSevice {
 			}
 		}
 
-		return convertDataToDTO(slobodneKlinike);
+		return getSlobodneKlinike(slobodneKlinike, specijalizacija);
 
 	}
 
 	@Override
-	public List<KlinikaDTO> convertDataToDTO(Collection<Klinika> klinike) {
+	public List<KlinikaDTO> getSlobodneKlinike(Collection<Klinika> klinike, Specijalizacija specijalizacija) {
 
 		List<KlinikaDTO> klinikeDTO = new ArrayList<>();
 		for (Klinika k : klinike) {
-			klinikeDTO.add(new KlinikaDTO(k));
+			Float cena=null;
+			for (Usluga usluga: k.getUsluga()) {
+				if(usluga.getNazivUsluge().equals(specijalizacija.toString())) {
+					cena =usluga.getCena();
+					break;
+				}
+			}
+			klinikeDTO.add(new KlinikaDTO(k, cena));
 		}
 		return klinikeDTO;
 	}
@@ -110,6 +118,17 @@ public class KlinikaServiceImpl implements KlinikaSevice {
 		}
 		k.setOcenaKlinike(konacnaOcenaKlinika / (operacije.size() + pregledi.size()));
 		return klinikaRepo.save(k);
+		
+	}
+	
+	@Override
+	public List<KlinikaDTO> convertDataToDTO(Collection<Klinika> klinike) {
+
+		List<KlinikaDTO> klinikeDTO = new ArrayList<>();
+		for (Klinika k : klinike) {
+			klinikeDTO.add(new KlinikaDTO(k));
+		}
+		return klinikeDTO;
 	}
 
 }
