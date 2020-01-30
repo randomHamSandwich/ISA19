@@ -141,6 +141,7 @@ public class KorisnikController {
 			return new ResponseEntity<>(new ResponseMessage("Fail -> old password is wrong!"), HttpStatus.BAD_REQUEST);
 
 		}
+		//save je sam po sebi transactional
 		korisnik.get().setLozinka(encoder.encode(lozinkeDTO.getLozinkaNova()));
 		Korisnik k = korisnik.get();
 		k = korisnikService.save(k);

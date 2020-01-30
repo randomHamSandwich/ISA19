@@ -67,6 +67,13 @@ public class KorisnikServiceImpl implements KorisnikService {
 	public Lekar save(Lekar lekar) {
 		return korisnikRepo.save(lekar);
 	}
+	
+	@Override
+	@Transactional
+	public Pacijent save(Pacijent pacijent) {
+		return korisnikRepo.save(pacijent);
+	}
+
 
 	@Override
 	@Transactional
@@ -238,5 +245,6 @@ public class KorisnikServiceImpl implements KorisnikService {
 //		
 		return null;
 	}
+
 
 }

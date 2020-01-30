@@ -27,6 +27,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Version;
+
 @Entity
 @Inheritance(strategy=SINGLE_TABLE)
 @DiscriminatorColumn(name="tipp", discriminatorType=STRING)
@@ -35,6 +37,11 @@ public class Korisnik {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idOsoba;
+	
+    @Version
+    @Column( nullable = false, columnDefinition = "int default 0")
+    private int version;
+	
 	@Column(unique = true, length = 50)
 	private String email;
 //    @NotBlank
@@ -202,6 +209,14 @@ public class Korisnik {
 
 	public void setKlinika(Klinika klinika) {
 		this.klinika = klinika;
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 

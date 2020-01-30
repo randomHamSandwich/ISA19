@@ -40,6 +40,6 @@ public interface PregledService {
 
 	public List<PregledDTO> getAllBrziPregledi();
 
-	public Optional<PregledDTO> zakaziBrziPregled(BrziPregledDTO brziPregldDTO);
+	public Optional<PregledDTO> zakaziBrziPregledIPosaljiMail(BrziPregledDTO brziPregldDTO);
 	
 }

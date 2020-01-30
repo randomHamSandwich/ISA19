@@ -5,9 +5,8 @@
  ***********************************************************************/
 package com.isa.isa19.model;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -21,8 +20,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.Version;
+
 
 @Entity
 public class Pregled {
@@ -30,6 +29,10 @@ public class Pregled {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idPregleda;
+	
+    @Version
+    @Column( name = "version",nullable = false, columnDefinition = "int default 0")
+    private int version;
 
 	@Column(nullable = true)
 	private LocalDateTime vremePocetka;
@@ -244,6 +247,13 @@ public class Pregled {
 	public void setKlinika(Klinika klinika) {
 		this.klinika = klinika;
 	}
+	public int getVersion() {
+		return version;
+	}
+	public void setVersion(int version) {
+		this.version = version;
+	}
+	
 	
 	
 

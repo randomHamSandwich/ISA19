@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.isa.isa19.dto.BrziPregledDTO;
 import com.isa.isa19.dto.PregledDTO;
 import com.isa.isa19.dto.PregledZakaziDTO;
+import com.isa.isa19.service.EmailService;
 import com.isa.isa19.service.KlinikaSevice;
 import com.isa.isa19.service.KorisnikService;
 import com.isa.isa19.service.PregledService;
@@ -32,6 +33,10 @@ public class PregledController {
 
 	@Autowired
 	private PregledService pregledService;
+	
+	@Autowired
+	private EmailService emailSerivce;
+	
 	
 	
 	@GetMapping(value = "/brzi")
@@ -47,9 +52,10 @@ public class PregledController {
 	@PreAuthorize("hasAuthority('PACIJENT')")
 	public ResponseEntity<PregledDTO> zakaziBrziPregled(	@RequestBody BrziPregledDTO brziPregldDTO) {
 
-		Optional<PregledDTO> resultPregledDTO = pregledService.zakaziBrziPregled(brziPregldDTO);
+		Optional<PregledDTO> resultPregledDTO = pregledService.zakaziBrziPregledIPosaljiMail(brziPregldDTO);
 
 		if (resultPregledDTO.isPresent()) {
+			
 			return new ResponseEntity<>(resultPregledDTO.get(), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

@@ -35,6 +35,9 @@ public class PregledServiceImp implements PregledService {
 
 	@Autowired
 	private KlinikaSevice klinikaService;
+	
+	@Autowired
+	private EmailService emailService;
 
 	@Override
 	public List<Pregled> findByIdPacijentAndStatus(Long id, String status) {
@@ -212,8 +215,8 @@ public class PregledServiceImp implements PregledService {
 		List<Pregled> pregledi =pregledRepo.findByStatus(StatusPregledaOperacije.BRZI_PREGLED);
 		for (Pregled p : pregledi ) {
 			resultPregledDTO.add(new PregledDTO(p,
-					p.getVremePocetka().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")),
-					p.getVremeZavrsetka().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), p.getLekar().getIme(),
+					p.getVremePocetka().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")),
+					p.getVremeZavrsetka().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")), p.getLekar().getIme(),
 					p.getLekar().getPrezime(), p.getLekar().getSpecijalizacija().toString(), p.getKlinika().getNaziv(),
 					p.getKlinika().getGrad(), p.getKlinika().getUlica(), p.getKlinika().getBrojUlice()));
 		}
@@ -222,7 +225,7 @@ public class PregledServiceImp implements PregledService {
 
 	@Override
 	@Transactional
-	public Optional<PregledDTO> zakaziBrziPregled(BrziPregledDTO brziPregldDTO) {
+	public Optional<PregledDTO> zakaziBrziPregledIPosaljiMail(BrziPregledDTO brziPregldDTO) {
 		
 		Optional<Pregled> pregled = pregledRepo.findById(brziPregldDTO.getIdPregleda());
 		if (!pregled.isPresent()) {
@@ -234,6 +237,8 @@ public class PregledServiceImp implements PregledService {
 		pregled.get().setStatus(StatusPregledaOperacije.ZAKAZAN_PREGLED);
 		Pregled p = pregled.get();
 		p = pregledRepo.save(p);
+		
+		emailService.sendBrziPregledMail(p);
 		
 		return Optional.of(new PregledDTO(p, p.getVremePocetka().toString(), p.getVremeZavrsetka().toString()));
 	}

@@ -6,16 +6,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.isa.isa19.dto.OperacijaDTO;
-import com.isa.isa19.dto.PregledDTO;
 import com.isa.isa19.model.Lekar;
 import com.isa.isa19.model.Operacija;
-import com.isa.isa19.model.Pregled;
 import com.isa.isa19.model.StatusPregledaOperacije;
 import com.isa.isa19.repository.OperacijaRepo;
 

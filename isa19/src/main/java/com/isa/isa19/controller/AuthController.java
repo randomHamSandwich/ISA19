@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.MailException;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -48,6 +49,9 @@ import com.isa.isa19.repository.KorisnikRepo;
 import com.isa.isa19.security.jwt.JwtProvider;
 import com.isa.isa19.security.repository.RoleRepo;
 import com.isa.isa19.security.service.UserDetailsImpl;
+import com.isa.isa19.service.EmailService;
+import com.isa.isa19.service.KartonService;
+import com.isa.isa19.service.KorisnikService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -55,12 +59,19 @@ import com.isa.isa19.security.service.UserDetailsImpl;
 public class AuthController {
 	@Autowired
 	AuthenticationManager authenticationManager;
-
+// TODO PROMENI U KORISNIK SERVICE I REPO SERVICE
+	
 	@Autowired
 	KorisnikRepo userRepository;
 	
+//	@Autowired
+//	KartonRepo kartonRepo;
+	
 	@Autowired
-	KartonRepo kartonRepo;
+	KartonService kartonService;
+	
+	@Autowired
+	KorisnikService korisnikService;
 
 	@Autowired
 	RoleRepo roleRepository;
@@ -73,6 +84,9 @@ public class AuthController {
 	
 	@Autowired
 	private Environment env;
+	
+	@Autowired
+	private EmailService emailService;
 
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
@@ -112,7 +126,6 @@ public class AuthController {
 		user.setJmbg(signUpRequest.getJmbg());
 		user.setUlica(signUpRequest.getUlica());
 		user.setStatusKorisnika(StatusKorisnika.NOT_ACTIVATED);
-
 		user.setLozinka(encoder.encode(signUpRequest.getPassword()));
 
 		Set<String> strRoles = signUpRequest.getRole();
@@ -147,22 +160,32 @@ public class AuthController {
 			}
 		});
 
+		Karton k = new Karton();
+		k.setPacijent(user);
+		user.setKarton(k);
 		user.setRoles(roles);
-		userRepository.save(user);
-		sendMail(user.getEmail());
 		
-		if(user instanceof Pacijent) {
-			Karton k = new Karton();
-			k.setPacijent(user);
-			user.setKarton(k);
-			userRepository.save(user);
-			kartonRepo.save(k);
+//		userRepository.save(user);
+//		kartonRepo.save(k);
+		korisnikService.save(user);
+		kartonService.save(k);
+		try {
+			emailService.sendMailAsync(user);
+		} catch (MailException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
+
 
 		return new ResponseEntity<>(new ResponseMessage("Activate account on your mail!"), HttpStatus.OK);
 	}
 
 	@Async
+	@Deprecated
 	public void sendMail(String recipentMail) {
 
 		LocalDate dateNow = LocalDate.now();

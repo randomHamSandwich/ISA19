@@ -26,7 +26,9 @@ public interface KorisnikService {
 
 	List<Korisnik> findAll();
 
-	Korisnik save(Korisnik pacijent);
+	Korisnik save(Korisnik korisnik);
+	
+	Pacijent save(Pacijent pacijent);
 	
 	Lekar save(Lekar lekar);
 	
