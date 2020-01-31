@@ -170,7 +170,7 @@ public class AuthController {
 		korisnikService.save(user);
 		kartonService.save(k);
 		try {
-			emailService.sendMailAsync(user);
+			emailService.sendMailActivationLink(user);
 		} catch (MailException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

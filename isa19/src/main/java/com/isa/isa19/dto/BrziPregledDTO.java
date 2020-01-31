@@ -7,7 +7,6 @@ public class BrziPregledDTO {
 
 	public BrziPregledDTO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public BrziPregledDTO(Long idPregleda, Long idPacijent) {

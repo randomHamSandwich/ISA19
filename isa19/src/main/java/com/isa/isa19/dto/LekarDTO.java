@@ -14,13 +14,22 @@ public class LekarDTO {
 	private Specijalizacija specijalizacija;
 	private Long idKlinika;
 	private String klinikaNaziv;
+	
 	private Float cena;
 	private List<String> slobodniTermini;
+	
+    private String klinikaUlica;
+	private String klinikaBrojUlice;
+	private String klinikaGrad;
+	private String klinikaDrzava;
+	private Float ocenaKlinike;
 
 	public LekarDTO(Lekar l) {
 		this(l.getIdOsoba(), l.getIme(), l.getPrezime(), l.getOcenaLekar(), l.getSpecijalizacija(),
 				l.getKlinika().getIdKlinika(), l.getKlinika().getNaziv());
 	}
+	
+
 
 	public LekarDTO(Lekar l, Float cena) {
 		this(l.getIdOsoba(), l.getIme(), l.getPrezime(), l.getOcenaLekar(), l.getSpecijalizacija(),
@@ -39,6 +48,19 @@ public class LekarDTO {
 				l.getKlinika().getIdKlinika(), l.getKlinika().getNaziv());
 		this.cena = cena;
 		this.slobodniTermini = slobodniTermini;
+	}
+	
+	public LekarDTO(Lekar l, Float cena, List<String> slobodniTermini, String klinikaGrad) {
+		this(l.getIdOsoba(), l.getIme(), l.getPrezime(), l.getOcenaLekar(), l.getSpecijalizacija(),
+				l.getKlinika().getIdKlinika(), l.getKlinika().getNaziv());
+		this.cena = cena;
+		this.slobodniTermini = slobodniTermini;
+		
+		this.klinikaGrad =klinikaGrad;
+		this.klinikaDrzava= l.getKlinika().getDrzava();
+		this.klinikaBrojUlice=l.getKlinika().getBrojUlice();
+		this.klinikaUlica = l.getKlinika().getUlica();
+		this.ocenaKlinike = l.getKlinika().getOcenaKlinike();
 	}
 
 	public LekarDTO(Long idOsoba, String ime, String prezime, Float ocenaLekar, Specijalizacija specijalizacija,
@@ -124,5 +146,47 @@ public class LekarDTO {
 	public void setSlobodniTermini(List<String> slobodniTermini) {
 		this.slobodniTermini = slobodniTermini;
 	}
+
+	public String getKlinikaUlica() {
+		return klinikaUlica;
+	}
+
+	public void setKlinikaUlica(String klinikaUlica) {
+		this.klinikaUlica = klinikaUlica;
+	}
+
+	public String getKlinikaBrojUlice() {
+		return klinikaBrojUlice;
+	}
+
+	public void setKlinikaBrojUlice(String klinikaBrojUlice) {
+		this.klinikaBrojUlice = klinikaBrojUlice;
+	}
+
+	public String getKlinikaGrad() {
+		return klinikaGrad;
+	}
+
+	public void setKlinikaGrad(String klinikaGrad) {
+		this.klinikaGrad = klinikaGrad;
+	}
+
+	public String getKlinikaDrzava() {
+		return klinikaDrzava;
+	}
+
+	public void setKlinikaDrzava(String klinikaDrzava) {
+		this.klinikaDrzava = klinikaDrzava;
+	}
+
+	public Float getOcenaKlinike() {
+		return ocenaKlinike;
+	}
+
+	public void setOcenaKlinike(Float ocenaKlinike) {
+		this.ocenaKlinike = ocenaKlinike;
+	}
+	
+	
 
 }

@@ -140,7 +140,7 @@ public class KorisnikServiceImpl implements KorisnikService {
 			if (!usluga.isPresent()) {
 				lekariDTO.add(new LekarDTO(l, sviTermini));
 			} else {
-				lekariDTO.add(new LekarDTO(l, usluga.get().getCena(), sviTermini));
+				lekariDTO.add(new LekarDTO(l, usluga.get().getCena(), sviTermini, l.getKlinika().getGrad()));
 			}
 
 		}

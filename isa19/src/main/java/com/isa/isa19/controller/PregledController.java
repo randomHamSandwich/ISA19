@@ -20,9 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.isa.isa19.dto.BrziPregledDTO;
 import com.isa.isa19.dto.PregledDTO;
 import com.isa.isa19.dto.PregledZakaziDTO;
+import com.isa.isa19.message.response.ResponseMessage;
 import com.isa.isa19.service.EmailService;
-import com.isa.isa19.service.KlinikaSevice;
-import com.isa.isa19.service.KorisnikService;
 import com.isa.isa19.service.PregledService;
 import com.isa.isa19.util.DateChecker;
 
@@ -33,12 +32,7 @@ public class PregledController {
 
 	@Autowired
 	private PregledService pregledService;
-	
-	@Autowired
-	private EmailService emailSerivce;
-	
-	
-	
+
 	@GetMapping(value = "/brzi")
 	@PreAuthorize("hasAuthority('PACIJENT')")
 	public ResponseEntity<List<PregledDTO>> getAllBrziPregledi() {
@@ -82,9 +76,11 @@ public class PregledController {
 		return new ResponseEntity<>(preglediDTO, HttpStatus.OK);
 	}
 
+	//Rezervis pregled jer jos mora da na mail-u potvri da bi zavrsio proces zakazivaja
+	//stavi u stanje REZERVISAN NE U STANJE ZAKAZAN
 	@PostMapping(consumes = "application/json")
 	@PreAuthorize("hasAuthority('PACIJENT')")
-	public ResponseEntity<PregledDTO> zakaziPregled(@RequestBody PregledZakaziDTO pregledZakaziDTO) {
+	public ResponseEntity<PregledDTO> rezervisiPregled(@RequestBody PregledZakaziDTO pregledZakaziDTO) {
 		LocalDateTime start;
 
 		if (pregledZakaziDTO.getDate().length() == 10) {
@@ -95,7 +91,7 @@ public class PregledController {
 		}
 //		TODO umesto zakaziPregled stavi da kroisnik rezervise pregled a da je zakazan kada
 //		privati preko maila a ako odbije stavi otkazan pregled		
-		Optional<PregledDTO> resultDto = pregledService.zakaziPregled(pregledZakaziDTO, start);
+		Optional<PregledDTO> resultDto = pregledService.rezervisiPregled(pregledZakaziDTO, start);
 
 		if (resultDto.isPresent()) {
 			return new ResponseEntity<>(resultDto.get(), HttpStatus.CREATED);
@@ -104,6 +100,41 @@ public class PregledController {
 		}
 
 	}
+	
+	@GetMapping(value="/zakazimailom")
+//	@PreAuthorize("hasAuthority('PACIJENT')")
+	public ResponseEntity<?> zavrsiZakazivanjePrekoMail(@RequestParam Long idPregleda, @RequestParam String mail) {
+
+		Optional<PregledDTO> resultDto = pregledService.zakaziPregled(idPregleda, mail);
+
+		if (resultDto.isPresent()) {
+			return new ResponseEntity<>(new ResponseMessage("Uspesno ste potvrdili pregled"),
+					HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(new ResponseMessage("error mail dont match or pregled dosen't exist"), HttpStatus.NO_CONTENT);
+		}
+
+	}
+	
+	
+	@GetMapping(value="/otkazimailom")
+//	@PreAuthorize("hasAuthority('PACIJENT')")
+	public ResponseEntity<?> otkaziMailomPregled(@RequestParam Long idPregleda, @RequestParam String mail) {
+
+		Optional<PregledDTO> resultDto = pregledService.otkaziRezevisaniPregled(idPregleda, mail);
+
+		if (resultDto.isPresent()) {
+			return new ResponseEntity<>(new ResponseMessage("Uspesno ste otkazali pregled"),
+					HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(new ResponseMessage("error mail dont match or pregled dosen't exist"), HttpStatus.NO_CONTENT);
+		}
+
+	}
+	
+	
+	
+	
 
 	@PutMapping(consumes = "application/json", value = "/otkazi")
 	@PreAuthorize("hasAuthority('PACIJENT')")

@@ -18,12 +18,9 @@ import com.isa.isa19.security.jwt.JwtAuthEntryPoint;
 import com.isa.isa19.security.jwt.JwtAuthTokenFilter;
 import com.isa.isa19.security.service.UserDetailsServiceImpl;
 
-
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(
-		prePostEnabled = true
-)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 //    @Override
@@ -31,51 +28,48 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //        httpSecurity.authorizeRequests().antMatchers("/").permitAll();
 //        httpSecurity.csrf().disable();
 //}
-	
-	   @Autowired
-	    UserDetailsServiceImpl userDetailsService;
 
-	    @Autowired
-	    private JwtAuthEntryPoint unauthorizedHandler;
+	@Autowired
+	UserDetailsServiceImpl userDetailsService;
 
-	    @Bean
-	    public JwtAuthTokenFilter authenticationJwtTokenFilter() {
-	        return new JwtAuthTokenFilter();
-	    }
+	@Autowired
+	private JwtAuthEntryPoint unauthorizedHandler;
 
-	    @Override
-	    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-	        authenticationManagerBuilder
-	                .userDetailsService(userDetailsService)
-	                .passwordEncoder(passwordEncoder());
-	    }
+	@Bean
+	public JwtAuthTokenFilter authenticationJwtTokenFilter() {
+		return new JwtAuthTokenFilter();
+	}
 
-	    @Bean
-	    @Override
-	    public AuthenticationManager authenticationManagerBean() throws Exception {
-	        return super.authenticationManagerBean();
-	    }
+	@Override
+	public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+		authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+	}
 
-	    @Bean
-	    public PasswordEncoder passwordEncoder() {
-	        return new BCryptPasswordEncoder();
-	    }
-	    
-	    @Override
-	    protected void configure(HttpSecurity http) throws Exception {
-	        http.csrf().disable().
-            authorizeRequests()
+	@Bean
+	@Override
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
+	}
+
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.csrf().disable().authorizeRequests()
 //            	.antMatchers("/api/auth/**","/api/auth/activate/**","/favicon.*", "api/klinika/*", "api/klinika/all").permitAll()
-            .antMatchers("/api/auth/**","/api/auth/activate/**","/favicon.*").permitAll()
-            	.anyRequest().authenticated()
-            .and()
-            
-            .cors().and()
-            
-            .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-	        
-	        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+				.antMatchers("/api/auth/**", "/api/auth/activate/**", "/favicon.*", "/api/pregled/zakazimailom",
+						"/api/pregled/zakazimailom/", "/api/pregled/otkazimailom", "/api/pregled/otkazimailom/")
+				.permitAll().anyRequest().authenticated().and()
+
+				.cors().and()
+
+				.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and().sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
 
 }

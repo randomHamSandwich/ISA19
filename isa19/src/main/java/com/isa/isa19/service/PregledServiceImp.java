@@ -35,7 +35,7 @@ public class PregledServiceImp implements PregledService {
 
 	@Autowired
 	private KlinikaSevice klinikaService;
-	
+
 	@Autowired
 	private EmailService emailService;
 
@@ -112,7 +112,7 @@ public class PregledServiceImp implements PregledService {
 
 	@Override
 	@Transactional
-	public Optional<PregledDTO> zakaziPregled(PregledZakaziDTO pregledZakaziDTO, LocalDateTime start) {
+	public Optional<PregledDTO> rezervisiPregled(PregledZakaziDTO pregledZakaziDTO, LocalDateTime start) {
 
 		Lekar lekar = korisnikService.findLekarById(Long.valueOf(pregledZakaziDTO.getIdLekar()));
 		Pacijent pacijent = korisnikService.findPacijentById(Long.valueOf(pregledZakaziDTO.getIdPacijent()));
@@ -128,16 +128,66 @@ public class PregledServiceImp implements PregledService {
 			pregled.setVremeZavrsetka(start.plusMinutes(30));
 			pregled.setLekar(lekar);
 			pregled.setPacijent(pacijent);
-			pregled.setStatus(StatusPregledaOperacije.ZAKAZAN_PREGLED);
+			pregled.setStatus(StatusPregledaOperacije.REZERVISAN_PREGLED);
 			pregled.setKlinika(lekar.getKlinika());
 
 			pregled = pregledRepo.save(pregled);
+			emailService.sendZavrsiZakazivanjeMailom(pregled);
+
 			return Optional.of(new PregledDTO(pregled, pregled.getVremePocetka().toString(),
 					pregled.getVremeZavrsetka().toString()));
 		} else {
 			return Optional.empty();
 		}
 
+	}
+
+	@Override
+	@Transactional
+	public Optional<PregledDTO> zakaziPregled(Long idPregleda, String mail) {
+
+		Pregled rezervisaniPregled = pregledRepo.getOne(idPregleda);
+		if (!rezervisaniPregled.getPacijent().getEmail().equals(mail)) {
+			System.out.println(
+					"    mail's are not the same" + mail + " !=" + rezervisaniPregled.getPacijent().getEmail());
+			return Optional.empty();
+		}
+		Lekar lekar = rezervisaniPregled.getLekar();
+
+		boolean imaOdsustvo = DateChecker.daLiLekarImaOdsustvo(lekar,
+				rezervisaniPregled.getVremePocetka().toLocalDate());
+		boolean imaOvajTerminZakazan = DateChecker.daLiLekarImaZakazanIliBrziPregledTermin(lekar,
+				rezervisaniPregled.getVremePocetka());
+		boolean imaOperaciju = DateChecker.daLiLekarImaOperaciju(lekar,
+				rezervisaniPregled.getVremePocetka().toLocalDate());
+
+		if (!imaOdsustvo && !imaOvajTerminZakazan && !imaOperaciju) {
+
+			rezervisaniPregled.setStatus(StatusPregledaOperacije.ZAKAZAN_PREGLED);
+
+			rezervisaniPregled = pregledRepo.save(rezervisaniPregled);
+			return Optional.of(new PregledDTO(rezervisaniPregled, rezervisaniPregled.getVremePocetka().toString(),
+					rezervisaniPregled.getVremeZavrsetka().toString()));
+		} else {
+			return Optional.empty();
+		}
+
+	}
+
+	@Override
+	@Transactional
+	public Optional<PregledDTO> otkaziRezevisaniPregled(Long idPregleda, String mail) {
+
+		Pregled rezervisaniPregled = pregledRepo.getOne(idPregleda);
+		if (!rezervisaniPregled.getPacijent().getEmail().equals(mail)) {
+			System.out.println(
+					"    mail's are not the same" + mail + " !=" + rezervisaniPregled.getPacijent().getEmail());
+			return Optional.empty();
+		}
+		rezervisaniPregled.setStatus(StatusPregledaOperacije.OTKAZAN_PREGLED);
+		rezervisaniPregled = pregledRepo.save(rezervisaniPregled);
+		return Optional.of(new PregledDTO(rezervisaniPregled, rezervisaniPregled.getVremePocetka().toString(),
+				rezervisaniPregled.getVremeZavrsetka().toString()));
 	}
 
 	@Override
@@ -212,13 +262,14 @@ public class PregledServiceImp implements PregledService {
 	@Override
 	public List<PregledDTO> getAllBrziPregledi() {
 		List<PregledDTO> resultPregledDTO = new ArrayList<>();
-		List<Pregled> pregledi =pregledRepo.findByStatus(StatusPregledaOperacije.BRZI_PREGLED);
-		for (Pregled p : pregledi ) {
-			resultPregledDTO.add(new PregledDTO(p,
-					p.getVremePocetka().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")),
-					p.getVremeZavrsetka().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")), p.getLekar().getIme(),
-					p.getLekar().getPrezime(), p.getLekar().getSpecijalizacija().toString(), p.getKlinika().getNaziv(),
-					p.getKlinika().getGrad(), p.getKlinika().getUlica(), p.getKlinika().getBrojUlice()));
+		List<Pregled> pregledi = pregledRepo.findByStatus(StatusPregledaOperacije.BRZI_PREGLED);
+		for (Pregled p : pregledi) {
+			resultPregledDTO
+					.add(new PregledDTO(p, p.getVremePocetka().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")),
+							p.getVremeZavrsetka().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")),
+							p.getLekar().getIme(), p.getLekar().getPrezime(),
+							p.getLekar().getSpecijalizacija().toString(), p.getKlinika().getNaziv(),
+							p.getKlinika().getGrad(), p.getKlinika().getUlica(), p.getKlinika().getBrojUlice()));
 		}
 		return resultPregledDTO;
 	}
@@ -226,22 +277,22 @@ public class PregledServiceImp implements PregledService {
 	@Override
 	@Transactional
 	public Optional<PregledDTO> zakaziBrziPregledIPosaljiMail(BrziPregledDTO brziPregldDTO) {
-		
+
 		Optional<Pregled> pregled = pregledRepo.findById(brziPregldDTO.getIdPregleda());
 		if (!pregled.isPresent()) {
 			return Optional.empty();
 		}
-		
+
 		Pacijent pacijent = korisnikService.findPacijentById(brziPregldDTO.getIdPacijent());
-		pregled.get().setPacijent(pacijent);;
+		pregled.get().setPacijent(pacijent);
+		;
 		pregled.get().setStatus(StatusPregledaOperacije.ZAKAZAN_PREGLED);
 		Pregled p = pregled.get();
 		p = pregledRepo.save(p);
-		
+
 		emailService.sendBrziPregledMail(p);
-		
+
 		return Optional.of(new PregledDTO(p, p.getVremePocetka().toString(), p.getVremeZavrsetka().toString()));
 	}
-	
 
 }

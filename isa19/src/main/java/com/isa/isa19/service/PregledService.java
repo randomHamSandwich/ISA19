@@ -30,7 +30,7 @@ public interface PregledService {
 
 	public List<PregledDTO> getZakazaniPreglediByIdKorisnik(Long idKorisnik);
 
-	public Optional<PregledDTO> zakaziPregled(PregledZakaziDTO pregledZakaziDTO, LocalDateTime start);
+	public Optional<PregledDTO> rezervisiPregled(PregledZakaziDTO pregledZakaziDTO, LocalDateTime start);
 
 	public Optional<PregledDTO> otkaziPregled(PregledDTO pregledDTO);
 
@@ -41,5 +41,9 @@ public interface PregledService {
 	public List<PregledDTO> getAllBrziPregledi();
 
 	public Optional<PregledDTO> zakaziBrziPregledIPosaljiMail(BrziPregledDTO brziPregldDTO);
+
+	public Optional<PregledDTO> zakaziPregled(Long idPregleda, String mail);
+
+	public Optional<PregledDTO> otkaziRezevisaniPregled(Long idPregleda, String mail);
 	
 }

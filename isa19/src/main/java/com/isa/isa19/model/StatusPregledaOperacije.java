@@ -2,6 +2,7 @@ package com.isa.isa19.model;
 
 public enum StatusPregledaOperacije {
 	BRZI_PREGLED,
+	REZERVISAN_PREGLED,
 	ZAKAZAN_PREGLED,
 	OTKAZAN_PREGLED,
 	IZVRSEN_PREGLED,

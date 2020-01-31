@@ -34,7 +34,7 @@ public class EmailService {
 
 //	annotating a method of a bean with @Async will make it execute in a separate thread i.e. the caller will not wait for the completion of the called method.
 	@Async
-	public void sendMailAsync(Korisnik korisnik) throws MailException, InterruptedException {
+	public void sendMailActivationLink(Korisnik korisnik) throws MailException, InterruptedException {
 		System.out.println("Slanje emaila...");
 
 		LocalDateTime dateTimeNow = LocalDateTime.now();
@@ -58,7 +58,7 @@ public class EmailService {
 
 		javaMailSender.send(mimeMessage);
 
-		System.out.println("Email poslat!");
+		System.out.println("Email registracija poslat!");
 	}
 
 	@Async
@@ -90,7 +90,45 @@ public class EmailService {
 
 		javaMailSender.send(mimeMessage);
 
-		System.out.println("Email poslat!");
+		System.out.println("Email brziPregled poslat!");
+	}
+	@Async
+	public void sendZavrsiZakazivanjeMailom(Pregled pregled) {
+		// TODO Auto-generated method stub
+		System.out.println("Slanje emaila...");
+
+		LocalDateTime dateTimeNow = LocalDateTime.now();
+		MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
+
+		try {
+			helper.setTo(pregled.getPacijent().getEmail());
+
+			helper.setFrom(env.getProperty("spring.mail.username"));
+			helper.setSubject("Potvrda zakazivanja pregleda");
+			String htmlPoruka = dateTimeNow.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")) + "<p>Pozdrav  "
+					+ pregled.getPacijent().getIme() + " " + pregled.getPacijent().getPrezime() + "</p>"
+					+ "<p>Pregled: </p>" + "<p>"
+					+ pregled.getVremePocetka().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")) + " u klinici:"
+					+ pregled.getKlinika().getNaziv() + " na lokaciji:" + pregled.getKlinika().getGrad() + " "
+					+ pregled.getKlinika().getUlica() + " " + pregled.getKlinika().getBrojUlice() + "</p>" + "<p>"
+					+ " specijalizacije: " + pregled.getLekar().getSpecijalizacija().toString() + " lekar: "
+					+ pregled.getLekar().getIme() + " " + pregled.getLekar().getPrezime() + "</p>"
+					+"<p>Potvrdite zakazivanje pregleda sledecim linkom </p>"
+					+ "<p><a href=\"http://127.0.0.1:8080/api/pregled/zakazimailom?idPregleda="+pregled.getIdPregleda()+"&mail=" + pregled.getPacijent().getEmail()
+					+ " \">potvrdi</a></p>"
+					+ "<p>Ili otkazite sledecim linkom </p>"
+					+ "<p><a href=\"http://127.0.0.1:8080/api/pregled/otkazimailom?idPregleda="+pregled.getIdPregleda()+"&mail=" + pregled.getPacijent().getEmail()
+					+ " \">otkazi</a></p>";
+			helper.setText(htmlPoruka, true);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+
+		javaMailSender.send(mimeMessage);
+
+		System.out.println("Email zakzivanje preko maila poslat!");
+		
 	}
 
 }
