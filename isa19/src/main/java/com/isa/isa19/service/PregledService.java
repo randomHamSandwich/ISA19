@@ -45,5 +45,7 @@ public interface PregledService {
 	public Optional<PregledDTO> zakaziPregled(Long idPregleda, String mail);
 
 	public Optional<PregledDTO> otkaziRezevisaniPregled(Long idPregleda, String mail);
+
+	public List<PregledDTO> getBolestiPacijent(Long idKorisnik);
 	
 }

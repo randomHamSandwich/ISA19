@@ -198,8 +198,22 @@ public class PregledServiceImp implements PregledService {
 
 		if (!pregled.isPresent() || pregled.get().getStatus() != StatusPregledaOperacije.ZAKAZAN_PREGLED) {
 			return Optional.empty();
-
 		}
+		
+		LocalDateTime now = LocalDateTime.now();
+		now=now.plusDays(1);
+		if(now.isAfter(pregled.get().getVremePocetka())) {
+//			TODO vrati info na front
+			System.out.println(" DAAAAAAAA mora biti barem 24 sata pre pregleda da bi se odkazao");
+			System.out.println(now + "\n" +pregled.get().getVremePocetka()) ;
+			return Optional.empty();
+		}
+		else {
+			System.out.println("NEEEEEEEEEEEe  mora biti barem 24 sata pre pregleda da bi se odkazao");
+			System.out.println(now + "\n" +pregled.get().getVremePocetka()) ;
+			
+		}
+		
 		pregled.get().setStatus(StatusPregledaOperacije.OTKAZAN_PREGLED);
 
 		Pregled p = pregled.get();
@@ -293,6 +307,17 @@ public class PregledServiceImp implements PregledService {
 		emailService.sendBrziPregledMail(p);
 
 		return Optional.of(new PregledDTO(p, p.getVremePocetka().toString(), p.getVremeZavrsetka().toString()));
+	}
+
+	@Override
+	public List<PregledDTO> getBolestiPacijent(Long idKorisnik) {
+		List<Pregled> pregledi = pregledRepo.findByIdPacijentDijagnozaNotNull(idKorisnik);
+		List<PregledDTO> pregledDTO= new ArrayList<>();
+		for (Pregled pregled : pregledi) {
+			pregledDTO.add(new PregledDTO(pregled.getVremePocetka().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), pregled.getDijagnoza().getNazivDijagnoza()));
+		}
+		
+		return pregledDTO;
 	}
 
 }

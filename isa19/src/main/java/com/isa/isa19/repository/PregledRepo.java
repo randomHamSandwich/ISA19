@@ -25,6 +25,9 @@ public interface PregledRepo extends JpaRepository<Pregled, Long>{
 	@Query(value = "SELECT * FROM test_test.pregled where id_klinika = ?1 and ocena_kilinike is not null", nativeQuery= true)
 	List<Pregled>findByIdKlinikaAndOcenaKlinikaNotNull(Long idKlinika);
 	
+	@Query(value = "SELECT * FROM test_test.pregled where id_pacijent = ?1 and id_dijagnoza is not null", nativeQuery= true)
+	List<Pregled>findByIdPacijentDijagnozaNotNull(Long idPacijent);
+	
 	List<Pregled> findByStatus(StatusPregledaOperacije status);
 
 }

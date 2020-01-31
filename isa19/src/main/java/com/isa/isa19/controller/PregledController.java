@@ -42,6 +42,15 @@ public class PregledController {
 		return new ResponseEntity<>(preglediDTO, HttpStatus.OK);
 	}
 	
+	@GetMapping(value = "/bolesti")
+	@PreAuthorize("hasAuthority('PACIJENT')")
+	public ResponseEntity<List<PregledDTO>> getPreglediBolestiPacijent(@RequestParam Long idKorisnik) {
+
+		List<PregledDTO> preglediDTO = pregledService.getBolestiPacijent(idKorisnik);
+
+		return new ResponseEntity<>(preglediDTO, HttpStatus.OK);
+	}
+	
 	@PostMapping(consumes = "application/json", value = "/brzi")
 	@PreAuthorize("hasAuthority('PACIJENT')")
 	public ResponseEntity<PregledDTO> zakaziBrziPregled(	@RequestBody BrziPregledDTO brziPregldDTO) {

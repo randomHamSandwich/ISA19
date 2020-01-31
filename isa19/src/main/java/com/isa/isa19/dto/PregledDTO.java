@@ -62,6 +62,11 @@ public class PregledDTO {
 	public PregledDTO() {
 		super();
 	}
+	public PregledDTO(String vremePocetka,String dijagnoza) {
+		super();
+		this.vremePocetka = vremePocetka;
+		this.dijagnoza = dijagnoza;
+	}
 
 	public PregledDTO(Long idPregleda, String vremePocetka, String vremeZavrsetka, Float popust, Float cenaSaPopustom,
 			Integer ocenaLekara, Integer ocenaKilinike, Long idLekara) {

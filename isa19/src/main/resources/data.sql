@@ -54,7 +54,7 @@ insert into korisnik(tipp, email,ime,prezime,lozinka,ulica,broj_ulice,grad,drzav
 ('PACIJENT', 'peraspringuser19@gmail.com','Pera', 'Pavlic','$2a$10$YDrhoDY60oavj/E0tHUQYOhpg1tm1kIM/m8xg.nvUl6GVF0qBjtIG', 'Pavla Papa', '13','Novi Sad', 'Srbija', 'jmb888888', 'ACTIVATED_IN_USE', '0655555555555', 0);
 
 insert into korisnik(tipp, email,ime,prezime,lozinka,ulica,broj_ulice,grad,drzava,jmbg,status_korisnika,broj_telefona) values
-('PACIJENT', 'mirjana@gmail.com','Mirjana', 'Mackic','$2a$10$YDrhoDY60oavj/E0tHUQYOhpg1tm1kIM/m8xg.nvUl6GVF0qBjtIG', 'Jug Bogdana', '67','Novi Sad', 'Srbija', 'jmbBBBBBBBB', 'ACTIVATED_IN_USE', '5468464431384');
+('PACIJENT', 'mirjanaspringuser19@gmail.com','Mirjana', 'Mackic','$2a$10$YDrhoDY60oavj/E0tHUQYOhpg1tm1kIM/m8xg.nvUl6GVF0qBjtIG', 'Jug Bogdana', '67','Novi Sad', 'Srbija', 'jmbBBBBBBBB', 'ACTIVATED_IN_USE', '5468464431384');
 
 insert into korisnik(tipp, email,ime,prezime,lozinka,ulica,broj_ulice,grad,drzava,jmbg,status_korisnika,broj_telefona) values
 ('PACIJENT', 'milan@gmail.com','Milan', 'Kovacevic','$2a$10$YDrhoDY60oavj/E0tHUQYOhpg1tm1kIM/m8xg.nvUl6GVF0qBjtIG', 'Majevicka', '11','Beograd', 'Srbija', 'jmbCCCCCCCCC', 'ACTIVATED_IN_USE', '498432185498786');
@@ -83,7 +83,7 @@ insert into korisnik_role (id_osoba, id_rola) select id_osoba , id_rola from kor
 insert into korisnik_role (id_osoba, id_rola) select id_osoba , id_rola from korisnik , roles where email = 'sonja@gmail.com' and naziv_role='MEDICINSKA_SESTRA';
 insert into korisnik_role (id_osoba, id_rola) select id_osoba , id_rola from korisnik , roles where email = 'ivanka@gmail.com' and naziv_role='MEDICINSKA_SESTRA';
 insert into korisnik_role (id_osoba, id_rola) select id_osoba , id_rola from korisnik , roles where email = 'peraspringuser19@gmail.com' and naziv_role='PACIJENT';
-insert into korisnik_role (id_osoba, id_rola) select id_osoba , id_rola from korisnik , roles where email = 'mirjana@gmail.com' and naziv_role='PACIJENT';
+insert into korisnik_role (id_osoba, id_rola) select id_osoba , id_rola from korisnik , roles where email = 'mirjanaspringuser19@gmail.com' and naziv_role='PACIJENT';
 insert into korisnik_role (id_osoba, id_rola) select id_osoba , id_rola from korisnik , roles where email = 'milan@gmail.com' and naziv_role='PACIJENT';
 
 --update korisnik ko, klinika kl set ko.id_klinika = kl.id_klinika where ko.email ="antonije@gmail.com" and kl.naziv ="Klinika1111";

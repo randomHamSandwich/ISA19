@@ -2,13 +2,17 @@ package com.isa.isa19.service;
 
 import java.util.Optional;
 
+import com.isa.isa19.dto.KartonDTO;
 import com.isa.isa19.model.Karton;
-import com.isa.isa19.model.Pacijent;
 
 public interface KartonService {
 
 	public Optional<Karton> findOne(Long id);
 
-	Karton save(Karton karton);
+	public Karton save(Karton karton);
+
+	public Optional<KartonDTO> getDTO(Long idKorisnik);
+	
+	public Optional<Karton> findKartonByPacijentID(Long idKlinika);
 
 }
