@@ -4,8 +4,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -67,13 +69,12 @@ public class KorisnikServiceImpl implements KorisnikService {
 	public Lekar save(Lekar lekar) {
 		return korisnikRepo.save(lekar);
 	}
-	
+
 	@Override
 	@Transactional
 	public Pacijent save(Pacijent pacijent) {
 		return korisnikRepo.save(pacijent);
 	}
-
 
 	@Override
 	@Transactional
@@ -98,6 +99,7 @@ public class KorisnikServiceImpl implements KorisnikService {
 		return korisnikRepo.findBySpecijalizacija(specijalizacija);
 	}
 
+//	TODO skrati kod da koristi osnovnaPretraga
 	@Override
 	public List<LekarDTO> findLekarBySpecAndDate(Long idKlinika, Specijalizacija specijalizacija,
 			LocalDate specifiedDate) {
@@ -117,6 +119,199 @@ public class KorisnikServiceImpl implements KorisnikService {
 		}
 
 		return getSlobodniLekariDTO(slobodniLekari, idKlinika, specifiedDate);
+	}
+
+	public Set<Lekar> osnovnaPretraga(Long idKlinika, Specijalizacija specijalizacija, LocalDate specifiedDate) {
+		List<Lekar> lekari = korisnikRepo.findLekarKlSpec(idKlinika, specijalizacija.toString());
+		Set<Lekar> slobodniLekari = new HashSet<>();
+
+		for (Lekar lekar : lekari) {
+			boolean imaOdsustvo = DateChecker.daLiLekarImaOdsustvo(lekar, specifiedDate);
+			boolean imaTermin = DateChecker.daLiLekarImaZakazaneIliBrzePreglede(lekar, specifiedDate);
+			boolean imaOperaciju = DateChecker.daLiLekarImaOperaciju(lekar, specifiedDate);
+			System.out.println("\n\n+++++++++++++++++++++++++++++++  imaOdsustvo:" + imaOdsustvo + " imaTermin: "
+					+ imaTermin + " imaOperaciju: " + imaOperaciju);
+			if (!imaOdsustvo && !imaTermin && !imaOperaciju) {
+
+				slobodniLekari.add(lekar);
+			}
+		}
+		return slobodniLekari;
+	}
+
+	@Override
+	public List<LekarDTO> findLekarBySpecAndDateOcenaImePrezime(Long idKlinike, Specijalizacija spec,
+			LocalDate specifiedDate, Float omin, Float omax, String ime, String prezime) {
+		Float min = omin;
+		Float max = omax;
+		if (omin > omax) {
+			min = omax;
+			max = omin;
+		}
+		List<Lekar> lekariResult = new ArrayList<>();
+		Set<Lekar> lekarSpecDate = osnovnaPretraga(idKlinike, spec, specifiedDate);
+		for (Lekar lekar : lekarSpecDate) {
+
+			if (lekar.getOcenaLekar() != null) {
+				System.out.println("///////////////" + lekar.toString() + "\n" + ime + "   " + prezime + " _" + min
+						+ "_ _" + max + "_");
+				System.out.println(lekar.getOcenaLekar() >= min);
+				System.out.println(lekar.getOcenaLekar() <= max);
+				System.out.println(lekar.getIme().startsWith(ime));
+				System.out.println(lekar.getPrezime().startsWith(prezime));
+				if (lekar.getOcenaLekar() >= min && lekar.getOcenaLekar() <= max
+						&& lekar.getIme().toLowerCase().startsWith(ime.toLowerCase())
+						&& lekar.getPrezime().toLowerCase().startsWith(prezime.toLowerCase())) {
+
+					lekariResult.add(lekar);
+				}
+			}
+		}
+		return getSlobodniLekariDTO(lekariResult, idKlinike, specifiedDate);
+	}
+
+	@Override
+	public List<LekarDTO> findLekarBySpecAndDateOcenaIme(Long idKlinike, Specijalizacija spec, LocalDate specifiedDate,
+			Float omin, Float omax, String ime) {
+		Float min = omin;
+		Float max = omax;
+		if (omin > omax) {
+			min = omax;
+			max = omin;
+		}
+		List<Lekar> lekariResult = new ArrayList<>();
+		Set<Lekar> lekarSpecDate = osnovnaPretraga(idKlinike, spec, specifiedDate);
+		for (Lekar lekar : lekarSpecDate) {
+
+			if (lekar.getOcenaLekar() != null) {
+				System.out.println(
+						"///////////////" + lekar.toString() + "\n" + ime + "   " + " _" + min + "_ _" + max + "_");
+				System.out.println(lekar.getOcenaLekar() >= min);
+				System.out.println(lekar.getOcenaLekar() <= max);
+				System.out.println(lekar.getIme().startsWith(ime));
+				if (lekar.getOcenaLekar() >= min && lekar.getOcenaLekar() <= max
+						&& lekar.getIme().toLowerCase().startsWith(ime.toLowerCase())) {
+
+					lekariResult.add(lekar);
+				}
+			}
+		}
+		return getSlobodniLekariDTO(lekariResult, idKlinike, specifiedDate);
+	}
+
+	@Override
+	public List<LekarDTO> findLekarBySpecAndDateOcenaPrezime(Long idKlinike, Specijalizacija spec,
+			LocalDate specifiedDate, Float omin, Float omax, String prezime) {
+
+		Float min = omin;
+		Float max = omax;
+		if (omin > omax) {
+			min = omax;
+			max = omin;
+		}
+		List<Lekar> lekariResult = new ArrayList<>();
+		Set<Lekar> lekarSpecDate = osnovnaPretraga(idKlinike, spec, specifiedDate);
+		for (Lekar lekar : lekarSpecDate) {
+
+			if (lekar.getOcenaLekar() != null) {
+				System.out.println(
+						"///////////////" + lekar.toString() + "\n" + "   " + prezime + " _" + min + "_ _" + max + "_");
+				System.out.println(lekar.getOcenaLekar() >= min);
+				System.out.println(lekar.getOcenaLekar() <= max);
+				System.out.println(lekar.getPrezime().startsWith(prezime));
+				if (lekar.getOcenaLekar() >= min && lekar.getOcenaLekar() <= max
+						&& lekar.getPrezime().toLowerCase().startsWith(prezime.toLowerCase())) {
+
+					lekariResult.add(lekar);
+				}
+			}
+		}
+		return getSlobodniLekariDTO(lekariResult, idKlinike, specifiedDate);
+	}
+
+	@Override
+	public List<LekarDTO> findLekarBySpecAndDateOcena(Long idKlinike, Specijalizacija spec, LocalDate specifiedDate,
+			Float omin, Float omax) {
+		Float min = omin;
+		Float max = omax;
+		if (omin > omax) {
+			min = omax;
+			max = omin;
+		}
+		List<Lekar> lekariResult = new ArrayList<>();
+		Set<Lekar> lekarSpecDate = osnovnaPretraga(idKlinike, spec, specifiedDate);
+		for (Lekar lekar : lekarSpecDate) {
+
+			if (lekar.getOcenaLekar() != null) {
+				System.out.println("///////////////" + lekar.toString() + "\n" + " _" + min + "_ _" + max + "_");
+				System.out.println(lekar.getOcenaLekar() >= min);
+				System.out.println(lekar.getOcenaLekar() <= max);
+				if (lekar.getOcenaLekar() >= min && lekar.getOcenaLekar() <= max) {
+
+					lekariResult.add(lekar);
+				}
+			}
+		}
+		return getSlobodniLekariDTO(lekariResult, idKlinike, specifiedDate);
+	}
+
+	@Override
+	public List<LekarDTO> findLekarBySpecAndDateImePrezime(Long idKlinike, Specijalizacija spec,
+			LocalDate specifiedDate, String ime, String prezime) {
+
+		List<Lekar> lekariResult = new ArrayList<>();
+		Set<Lekar> lekarSpecDate = osnovnaPretraga(idKlinike, spec, specifiedDate);
+		for (Lekar lekar : lekarSpecDate) {
+
+			System.out.println("///////////////" + lekar.toString() + "\n" + ime + "   " + prezime + " _");
+			System.out.println(lekar.getIme().startsWith(ime));
+			System.out.println(lekar.getPrezime().startsWith(prezime));
+			if (lekar.getIme().toLowerCase().startsWith(ime.toLowerCase())
+					&& lekar.getPrezime().toLowerCase().startsWith(prezime.toLowerCase())) {
+
+				lekariResult.add(lekar);
+			}
+
+		}
+		return getSlobodniLekariDTO(lekariResult, idKlinike, specifiedDate);
+	}
+
+	@Override
+	public List<LekarDTO> findLekarBySpecAndDateIme(Long idKlinike, Specijalizacija spec, LocalDate specifiedDate,
+			String ime) {
+
+		List<Lekar> lekariResult = new ArrayList<>();
+		Set<Lekar> lekarSpecDate = osnovnaPretraga(idKlinike, spec, specifiedDate);
+		for (Lekar lekar : lekarSpecDate) {
+
+			System.out.println("///////////////" + lekar.toString() + "\n" + ime + "   " + " _");
+			System.out.println(lekar.getIme().startsWith(ime));
+			if (lekar.getIme().toLowerCase().startsWith(ime.toLowerCase())) {
+
+				lekariResult.add(lekar);
+			}
+
+		}
+		return getSlobodniLekariDTO(lekariResult, idKlinike, specifiedDate);
+	}
+
+	@Override
+	public List<LekarDTO> findLekarBySpecAndDatePrezime(Long idKlinike, Specijalizacija spec, LocalDate specifiedDate,
+			String prezime) {
+
+		List<Lekar> lekariResult = new ArrayList<>();
+		Set<Lekar> lekarSpecDate = osnovnaPretraga(idKlinike, spec, specifiedDate);
+		for (Lekar lekar : lekarSpecDate) {
+
+			System.out.println("///////////////" + lekar.toString() + "\n" + "   " + prezime + " _");
+			System.out.println(lekar.getPrezime().startsWith(prezime));
+			if (lekar.getPrezime().toLowerCase().startsWith(prezime.toLowerCase())) {
+
+				lekariResult.add(lekar);
+			}
+
+		}
+		return getSlobodniLekariDTO(lekariResult, idKlinike, specifiedDate);
 	}
 
 	@Override
@@ -207,7 +402,7 @@ public class KorisnikServiceImpl implements KorisnikService {
 		Optional<Korisnik> korisnik = korisnikRepo.findByEmail(email);
 
 		if (!korisnik.isPresent()) {
-			return  Optional.empty();
+			return Optional.empty();
 		}
 
 		korisnik.get().setIme(korisnikDTO.getIme());
@@ -220,7 +415,7 @@ public class KorisnikServiceImpl implements KorisnikService {
 		Korisnik k = korisnik.get();
 		k = korisnikRepo.save(k);
 		return Optional.of(new KorisnikDTO(k));
-		
+
 	}
 
 	@Override
@@ -245,6 +440,5 @@ public class KorisnikServiceImpl implements KorisnikService {
 //		
 		return null;
 	}
-
 
 }

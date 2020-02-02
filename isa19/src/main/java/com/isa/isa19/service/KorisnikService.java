@@ -50,4 +50,26 @@ public interface KorisnikService {
 
 	Optional<KorisnikDTO> changePassword(String email, LozinkeDTO lozinkeDTO);
 
+
+	List<LekarDTO> findLekarBySpecAndDateOcenaImePrezime(Long idKlinike, Specijalizacija spec,
+			LocalDate specifiedDate, Float omin, Float omax, String ime, String prezime);
+
+	List<LekarDTO> findLekarBySpecAndDateOcenaIme(Long idKlinike, Specijalizacija spec, LocalDate specifiedDate,
+			Float omin, Float omax, String ime);
+
+	List<LekarDTO> findLekarBySpecAndDateOcenaPrezime(Long idKlinike, Specijalizacija spec, LocalDate specifiedDate,
+			Float omin, Float omax, String prezime);
+
+	List<LekarDTO> findLekarBySpecAndDateOcena(Long idKlinike, Specijalizacija spec, LocalDate specifiedDate,
+			Float omin, Float omax);
+
+	List<LekarDTO> findLekarBySpecAndDateImePrezime(Long idKlinike, Specijalizacija spec, LocalDate specifiedDate,
+			String ime, String prezime);
+
+	List<LekarDTO> findLekarBySpecAndDateIme(Long idKlinike, Specijalizacija spec, LocalDate specifiedDate,
+			String ime);
+
+	List<LekarDTO> findLekarBySpecAndDatePrezime(Long idKlinike, Specijalizacija spec, LocalDate specifiedDate,
+			String prezime);
+
 }

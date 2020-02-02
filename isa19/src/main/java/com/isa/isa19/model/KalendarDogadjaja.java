@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Version;
 
 @Entity
 public class KalendarDogadjaja {
@@ -23,6 +24,10 @@ public class KalendarDogadjaja {
 
 	@Column
 	private LocalDate kraj;
+	
+    @Version
+    @Column( nullable = false, columnDefinition = "int default 0")
+    private int version;
 
 	@Enumerated(EnumType.STRING)
 	private TipDogadjajaKalendar tipDogadjaja;

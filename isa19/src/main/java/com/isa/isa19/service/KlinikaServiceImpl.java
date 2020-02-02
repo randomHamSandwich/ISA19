@@ -61,6 +61,7 @@ public class KlinikaServiceImpl implements KlinikaSevice {
 		return klinikaRepo.findClincSpec(spec);
 	}
 
+//	TODO skrati kod da koristi osnovnaPretraga
 	@Override
 	public List<KlinikaDTO> findBySpecAndDate(Specijalizacija specijalizacija, LocalDate specifiedDate) {
 		List<Lekar> slobodniLekari = new ArrayList<>();
@@ -83,7 +84,96 @@ public class KlinikaServiceImpl implements KlinikaSevice {
 		}
 
 		return getSlobodneKlinike(slobodneKlinike, specijalizacija);
+	}
 
+	public Set<Klinika> osnovnaPretraga(Specijalizacija specijalizacija, LocalDate specifiedDate) {
+		List<Lekar> slobodniLekari = new ArrayList<>();
+		Set<Klinika> slobodneKlinike = new HashSet<>();
+		List<Lekar> lekari = korisnikService.findBySpecijalizacija(specijalizacija);
+
+		for (Lekar lekar : lekari) {
+			boolean imaOdsustvo = DateChecker.daLiLekarImaOdsustvo(lekar, specifiedDate);
+			boolean imaTermin = DateChecker.daLiLekarImaZakazaneIliBrzePreglede(lekar, specifiedDate);
+			boolean imaOperaciju = DateChecker.daLiLekarImaOperaciju(lekar, specifiedDate);
+
+			System.out.println("oooooooooooooOOOooooo idLekar: " + lekar.getIdOsoba() + " imaOdsustvo: " + imaOdsustvo
+					+ " imaTermin: " + imaTermin + " imaOperaciju: " + imaOperaciju);
+			if (!imaOdsustvo && !imaTermin && !imaOperaciju) {
+				slobodniLekari.add(lekar);
+				slobodneKlinike.add(lekar.getKlinika());
+				System.out.println("****************** lekar: " + lekar.getIdOsoba() + "  sobodniLekaro: "
+						+ slobodniLekari + " slobodneKlinike: " + slobodneKlinike);
+			}
+		}
+
+		return slobodneKlinike;
+	}
+
+	@Override
+	public List<KlinikaDTO> findBySpecAndDateAndLoc(Specijalizacija spec, LocalDate specifiedDate, String loc) {
+
+		List<Klinika> klinikeSpecDateAndLocation = new ArrayList<>();
+		Set<Klinika> klinikeSpecDate = osnovnaPretraga(spec, specifiedDate);
+		for (Klinika klinika : klinikeSpecDate) {
+			if (klinika.getGrad().toLowerCase().equals(loc.toLowerCase())) {
+				klinikeSpecDateAndLocation.add(klinika);
+			}
+		}
+		return getSlobodneKlinike(klinikeSpecDateAndLocation, spec);
+	}
+
+	@Override
+	public List<KlinikaDTO> findBySpecAndDateAndOcenaAndLoc(Specijalizacija spec, LocalDate specifiedDate, String loc,
+			Float omin, Float omax) {
+		Float min = omin;
+		Float max = omax;
+		if (omin > omax) {
+			min = omax;
+			max = omin;
+		}
+
+		List<Klinika> klinikeSpecDateAndLocation = new ArrayList<>();
+		Set<Klinika> klinikeSpecDate = osnovnaPretraga(spec, specifiedDate);
+		for (Klinika klinika : klinikeSpecDate) {
+			System.out.println("----------- ocena klinike" + klinika.getOcenaKlinike());
+			if (klinika.getOcenaKlinike() != null) {
+
+				if (klinika.getGrad().toLowerCase().equals(loc.toLowerCase()) && klinika.getOcenaKlinike() >= min
+						&& klinika.getOcenaKlinike() <= max) {
+					klinikeSpecDateAndLocation.add(klinika);
+				}
+			}
+
+		}
+		return getSlobodneKlinike(klinikeSpecDateAndLocation, spec);
+	}
+	
+	
+
+	@Override
+	public List<KlinikaDTO> findBySpecAndDateAndOcena(Specijalizacija spec, LocalDate specifiedDate, Float omin,
+			Float omax) {
+		Float min = omin;
+		Float max = omax;
+		if (omin > omax) {
+			min = omax;
+			max = omin;
+		}
+
+		List<Klinika> klinikeSpecDateAndLocation = new ArrayList<>();
+		Set<Klinika> klinikeSpecDate = osnovnaPretraga(spec, specifiedDate);
+		for (Klinika klinika : klinikeSpecDate) {
+			System.out.println("----------- ocena klinike" + klinika.getOcenaKlinike());
+			if (klinika.getOcenaKlinike() != null) {
+
+				if (klinika.getOcenaKlinike() >= min
+						&& klinika.getOcenaKlinike() <= max) {
+					klinikeSpecDateAndLocation.add(klinika);
+				}
+			}
+
+		}
+		return getSlobodneKlinike(klinikeSpecDateAndLocation, spec);
 	}
 
 	@Override
@@ -91,10 +181,10 @@ public class KlinikaServiceImpl implements KlinikaSevice {
 
 		List<KlinikaDTO> klinikeDTO = new ArrayList<>();
 		for (Klinika k : klinike) {
-			Float cena=null;
-			for (Usluga usluga: k.getUsluga()) {
-				if(usluga.getNazivUsluge().equals(specijalizacija.toString())) {
-					cena =usluga.getCena();
+			Float cena = null;
+			for (Usluga usluga : k.getUsluga()) {
+				if (usluga.getNazivUsluge().equals(specijalizacija.toString())) {
+					cena = usluga.getCena();
 					break;
 				}
 			}
@@ -118,9 +208,9 @@ public class KlinikaServiceImpl implements KlinikaSevice {
 		}
 		k.setOcenaKlinike(konacnaOcenaKlinika / (operacije.size() + pregledi.size()));
 		return klinikaRepo.save(k);
-		
+
 	}
-	
+
 	@Override
 	public List<KlinikaDTO> convertDataToDTO(Collection<Klinika> klinike) {
 

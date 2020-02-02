@@ -80,7 +80,193 @@ public class KorisnikController {
 		}
 		return new ResponseEntity<>(lekariDTO, HttpStatus.OK);
 	}
+	
+	
+	@GetMapping(value = "/lekari/oceimeprez")
+	@PreAuthorize("hasAuthority('PACIJENT')")
+	public ResponseEntity<List<LekarDTO>> getLekariOcenaImePrezime(@RequestParam Long idKlinike, @RequestParam String spec,
+			@RequestParam String date ,@RequestParam Float omin,@RequestParam  Float omax, @RequestParam String ime, @RequestParam String prezime) {
+		if (spec.isEmpty() || date.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		LocalDate specifiedDate;
+		if (date.length() == 10) {
+			specifiedDate = DateChecker.parseChoppedDateToLocalDate(date);
+		} else {
+			specifiedDate = DateChecker.parseToLocalDate(date);
+		}
 
+		List<LekarDTO> lekariDTO = korisnikService.
+				findLekarBySpecAndDateOcenaImePrezime(idKlinike, Specijalizacija.valueOf(spec),
+				specifiedDate, omin, omax,ime, prezime);
+
+		if (lekariDTO.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<>(lekariDTO, HttpStatus.OK);
+	}
+	
+	
+	@GetMapping(value = "/lekari/oceime")
+	@PreAuthorize("hasAuthority('PACIJENT')")
+	public ResponseEntity<List<LekarDTO>> getLekariOcenaIme(@RequestParam Long idKlinike, @RequestParam String spec,
+			@RequestParam String date ,@RequestParam Float omin,@RequestParam  Float omax, @RequestParam String ime) {
+		if (spec.isEmpty() || date.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		LocalDate specifiedDate;
+		if (date.length() == 10) {
+			specifiedDate = DateChecker.parseChoppedDateToLocalDate(date);
+		} else {
+			specifiedDate = DateChecker.parseToLocalDate(date);
+		}
+
+		List<LekarDTO> lekariDTO = korisnikService.
+				findLekarBySpecAndDateOcenaIme(idKlinike, Specijalizacija.valueOf(spec),
+				specifiedDate, omin, omax,ime);
+
+		if (lekariDTO.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<>(lekariDTO, HttpStatus.OK);
+	}
+	
+	
+	@GetMapping(value = "/lekari/oceprez")
+	@PreAuthorize("hasAuthority('PACIJENT')")
+	public ResponseEntity<List<LekarDTO>> getLekariOcenaPrezime(@RequestParam Long idKlinike, @RequestParam String spec,
+			@RequestParam String date ,@RequestParam Float omin,@RequestParam  Float omax, @RequestParam String prezime) {
+		if (spec.isEmpty() || date.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		LocalDate specifiedDate;
+		if (date.length() == 10) {
+			specifiedDate = DateChecker.parseChoppedDateToLocalDate(date);
+		} else {
+			specifiedDate = DateChecker.parseToLocalDate(date);
+		}
+
+		List<LekarDTO> lekariDTO = korisnikService.
+				findLekarBySpecAndDateOcenaPrezime(idKlinike, Specijalizacija.valueOf(spec),
+				specifiedDate, omin, omax, prezime);
+
+		if (lekariDTO.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<>(lekariDTO, HttpStatus.OK);
+	}
+	
+	
+	@GetMapping(value = "/lekari/oce")
+	@PreAuthorize("hasAuthority('PACIJENT')")
+	public ResponseEntity<List<LekarDTO>> getLekariOcena(@RequestParam Long idKlinike, @RequestParam String spec,
+			@RequestParam String date ,@RequestParam Float omin,@RequestParam  Float omax) {
+		if (spec.isEmpty() || date.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		LocalDate specifiedDate;
+		if (date.length() == 10) {
+			specifiedDate = DateChecker.parseChoppedDateToLocalDate(date);
+		} else {
+			specifiedDate = DateChecker.parseToLocalDate(date);
+		}
+
+		List<LekarDTO> lekariDTO = korisnikService.
+				findLekarBySpecAndDateOcena(idKlinike, Specijalizacija.valueOf(spec),
+				specifiedDate, omin, omax);
+
+		if (lekariDTO.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<>(lekariDTO, HttpStatus.OK);
+	}
+	
+	
+	
+	@GetMapping(value = "/lekari/imeprez")
+	@PreAuthorize("hasAuthority('PACIJENT')")
+	public ResponseEntity<List<LekarDTO>> getLekariImePrezime(@RequestParam Long idKlinike, @RequestParam String spec,
+			@RequestParam String date , @RequestParam String ime, @RequestParam String prezime) {
+		if (spec.isEmpty() || date.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		LocalDate specifiedDate;
+		if (date.length() == 10) {
+			specifiedDate = DateChecker.parseChoppedDateToLocalDate(date);
+		} else {
+			specifiedDate = DateChecker.parseToLocalDate(date);
+		}
+
+		List<LekarDTO> lekariDTO = korisnikService.
+				findLekarBySpecAndDateImePrezime(idKlinike, Specijalizacija.valueOf(spec),
+				specifiedDate, ime, prezime);
+
+		if (lekariDTO.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<>(lekariDTO, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/lekari/ime")
+	@PreAuthorize("hasAuthority('PACIJENT')")
+	public ResponseEntity<List<LekarDTO>> getLekariIme(@RequestParam Long idKlinike, @RequestParam String spec,
+			@RequestParam String date , @RequestParam String ime) {
+		if (spec.isEmpty() || date.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		LocalDate specifiedDate;
+		if (date.length() == 10) {
+			specifiedDate = DateChecker.parseChoppedDateToLocalDate(date);
+		} else {
+			specifiedDate = DateChecker.parseToLocalDate(date);
+		}
+
+		List<LekarDTO> lekariDTO = korisnikService.
+				findLekarBySpecAndDateIme(idKlinike, Specijalizacija.valueOf(spec),
+				specifiedDate,ime);
+
+		if (lekariDTO.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<>(lekariDTO, HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/lekari/prez")
+	@PreAuthorize("hasAuthority('PACIJENT')")
+	public ResponseEntity<List<LekarDTO>> getLekariPrezime(@RequestParam Long idKlinike, @RequestParam String spec,
+			@RequestParam String date , @RequestParam String prezime) {
+		if (spec.isEmpty() || date.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		LocalDate specifiedDate;
+		if (date.length() == 10) {
+			specifiedDate = DateChecker.parseChoppedDateToLocalDate(date);
+		} else {
+			specifiedDate = DateChecker.parseToLocalDate(date);
+		}
+
+		List<LekarDTO> lekariDTO = korisnikService.
+				findLekarBySpecAndDatePrezime(idKlinike, Specijalizacija.valueOf(spec),
+				specifiedDate,  prezime);
+
+		if (lekariDTO.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<>(lekariDTO, HttpStatus.OK);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@GetMapping(value = "/lekari/all")
 	@PreAuthorize("hasAuthority('PACIJENT')")
 	public ResponseEntity<List<LekarDTO>> getLekariKlinikeAll(@RequestParam Long idKlinike) {

@@ -30,7 +30,7 @@ public class KlinikaController {
 //	@PreAuthorize("hasRole('PACIJENT') or hasRole('pacijent')")
 	@GetMapping(value = "/specdate")
 	@PreAuthorize("hasAuthority('PACIJENT')")
-	public ResponseEntity<List<KlinikaDTO>> getAllKlinike(@RequestParam String spec, @RequestParam String date) {
+	public ResponseEntity<List<KlinikaDTO>> getSpecDate(@RequestParam String spec, @RequestParam String date) {
 		LocalDate specifiedDate = DateChecker.parseToLocalDate(date);
 		if (!spec.isEmpty() && !date.isEmpty()) {
 			List<KlinikaDTO> klinikaiDTO = klinikaSevice.findBySpecAndDate(Specijalizacija.valueOf(spec),
@@ -43,9 +43,58 @@ public class KlinikaController {
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 
+	@GetMapping(value = "/specdateloc")
+	@PreAuthorize("hasAuthority('PACIJENT')")
+	public ResponseEntity<List<KlinikaDTO>> getSpecDateLoc(@RequestParam String spec, @RequestParam String date,
+			@RequestParam String loc) {
+		LocalDate specifiedDate = DateChecker.parseToLocalDate(date);
+		if (!spec.isEmpty() && !date.isEmpty()) {
+			List<KlinikaDTO> klinikaiDTO = klinikaSevice.findBySpecAndDateAndLoc(Specijalizacija.valueOf(spec),
+					specifiedDate, loc);
+			if (klinikaiDTO.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+			return new ResponseEntity<>(klinikaiDTO, HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}
+
+	@GetMapping(value = "/specdateocenaloc")
+	@PreAuthorize("hasAuthority('PACIJENT')")
+	public ResponseEntity<List<KlinikaDTO>> getSpecDateOcenaLoc(@RequestParam String spec, @RequestParam String date,
+			@RequestParam String loc, @RequestParam Float omin, @RequestParam Float omax) {
+		LocalDate specifiedDate = DateChecker.parseToLocalDate(date);
+		if (!spec.isEmpty() && !date.isEmpty()) {
+			List<KlinikaDTO> klinikaiDTO = klinikaSevice.findBySpecAndDateAndOcenaAndLoc(Specijalizacija.valueOf(spec),
+					specifiedDate, loc, omin, omax);
+			if (klinikaiDTO.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+			return new ResponseEntity<>(klinikaiDTO, HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}
+	@GetMapping(value = "/specdateocena")
+	@PreAuthorize("hasAuthority('PACIJENT')")
+	public ResponseEntity<List<KlinikaDTO>> getSpecDateOcena(@RequestParam String spec, @RequestParam String date,
+			 @RequestParam Float omin, @RequestParam Float omax) {
+		LocalDate specifiedDate = DateChecker.parseToLocalDate(date);
+		if (!spec.isEmpty() && !date.isEmpty()) {
+			List<KlinikaDTO> klinikaiDTO = klinikaSevice.findBySpecAndDateAndOcena(Specijalizacija.valueOf(spec),
+					specifiedDate, omin, omax);
+			if (klinikaiDTO.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+			return new ResponseEntity<>(klinikaiDTO, HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}
+	
+	
+
 	@GetMapping(value = "/all")
 	@PreAuthorize("hasAuthority('PACIJENT')")
-	public ResponseEntity<List<KlinikaDTO>> getKlinikeSpec() {
+	public ResponseEntity<List<KlinikaDTO>> getAllKlinike() {
 
 		List<KlinikaDTO> klinikeDTO = klinikaSevice.findAll();
 
@@ -55,6 +104,5 @@ public class KlinikaController {
 
 		return new ResponseEntity<>(klinikeDTO, HttpStatus.OK);
 	}
-
 
 }

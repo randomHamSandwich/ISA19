@@ -31,5 +31,14 @@ public interface KlinikaSevice {
 	Klinika updateKlinikaOcena(Klinika k);
 
 	List<KlinikaDTO> convertDataToDTO(Collection<Klinika> klinike);
+
+	List<KlinikaDTO> findBySpecAndDateAndLoc(Specijalizacija spec, LocalDate specifiedDate, String loc);
+
+	List<KlinikaDTO> findBySpecAndDateAndOcenaAndLoc(Specijalizacija spec, LocalDate specifiedDate, String loc,
+			Float omin, Float omax);
+
+	List<KlinikaDTO> findBySpecAndDateAndOcena(Specijalizacija spec, LocalDate specifiedDate, Float omin,
+			Float omax);
+
 	
 }
