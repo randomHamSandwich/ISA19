@@ -88,7 +88,7 @@ public class PregledServiceImp implements PregledService {
 				StatusPregledaOperacije.IZVRSEN_PREGLED.toString());
 		List<PregledDTO> preglediDTO = new ArrayList<>();
 		for (Pregled p : pregledi) {
-			preglediDTO.add(new PregledDTO(p, p.getVremePocetka().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")),
+			preglediDTO.add(new PregledDTO(p, p.getVremePocetka().format(DateTimeFormatter.ofPattern("dd-MM-yyyy  HH:mm")),
 					p.getVremeZavrsetka().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), p.getLekar().getIme(),
 					p.getLekar().getPrezime(), p.getDijagnoza().getNazivDijagnoza(),
 					p.getLekar().getSpecijalizacija().toString(), p.getKlinika().getNaziv()));
@@ -102,7 +102,7 @@ public class PregledServiceImp implements PregledService {
 				StatusPregledaOperacije.ZAKAZAN_PREGLED.toString());
 		List<PregledDTO> preglediDTO = new ArrayList<>();
 		for (Pregled p : pregledi) {
-			preglediDTO.add(new PregledDTO(p, p.getVremePocetka().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")),
+			preglediDTO.add(new PregledDTO(p, p.getVremePocetka().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")),
 					p.getVremeZavrsetka().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), p.getLekar().getIme(),
 					p.getLekar().getPrezime(), p.getLekar().getSpecijalizacija().toString(), p.getKlinika().getNaziv(),
 					p.getKlinika().getGrad(), p.getKlinika().getUlica(), p.getKlinika().getBrojUlice()));
@@ -204,12 +204,12 @@ public class PregledServiceImp implements PregledService {
 		now=now.plusDays(1);
 		if(now.isAfter(pregled.get().getVremePocetka())) {
 //			TODO vrati info na front
-			System.out.println(" DAAAAAAAA mora biti barem 24 sata pre pregleda da bi se odkazao");
+			System.out.println(" mora biti barem 24 sata pre pregleda da bi se odkazao");
 			System.out.println(now + "\n" +pregled.get().getVremePocetka()) ;
 			return Optional.empty();
 		}
 		else {
-			System.out.println("NEEEEEEEEEEEe  mora biti barem 24 sata pre pregleda da bi se odkazao");
+			System.out.println("proslo, mora biti barem 24 sata pre pregleda da bi se odkazao");
 			System.out.println(now + "\n" +pregled.get().getVremePocetka()) ;
 			
 		}

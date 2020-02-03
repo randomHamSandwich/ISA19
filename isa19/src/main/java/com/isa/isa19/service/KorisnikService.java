@@ -72,4 +72,6 @@ public interface KorisnikService {
 	List<LekarDTO> findLekarBySpecAndDatePrezime(Long idKlinike, Specijalizacija spec, LocalDate specifiedDate,
 			String prezime);
 
+	List<LekarDTO> findByKlinika(Long idKlinike, Pageable page);
+
 }

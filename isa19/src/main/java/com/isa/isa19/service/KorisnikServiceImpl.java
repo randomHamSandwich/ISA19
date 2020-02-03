@@ -370,7 +370,25 @@ public class KorisnikServiceImpl implements KorisnikService {
 
 		return lekariDTO;
 	}
+	
+	
 
+	@Override
+	public List<LekarDTO> findByKlinika(Long idKlinika, Pageable page) {
+			List<Lekar> lekari = korisnikRepo.findByIdKlinikaPageable(idKlinika, page);
+			List<LekarDTO> lekariDTO = new ArrayList<>();
+			for (Lekar lekar : lekari) {
+				Optional<Usluga> usluga = uslugaService.findUsluga(lekar.getSpecijalizacija().name(), idKlinika);
+
+				if (!usluga.isPresent()) {
+					lekariDTO.add(new LekarDTO(lekar));
+				} else {
+					lekariDTO.add(new LekarDTO(lekar, usluga.get().getCena()));
+				}
+			}
+
+			return lekariDTO;
+		}
 	@Override
 	public List<Lekar> findLekarKlSpec(Long idKlinika, String spec) {
 		return korisnikRepo.findLekarKlSpec(idKlinika, spec);
