@@ -36,7 +36,7 @@ public class KlinikaController {
 			List<KlinikaDTO> klinikaiDTO = klinikaSevice.findBySpecAndDate(Specijalizacija.valueOf(spec),
 					specifiedDate);
 			if (klinikaiDTO.isEmpty()) {
-				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
 			return new ResponseEntity<>(klinikaiDTO, HttpStatus.OK);
 		}
@@ -52,7 +52,7 @@ public class KlinikaController {
 			List<KlinikaDTO> klinikaiDTO = klinikaSevice.findBySpecAndDateAndLoc(Specijalizacija.valueOf(spec),
 					specifiedDate, loc);
 			if (klinikaiDTO.isEmpty()) {
-				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
 			return new ResponseEntity<>(klinikaiDTO, HttpStatus.OK);
 		}
@@ -68,7 +68,7 @@ public class KlinikaController {
 			List<KlinikaDTO> klinikaiDTO = klinikaSevice.findBySpecAndDateAndOcenaAndLoc(Specijalizacija.valueOf(spec),
 					specifiedDate, loc, omin, omax);
 			if (klinikaiDTO.isEmpty()) {
-				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
 			return new ResponseEntity<>(klinikaiDTO, HttpStatus.OK);
 		}
@@ -83,7 +83,7 @@ public class KlinikaController {
 			List<KlinikaDTO> klinikaiDTO = klinikaSevice.findBySpecAndDateAndOcena(Specijalizacija.valueOf(spec),
 					specifiedDate, omin, omax);
 			if (klinikaiDTO.isEmpty()) {
-				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
 			return new ResponseEntity<>(klinikaiDTO, HttpStatus.OK);
 		}
@@ -97,11 +97,9 @@ public class KlinikaController {
 	public ResponseEntity<List<KlinikaDTO>> getAllKlinike() {
 
 		List<KlinikaDTO> klinikeDTO = klinikaSevice.findAll();
-
 		if (klinikeDTO.isEmpty()) {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
-
 		return new ResponseEntity<>(klinikeDTO, HttpStatus.OK);
 	}
 

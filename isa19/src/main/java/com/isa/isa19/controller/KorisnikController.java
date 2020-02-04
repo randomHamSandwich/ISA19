@@ -64,16 +64,16 @@ public class KorisnikController {
 				specifiedDate);
 
 		if (lekariDTO.isEmpty()) {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<>(lekariDTO, HttpStatus.OK);
 	}
-	
-	
+
 	@GetMapping(value = "/lekari/oceimeprez")
 	@PreAuthorize("hasAuthority('PACIJENT')")
-	public ResponseEntity<List<LekarDTO>> getLekariOcenaImePrezime(@RequestParam Long idKlinike, @RequestParam String spec,
-			@RequestParam String date ,@RequestParam Float omin,@RequestParam  Float omax, @RequestParam String ime, @RequestParam String prezime) {
+	public ResponseEntity<List<LekarDTO>> getLekariOcenaImePrezime(@RequestParam Long idKlinike,
+			@RequestParam String spec, @RequestParam String date, @RequestParam Float omin, @RequestParam Float omax,
+			@RequestParam String ime, @RequestParam String prezime) {
 		if (spec.isEmpty() || date.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
@@ -84,21 +84,19 @@ public class KorisnikController {
 			specifiedDate = DateChecker.parseToLocalDate(date);
 		}
 
-		List<LekarDTO> lekariDTO = korisnikService.
-				findLekarBySpecAndDateOcenaImePrezime(idKlinike, Specijalizacija.valueOf(spec),
-				specifiedDate, omin, omax,ime, prezime);
+		List<LekarDTO> lekariDTO = korisnikService.findLekarBySpecAndDateOcenaImePrezime(idKlinike,
+				Specijalizacija.valueOf(spec), specifiedDate, omin, omax, ime, prezime);
 
 		if (lekariDTO.isEmpty()) {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<>(lekariDTO, HttpStatus.OK);
 	}
-	
-	
+
 	@GetMapping(value = "/lekari/oceime")
 	@PreAuthorize("hasAuthority('PACIJENT')")
 	public ResponseEntity<List<LekarDTO>> getLekariOcenaIme(@RequestParam Long idKlinike, @RequestParam String spec,
-			@RequestParam String date ,@RequestParam Float omin,@RequestParam  Float omax, @RequestParam String ime) {
+			@RequestParam String date, @RequestParam Float omin, @RequestParam Float omax, @RequestParam String ime) {
 		if (spec.isEmpty() || date.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
@@ -109,21 +107,20 @@ public class KorisnikController {
 			specifiedDate = DateChecker.parseToLocalDate(date);
 		}
 
-		List<LekarDTO> lekariDTO = korisnikService.
-				findLekarBySpecAndDateOcenaIme(idKlinike, Specijalizacija.valueOf(spec),
-				specifiedDate, omin, omax,ime);
+		List<LekarDTO> lekariDTO = korisnikService.findLekarBySpecAndDateOcenaIme(idKlinike,
+				Specijalizacija.valueOf(spec), specifiedDate, omin, omax, ime);
 
 		if (lekariDTO.isEmpty()) {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<>(lekariDTO, HttpStatus.OK);
 	}
-	
-	
+
 	@GetMapping(value = "/lekari/oceprez")
 	@PreAuthorize("hasAuthority('PACIJENT')")
 	public ResponseEntity<List<LekarDTO>> getLekariOcenaPrezime(@RequestParam Long idKlinike, @RequestParam String spec,
-			@RequestParam String date ,@RequestParam Float omin,@RequestParam  Float omax, @RequestParam String prezime) {
+			@RequestParam String date, @RequestParam Float omin, @RequestParam Float omax,
+			@RequestParam String prezime) {
 		if (spec.isEmpty() || date.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
@@ -134,21 +131,19 @@ public class KorisnikController {
 			specifiedDate = DateChecker.parseToLocalDate(date);
 		}
 
-		List<LekarDTO> lekariDTO = korisnikService.
-				findLekarBySpecAndDateOcenaPrezime(idKlinike, Specijalizacija.valueOf(spec),
-				specifiedDate, omin, omax, prezime);
+		List<LekarDTO> lekariDTO = korisnikService.findLekarBySpecAndDateOcenaPrezime(idKlinike,
+				Specijalizacija.valueOf(spec), specifiedDate, omin, omax, prezime);
 
 		if (lekariDTO.isEmpty()) {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<>(lekariDTO, HttpStatus.OK);
 	}
-	
-	
+
 	@GetMapping(value = "/lekari/oce")
 	@PreAuthorize("hasAuthority('PACIJENT')")
 	public ResponseEntity<List<LekarDTO>> getLekariOcena(@RequestParam Long idKlinike, @RequestParam String spec,
-			@RequestParam String date ,@RequestParam Float omin,@RequestParam  Float omax) {
+			@RequestParam String date, @RequestParam Float omin, @RequestParam Float omax) {
 		if (spec.isEmpty() || date.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
@@ -159,8 +154,7 @@ public class KorisnikController {
 			specifiedDate = DateChecker.parseToLocalDate(date);
 		}
 
-		List<LekarDTO> lekariDTO = korisnikService.
-				findLekarBySpecAndDateOcena(idKlinike, Specijalizacija.valueOf(spec),
+		List<LekarDTO> lekariDTO = korisnikService.findLekarBySpecAndDateOcena(idKlinike, Specijalizacija.valueOf(spec),
 				specifiedDate, omin, omax);
 
 		if (lekariDTO.isEmpty()) {
@@ -168,13 +162,11 @@ public class KorisnikController {
 		}
 		return new ResponseEntity<>(lekariDTO, HttpStatus.OK);
 	}
-	
-	
-	
+
 	@GetMapping(value = "/lekari/imeprez")
 	@PreAuthorize("hasAuthority('PACIJENT')")
 	public ResponseEntity<List<LekarDTO>> getLekariImePrezime(@RequestParam Long idKlinike, @RequestParam String spec,
-			@RequestParam String date , @RequestParam String ime, @RequestParam String prezime) {
+			@RequestParam String date, @RequestParam String ime, @RequestParam String prezime) {
 		if (spec.isEmpty() || date.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
@@ -185,20 +177,20 @@ public class KorisnikController {
 			specifiedDate = DateChecker.parseToLocalDate(date);
 		}
 
-		List<LekarDTO> lekariDTO = korisnikService.
-				findLekarBySpecAndDateImePrezime(idKlinike, Specijalizacija.valueOf(spec),
-				specifiedDate, ime, prezime);
+		List<LekarDTO> lekariDTO = korisnikService.findLekarBySpecAndDateImePrezime(idKlinike,
+				Specijalizacija.valueOf(spec), specifiedDate, ime, prezime);
+		System.out.println("888888888888888888888 imerez vracen size " + lekariDTO.size());
 
 		if (lekariDTO.isEmpty()) {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<>(lekariDTO, HttpStatus.OK);
 	}
-	
+
 	@GetMapping(value = "/lekari/ime")
 	@PreAuthorize("hasAuthority('PACIJENT')")
 	public ResponseEntity<List<LekarDTO>> getLekariIme(@RequestParam Long idKlinike, @RequestParam String spec,
-			@RequestParam String date , @RequestParam String ime) {
+			@RequestParam String date, @RequestParam String ime) {
 		if (spec.isEmpty() || date.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
@@ -209,12 +201,11 @@ public class KorisnikController {
 			specifiedDate = DateChecker.parseToLocalDate(date);
 		}
 
-		List<LekarDTO> lekariDTO = korisnikService.
-				findLekarBySpecAndDateIme(idKlinike, Specijalizacija.valueOf(spec),
-				specifiedDate,ime);
+		List<LekarDTO> lekariDTO = korisnikService.findLekarBySpecAndDateIme(idKlinike, Specijalizacija.valueOf(spec),
+				specifiedDate, ime);
 
 		if (lekariDTO.isEmpty()) {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<>(lekariDTO, HttpStatus.OK);
 	}
@@ -222,7 +213,7 @@ public class KorisnikController {
 	@GetMapping(value = "/lekari/prez")
 	@PreAuthorize("hasAuthority('PACIJENT')")
 	public ResponseEntity<List<LekarDTO>> getLekariPrezime(@RequestParam Long idKlinike, @RequestParam String spec,
-			@RequestParam String date , @RequestParam String prezime) {
+			@RequestParam String date, @RequestParam String prezime) {
 		if (spec.isEmpty() || date.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
@@ -233,39 +224,25 @@ public class KorisnikController {
 			specifiedDate = DateChecker.parseToLocalDate(date);
 		}
 
-		List<LekarDTO> lekariDTO = korisnikService.
-				findLekarBySpecAndDatePrezime(idKlinike, Specijalizacija.valueOf(spec),
-				specifiedDate,  prezime);
+		List<LekarDTO> lekariDTO = korisnikService.findLekarBySpecAndDatePrezime(idKlinike,
+				Specijalizacija.valueOf(spec), specifiedDate, prezime);
 
 		if (lekariDTO.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<>(lekariDTO, HttpStatus.OK);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	@GetMapping(value = "/lekari/all")
 	@PreAuthorize("hasAuthority('PACIJENT')")
 	public ResponseEntity<List<LekarDTO>> getLekariKlinikeAll(@RequestParam Long idKlinike) {
 
 		Pageable page = PageRequest.of(0, 1);
-		Pageable sortedByName = 
-				  PageRequest.of(0, 3, Sort.by("ocena_lekar").descending());
+		Pageable sortedByName = PageRequest.of(0, 3, Sort.by("ocena_lekar").descending());
 //		sortedByName
-				 
+
 //		page.getSort().
-		
+
 		List<LekarDTO> lekariDTO = korisnikService.findByKlinika(idKlinike);
 //		List<LekarDTO> lekariDTO = korisnikService.findByKlinika(idKlinike,sortedByName);
 		return new ResponseEntity<>(lekariDTO, HttpStatus.OK);
@@ -286,7 +263,7 @@ public class KorisnikController {
 	@PostMapping(consumes = "application/json")
 	@PreAuthorize("hasAuthority('PACIJENT')")
 	public ResponseEntity<KorisnikDTO> saveKorisnik(@RequestBody KorisnikDTO korisnikDTO) {
-		
+
 		KorisnikDTO resultKorisnikDTO = korisnikService.saveKorisnik(korisnikDTO);
 
 		return new ResponseEntity<>(resultKorisnikDTO, HttpStatus.CREATED);
@@ -295,10 +272,9 @@ public class KorisnikController {
 	@PutMapping(consumes = "application/json", value = "/{email}")
 	@PreAuthorize("hasAuthority('PACIJENT')")
 	public ResponseEntity<?> updateKorisnik(@PathVariable String email, @RequestBody KorisnikDTO korisnikDTO) {
-		
-		
+
 		Optional<KorisnikDTO> resultKorisnikDTO = korisnikService.updateKorisnik(email, korisnikDTO);
-		
+
 		if (!resultKorisnikDTO.isPresent()) {
 			return new ResponseEntity<>(new ResponseMessage("Fail -> This user does not exit!"), HttpStatus.NOT_FOUND);
 		}
@@ -309,7 +285,7 @@ public class KorisnikController {
 	@PutMapping(consumes = "application/json", value = "/pass/{email}")
 	@PreAuthorize("hasAuthority('PACIJENT')")
 	public ResponseEntity<?> changePassword(@PathVariable String email, @RequestBody LozinkeDTO lozinkeDTO) {
-		
+
 //		TODO proveri ovde ili u servsImp jer ja saljem <?> koji moze biti message response
 //		Optional<KorisnikDto> resultKorisnikDTO = korisnikService.changePassword(email, lozinkeDTO);
 
@@ -323,12 +299,12 @@ public class KorisnikController {
 			return new ResponseEntity<>(new ResponseMessage("Fail -> old password is wrong!"), HttpStatus.BAD_REQUEST);
 
 		}
-		//save je sam po sebi transactional
+		// save je sam po sebi transactional
 		korisnik.get().setLozinka(encoder.encode(lozinkeDTO.getLozinkaNova()));
 		Korisnik k = korisnik.get();
 		k = korisnikService.save(k);
 		return new ResponseEntity<>(new KorisnikDTO(k), HttpStatus.OK);
-		
+
 	}
 
 }

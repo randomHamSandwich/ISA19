@@ -99,13 +99,13 @@ public class PregledController {
 			start = DateChecker.parseToLocalDateAndTime(pregledZakaziDTO.getDate(), pregledZakaziDTO.getTime());
 		}
 //		TODO umesto zakaziPregled stavi da kroisnik rezervise pregled a da je zakazan kada
-//		privati preko maila a ako odbije stavi otkazan pregled		
+//		prihvati preko maila a ako odbije stavi otkazan pregled		
 		Optional<PregledDTO> resultDto = pregledService.rezervisiPregled(pregledZakaziDTO, start);
 
 		if (resultDto.isPresent()) {
 			return new ResponseEntity<>(resultDto.get(), HttpStatus.CREATED);
 		} else {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
 	}
@@ -120,7 +120,7 @@ public class PregledController {
 			return new ResponseEntity<>(new ResponseMessage("Uspesno ste potvrdili pregled"),
 					HttpStatus.OK);
 		} else {
-			return new ResponseEntity<>(new ResponseMessage("error mail dont match or pregled dosen't exist"), HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(new ResponseMessage("error mail dont match or pregled dosen't exist"), HttpStatus.BAD_REQUEST);
 		}
 
 	}
@@ -136,7 +136,7 @@ public class PregledController {
 			return new ResponseEntity<>(new ResponseMessage("Uspesno ste otkazali pregled"),
 					HttpStatus.OK);
 		} else {
-			return new ResponseEntity<>(new ResponseMessage("error mail dont match or pregled dosen't exist"), HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(new ResponseMessage("error mail dont match or pregled dosen't exist"), HttpStatus.BAD_REQUEST);
 		}
 
 	}

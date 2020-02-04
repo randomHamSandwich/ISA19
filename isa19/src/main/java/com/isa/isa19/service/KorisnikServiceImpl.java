@@ -157,11 +157,11 @@ public class KorisnikServiceImpl implements KorisnikService {
 						+ "_ _" + max + "_");
 				System.out.println(lekar.getOcenaLekar() >= min);
 				System.out.println(lekar.getOcenaLekar() <= max);
-				System.out.println(lekar.getIme().startsWith(ime));
-				System.out.println(lekar.getPrezime().startsWith(prezime));
+				System.out.println(lekar.getIme().contains(ime));
+				System.out.println(lekar.getPrezime().contains(prezime));
 				if (lekar.getOcenaLekar() >= min && lekar.getOcenaLekar() <= max
-						&& lekar.getIme().toLowerCase().startsWith(ime.toLowerCase())
-						&& lekar.getPrezime().toLowerCase().startsWith(prezime.toLowerCase())) {
+						&& lekar.getIme().toLowerCase().contains(ime.toLowerCase())
+						&& lekar.getPrezime().toLowerCase().contains(prezime.toLowerCase())) {
 
 					lekariResult.add(lekar);
 				}
@@ -188,9 +188,9 @@ public class KorisnikServiceImpl implements KorisnikService {
 						"///////////////" + lekar.toString() + "\n" + ime + "   " + " _" + min + "_ _" + max + "_");
 				System.out.println(lekar.getOcenaLekar() >= min);
 				System.out.println(lekar.getOcenaLekar() <= max);
-				System.out.println(lekar.getIme().startsWith(ime));
+				System.out.println(lekar.getIme().contains(ime));
 				if (lekar.getOcenaLekar() >= min && lekar.getOcenaLekar() <= max
-						&& lekar.getIme().toLowerCase().startsWith(ime.toLowerCase())) {
+						&& lekar.getIme().toLowerCase().contains(ime.toLowerCase())) {
 
 					lekariResult.add(lekar);
 				}
@@ -218,9 +218,9 @@ public class KorisnikServiceImpl implements KorisnikService {
 						"///////////////" + lekar.toString() + "\n" + "   " + prezime + " _" + min + "_ _" + max + "_");
 				System.out.println(lekar.getOcenaLekar() >= min);
 				System.out.println(lekar.getOcenaLekar() <= max);
-				System.out.println(lekar.getPrezime().startsWith(prezime));
+				System.out.println(lekar.getPrezime().contains(prezime));
 				if (lekar.getOcenaLekar() >= min && lekar.getOcenaLekar() <= max
-						&& lekar.getPrezime().toLowerCase().startsWith(prezime.toLowerCase())) {
+						&& lekar.getPrezime().toLowerCase().contains(prezime.toLowerCase())) {
 
 					lekariResult.add(lekar);
 				}
@@ -264,10 +264,10 @@ public class KorisnikServiceImpl implements KorisnikService {
 		for (Lekar lekar : lekarSpecDate) {
 
 			System.out.println("///////////////" + lekar.toString() + "\n" + ime + "   " + prezime + " _");
-			System.out.println(lekar.getIme().startsWith(ime));
-			System.out.println(lekar.getPrezime().startsWith(prezime));
-			if (lekar.getIme().toLowerCase().startsWith(ime.toLowerCase())
-					&& lekar.getPrezime().toLowerCase().startsWith(prezime.toLowerCase())) {
+			System.out.println(lekar.getIme().contains(ime));
+			System.out.println(lekar.getPrezime().contains(prezime));
+			if (lekar.getIme().toLowerCase().contains(ime.toLowerCase())
+					&& lekar.getPrezime().toLowerCase().contains(prezime.toLowerCase())) {
 
 				lekariResult.add(lekar);
 			}
@@ -285,8 +285,8 @@ public class KorisnikServiceImpl implements KorisnikService {
 		for (Lekar lekar : lekarSpecDate) {
 
 			System.out.println("///////////////" + lekar.toString() + "\n" + ime + "   " + " _");
-			System.out.println(lekar.getIme().startsWith(ime));
-			if (lekar.getIme().toLowerCase().startsWith(ime.toLowerCase())) {
+			System.out.println(lekar.getIme().contains(ime));
+			if (lekar.getIme().toLowerCase().contains(ime.toLowerCase())) {
 
 				lekariResult.add(lekar);
 			}
@@ -304,8 +304,8 @@ public class KorisnikServiceImpl implements KorisnikService {
 		for (Lekar lekar : lekarSpecDate) {
 
 			System.out.println("///////////////" + lekar.toString() + "\n" + "   " + prezime + " _");
-			System.out.println(lekar.getPrezime().startsWith(prezime));
-			if (lekar.getPrezime().toLowerCase().startsWith(prezime.toLowerCase())) {
+			System.out.println(lekar.getPrezime().contains(prezime));
+			if (lekar.getPrezime().toLowerCase().contains(prezime.toLowerCase())) {
 
 				lekariResult.add(lekar);
 			}
