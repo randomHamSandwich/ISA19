@@ -1,4 +1,4 @@
-package com.isa2018tim34.isaProjekat1018;
+package com.isa.isa19.testing;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class IsaProjekat1018ApplicationTests {
+public class TestApplication {
 
 	@Test
 	public void contextLoads() {

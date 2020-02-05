@@ -160,53 +160,59 @@ insert into operacija (id_pacijent, id_klinika, status , vreme_pocetka, vreme_za
 insert into lekar_operacija (id_lekar, id_operacija) values (3,2);
 insert into lekar_operacija (id_lekar, id_operacija) values (4,2);
 
-INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status) 
-values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  8 HOUR , CURDATE()  + INTERVAL 25 DAY  + INTERVAL  8 HOUR + INTERVAL 30 MINUTE, 3, 10,    'BRZI_PREGLED'); 
+INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status, cena_sa_popustom, id_sala)
+values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  8 HOUR , CURDATE()  + INTERVAL 25 DAY  + INTERVAL  8 HOUR + INTERVAL 30 MINUTE, 3, 10,    'BRZI_PREGLED', 2600,1); 
 
-INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status) 
-values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  8 HOUR + INTERVAL 30 MINUTE, CURDATE()  + INTERVAL 25 DAY  + INTERVAL  9 HOUR , 3, 10,    'BRZI_PREGLED'); 
+INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status, cena_sa_popustom, id_sala)
+values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  8 HOUR + INTERVAL 30 MINUTE, CURDATE()  + INTERVAL 25 DAY  + INTERVAL  9 HOUR , 3, 10,    'BRZI_PREGLED', 2600,1); 
 
-INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status) 
-values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  9 HOUR , CURDATE()  + INTERVAL 25 DAY  + INTERVAL  9 HOUR  + INTERVAL 30 MINUTE, 3, 10,    'BRZI_PREGLED'); 
+INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status, cena_sa_popustom, id_sala)
+values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  9 HOUR , CURDATE()  + INTERVAL 25 DAY  + INTERVAL  9 HOUR  + INTERVAL 30 MINUTE, 3, 10,    'BRZI_PREGLED', 2600,1); 
 
-INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status) 
-values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  9 HOUR + INTERVAL 30 MINUTE, CURDATE()  + INTERVAL 25 DAY  + INTERVAL  10 HOUR , 3, 10,    'BRZI_PREGLED'); 
+INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status, cena_sa_popustom, id_sala)
+values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  9 HOUR + INTERVAL 30 MINUTE, CURDATE()  + INTERVAL 25 DAY  + INTERVAL  10 HOUR , 3, 10,    'BRZI_PREGLED', 2600,1); 
 
-INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status) 
-values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  10 HOUR , CURDATE()  + INTERVAL 25 DAY  + INTERVAL  10 HOUR + INTERVAL 30 MINUTE, 3, 10,    'BRZI_PREGLED'); 
+INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status, cena_sa_popustom, id_sala)
+values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  10 HOUR , CURDATE()  + INTERVAL 25 DAY  + INTERVAL  10 HOUR + INTERVAL 30 MINUTE, 3, 10,    'BRZI_PREGLED', 2600,1); 
 
-INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status) 
-values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  10 HOUR + INTERVAL 30 MINUTE, CURDATE()  + INTERVAL 25 DAY  + INTERVAL  11 HOUR , 3, 10,    'BRZI_PREGLED'); 
+INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status, cena_sa_popustom, id_sala)
+values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  10 HOUR + INTERVAL 30 MINUTE, CURDATE()  + INTERVAL 25 DAY  + INTERVAL  11 HOUR , 3, 10,    'BRZI_PREGLED', 2600,1); 
 
-INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status) 
-values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  11 HOUR , CURDATE()  + INTERVAL 25 DAY  + INTERVAL  11 HOUR + INTERVAL 30 MINUTE, 3, 10,    'BRZI_PREGLED'); 
+INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status, cena_sa_popustom, id_sala)
+values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  11 HOUR , CURDATE()  + INTERVAL 25 DAY  + INTERVAL  11 HOUR + INTERVAL 30 MINUTE, 3, 10,    'BRZI_PREGLED', 2600,1); 
 
-INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status) 
-values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  11 HOUR + INTERVAL 30 MINUTE, CURDATE()  + INTERVAL 25 DAY  + INTERVAL  12 HOUR , 3, 10,    'BRZI_PREGLED'); 
+INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status, cena_sa_popustom, id_sala)
+values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  11 HOUR + INTERVAL 30 MINUTE, CURDATE()  + INTERVAL 25 DAY  + INTERVAL  12 HOUR , 3, 10,    'BRZI_PREGLED', 2600,1); 
 
-INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status) 
-values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  12 HOUR , CURDATE()  + INTERVAL 25 DAY  + INTERVAL  12 HOUR + INTERVAL 30 MINUTE, 3, 10,    'BRZI_PREGLED'); 
+INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status, cena_sa_popustom, id_sala)
+values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  12 HOUR , CURDATE()  + INTERVAL 25 DAY  + INTERVAL  12 HOUR + INTERVAL 30 MINUTE, 3, 10,    'BRZI_PREGLED', 2600,1); 
 
-INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status) 
-values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  12 HOUR + INTERVAL 30 MINUTE, CURDATE()  + INTERVAL 25 DAY  + INTERVAL  13 HOUR , 3, 10,    'BRZI_PREGLED'); 
+INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status, cena_sa_popustom, id_sala)
+values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  12 HOUR + INTERVAL 30 MINUTE, CURDATE()  + INTERVAL 25 DAY  + INTERVAL  13 HOUR , 3, 10,    'BRZI_PREGLED', 2600,1); 
 
-INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status) 
-values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  13 HOUR , CURDATE()  + INTERVAL 25 DAY  + INTERVAL  13 HOUR + INTERVAL 30 MINUTE, 3, 10,    'BRZI_PREGLED'); 
+INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status, cena_sa_popustom, id_sala)
+values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  13 HOUR , CURDATE()  + INTERVAL 25 DAY  + INTERVAL  13 HOUR + INTERVAL 30 MINUTE, 3, 10,    'BRZI_PREGLED', 2600,1); 
 
-INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status) 
-values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  13 HOUR + INTERVAL 30 MINUTE, CURDATE()  + INTERVAL 25 DAY  + INTERVAL  14 HOUR , 3, 10,    'BRZI_PREGLED'); 
+INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status, cena_sa_popustom, id_sala)
+values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  13 HOUR + INTERVAL 30 MINUTE, CURDATE()  + INTERVAL 25 DAY  + INTERVAL  14 HOUR , 3, 10,    'BRZI_PREGLED', 2600,1); 
 
-INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status) 
-values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  14 HOUR , CURDATE()  + INTERVAL 25 DAY  + INTERVAL  14 HOUR + INTERVAL 30 MINUTE, 3, 10,    'BRZI_PREGLED'); 
+INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status, cena_sa_popustom, id_sala)
+values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  14 HOUR , CURDATE()  + INTERVAL 25 DAY  + INTERVAL  14 HOUR + INTERVAL 30 MINUTE, 3, 10,    'BRZI_PREGLED', 2600,1); 
 
-INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status) 
-values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  14 HOUR + INTERVAL 30 MINUTE, CURDATE()  + INTERVAL 25 DAY  + INTERVAL  15 HOUR , 3, 10,    'BRZI_PREGLED'); 
+INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status, cena_sa_popustom, id_sala)
+values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  14 HOUR + INTERVAL 30 MINUTE, CURDATE()  + INTERVAL 25 DAY  + INTERVAL  15 HOUR , 3, 10,    'BRZI_PREGLED', 2600,1); 
 
-INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status) 
-values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  15 HOUR , CURDATE()  + INTERVAL 25 DAY  + INTERVAL  15 HOUR + INTERVAL 30 MINUTE, 3, 10,    'BRZI_PREGLED'); 
+INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status, cena_sa_popustom, id_sala)
+values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  15 HOUR , CURDATE()  + INTERVAL 25 DAY  + INTERVAL  15 HOUR + INTERVAL 30 MINUTE, 3, 10,    'BRZI_PREGLED', 2600,1); 
 
-INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status) 
-values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  15 HOUR + INTERVAL 30 MINUTE, CURDATE()  + INTERVAL 25 DAY  + INTERVAL  16 HOUR , 3, 10,    'BRZI_PREGLED'); 
+INSERT INTO pregled (id_klinika, vreme_pocetka,vreme_zavrsetka,id_lekar,id_medicinska_sestra ,status, cena_sa_popustom, id_sala)
+values(1, CURDATE() + INTERVAL 25 DAY + INTERVAL  15 HOUR + INTERVAL 30 MINUTE, CURDATE()  + INTERVAL 25 DAY  + INTERVAL  16 HOUR , 3, 10,    'BRZI_PREGLED', 2600,1); 
 
+INSERT INTO alergije (id_lek, id_karton) values (1,1);
+INSERT INTO alergije (id_lek, id_karton) values (2,1);
+INSERT INTO alergije (id_lek, id_karton) values (3,2);
 
+INSERT INTO sala (id_klinika, naziv_sala) values (1, 'sala 1');
+INSERT INTO sala (id_klinika, naziv_sala) values (2, 'sala 101');
+INSERT INTO sala (id_klinika, naziv_sala) values (3, 'sala 1A');
 

@@ -283,7 +283,8 @@ public class PregledServiceImp implements PregledService {
 							p.getVremeZavrsetka().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")),
 							p.getLekar().getIme(), p.getLekar().getPrezime(),
 							p.getLekar().getSpecijalizacija().toString(), p.getKlinika().getNaziv(),
-							p.getKlinika().getGrad(), p.getKlinika().getUlica(), p.getKlinika().getBrojUlice()));
+							p.getKlinika().getGrad(), p.getKlinika().getUlica(), p.getKlinika().getBrojUlice(),
+							p.getLekar().getOcenaLekar(), p.getKlinika().getOcenaKlinike()));
 		}
 		return resultPregledDTO;
 	}

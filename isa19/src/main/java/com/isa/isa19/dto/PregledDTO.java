@@ -8,6 +8,7 @@ public class PregledDTO {
 	private String vremeZavrsetka;
 	private Float popust;
 	private Float cenaSaPopustom;
+//	ocene koje daje korisik 1,2,3,4,5
 	private Integer ocenaLekara;
 	private Integer ocenaKilinike;
 	private Long idLekara;
@@ -21,7 +22,13 @@ public class PregledDTO {
 	private String gradKlionike;
 	private String ulicaKlinike;
 	private String brojUliceKlinike;
+
+//	prava ocena lekara 
+	private Float ocenaLekaraZaBrzoZakazivanje;
+	private Float ocenaKlinikeZaBrzoZakazivanje;
 	
+	private String salaNaziv;
+
 	public PregledDTO(Pregled p, String pocetak, String kraj, String imeLekara, String prezimeLekara, String dijagnoza,
 			String specijalizacija, String nazivKlinike) {
 		this(p, pocetak, kraj);
@@ -29,7 +36,7 @@ public class PregledDTO {
 		this.prezimeLekara = prezimeLekara;
 		this.dijagnoza = dijagnoza;
 		this.specijalizacija = specijalizacija;
-		this.nazivKlinike=nazivKlinike;
+		this.nazivKlinike = nazivKlinike;
 	}
 
 	public PregledDTO(Pregled p, String pocetak, String kraj, String imeLekara, String prezimeLekara, String dijagnoza,
@@ -39,6 +46,19 @@ public class PregledDTO {
 		this.prezimeLekara = prezimeLekara;
 		this.dijagnoza = dijagnoza;
 		this.specijalizacija = specijalizacija;
+	}
+
+//	za brzi
+	public PregledDTO(Pregled p, String pocetak, String kraj, String imeLekara, String prezimeLekara,
+			String specijalizacija, String nazivKlinike, String gradKlionike, String ulicaKlinike,
+			String brojUliceKlinike, Float ocenaLekaraZaBrzoZAkazivanje, Float ocenaKlinikeZaBrzoZAkazivanje) {
+		this(p, pocetak, kraj, imeLekara, prezimeLekara, specijalizacija, nazivKlinike, gradKlionike, ulicaKlinike,
+				brojUliceKlinike);
+		this.ocenaLekaraZaBrzoZakazivanje= ocenaLekaraZaBrzoZAkazivanje;
+		this.ocenaKlinikeZaBrzoZakazivanje = ocenaKlinikeZaBrzoZAkazivanje;
+	
+		this.salaNaziv = p.getSala().getNazivSala();
+		System.out.println(" zzzzzzzzxxxxxxxxxxxxxxxCCCCCCCCCCCCC " +  this.salaNaziv);
 	}
 
 	public PregledDTO(Pregled p, String pocetak, String kraj, String imeLekara, String prezimeLekara,
@@ -62,7 +82,8 @@ public class PregledDTO {
 	public PregledDTO() {
 		super();
 	}
-	public PregledDTO(String vremePocetka,String dijagnoza) {
+
+	public PregledDTO(String vremePocetka, String dijagnoza) {
 		super();
 		this.vremePocetka = vremePocetka;
 		this.dijagnoza = dijagnoza;
@@ -208,5 +229,30 @@ public class PregledDTO {
 	public void setBrojUliceKlinike(String brojUliceKlinike) {
 		this.brojUliceKlinike = brojUliceKlinike;
 	}
+
+	public Float getOcenaLekaraZaBrzoZakazivanje() {
+		return ocenaLekaraZaBrzoZakazivanje;
+	}
+
+	public void setOcenaLekaraZaBrzoZakazivanje(Float ocenaLekaraZaBrzoZakazivanje) {
+		this.ocenaLekaraZaBrzoZakazivanje = ocenaLekaraZaBrzoZakazivanje;
+	}
+
+	public Float getOcenaKlinikeZaBrzoZakazivanje() {
+		return ocenaKlinikeZaBrzoZakazivanje;
+	}
+
+	public void setOcenaKlinikeZaBrzoZakazivanje(Float ocenaKlinikeZaBrzoZakazivanje) {
+		this.ocenaKlinikeZaBrzoZakazivanje = ocenaKlinikeZaBrzoZakazivanje;
+	}
+
+	public String getSalaNaziv() {
+		return salaNaziv;
+	}
+
+	public void setSalaNaziv(String salaNaziv) {
+		this.salaNaziv = salaNaziv;
+	}
+
 
 }

@@ -39,8 +39,8 @@ public class KartonServiceImp implements KartonService{
 	}
 
 	@Override
-	public Optional<Karton> findKartonByPacijentID(Long idKlinika) {
-		Optional<Karton> karton = kartonRepo.findKartonByPacijentID(idKlinika);
+	public Optional<Karton> findKartonByPacijentID(Long idPacijent) {
+		Optional<Karton> karton = kartonRepo.findKartonByPacijentID(idPacijent);
 		return karton;
 		
 	}

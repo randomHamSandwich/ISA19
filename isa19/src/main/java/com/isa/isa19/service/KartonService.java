@@ -13,6 +13,6 @@ public interface KartonService {
 
 	public Optional<KartonDTO> getDTO(Long idKorisnik);
 	
-	public Optional<Karton> findKartonByPacijentID(Long idKlinika);
+	public Optional<Karton> findKartonByPacijentID(Long idPacijent);
 
 }

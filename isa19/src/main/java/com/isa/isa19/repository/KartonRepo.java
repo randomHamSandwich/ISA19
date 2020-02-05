@@ -10,6 +10,6 @@ import com.isa.isa19.model.Karton;
 public interface KartonRepo extends JpaRepository<Karton, Long>{
 	
 	@Query(value="SELECT * FROM karton k where k.id_pacijent= ?1", nativeQuery = true)
-	Optional<Karton> findKartonByPacijentID(Long idKlinika);
+	Optional<Karton> findKartonByPacijentID(Long idPacijent);
 
 }
