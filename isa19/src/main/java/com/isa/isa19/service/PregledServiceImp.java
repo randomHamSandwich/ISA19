@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.ws.rs.BadRequestException;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -118,7 +118,7 @@ public class PregledServiceImp implements PregledService {
 		Pacijent pacijent = korisnikService.findPacijentById(Long.valueOf(pregledZakaziDTO.getIdPacijent()));
 
 		boolean imaOdsustvo = DateChecker.daLiLekarImaOdsustvo(lekar, start.toLocalDate());
-		boolean imaOvajTerminZakazan = DateChecker.daLiLekarImaZakazanIliBrziPregledTermin(lekar, start);
+		boolean imaOvajTerminZakazan = DateChecker.daLiLekarImaZakazanIliBrziPregledTerminIliRezervisan(lekar, start);
 		boolean imaOperaciju = DateChecker.daLiLekarImaOperaciju(lekar, start.toLocalDate());
 
 		if (!imaOdsustvo && !imaOvajTerminZakazan && !imaOperaciju) {
@@ -156,7 +156,7 @@ public class PregledServiceImp implements PregledService {
 
 		boolean imaOdsustvo = DateChecker.daLiLekarImaOdsustvo(lekar,
 				rezervisaniPregled.getVremePocetka().toLocalDate());
-		boolean imaOvajTerminZakazan = DateChecker.daLiLekarImaZakazanIliBrziPregledTermin(lekar,
+		boolean imaOvajTerminZakazan = DateChecker.daLiLekarImaZakazanIliBrziPregledTerminIliRezervisan(lekar,
 				rezervisaniPregled.getVremePocetka());
 		boolean imaOperaciju = DateChecker.daLiLekarImaOperaciju(lekar,
 				rezervisaniPregled.getVremePocetka().toLocalDate());
@@ -294,13 +294,17 @@ public class PregledServiceImp implements PregledService {
 	public Optional<PregledDTO> zakaziBrziPregledIPosaljiMail(BrziPregledDTO brziPregldDTO) {
 
 		Optional<Pregled> pregled = pregledRepo.findById(brziPregldDTO.getIdPregleda());
-		if (!pregled.isPresent()) {
+		if (!pregled.isPresent() ) {
+			return Optional.empty();
+		}
+//		pregled je vec zakazn 
+		if(pregled.get().getStatus().equals(StatusPregledaOperacije.ZAKAZAN_PREGLED) || pregled.get().getPacijent() !=null) {
 			return Optional.empty();
 		}
 
 		Pacijent pacijent = korisnikService.findPacijentById(brziPregldDTO.getIdPacijent());
 		pregled.get().setPacijent(pacijent);
-		;
+		
 		pregled.get().setStatus(StatusPregledaOperacije.ZAKAZAN_PREGLED);
 		Pregled p = pregled.get();
 		p = pregledRepo.save(p);

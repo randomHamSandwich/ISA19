@@ -63,10 +63,11 @@ public class DateChecker {
 //	}
 //	
 	
-	public static boolean daLiLekarImaZakazanIliBrziPregledTermin(Lekar lekar, LocalDateTime start) {
+	public static boolean daLiLekarImaZakazanIliBrziPregledTerminIliRezervisan(Lekar lekar, LocalDateTime start) {
 		boolean result =false;
 		for(Pregled pregled : lekar.getPregled()) {
-			if((pregled.getStatus().equals(StatusPregledaOperacije.ZAKAZAN_PREGLED) ||  pregled.getStatus().equals(StatusPregledaOperacije.BRZI_PREGLED))
+			if((pregled.getStatus().equals(StatusPregledaOperacije.ZAKAZAN_PREGLED) ||  pregled.getStatus().equals(StatusPregledaOperacije.BRZI_PREGLED)
+					||   pregled.getStatus().equals(StatusPregledaOperacije.REZERVISAN_PREGLED))
 					&& pregled.getVremePocetka().equals(start)) {
 				result= true;
 				break;

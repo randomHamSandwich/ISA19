@@ -58,7 +58,7 @@ public class PregledDTO {
 		this.ocenaKlinikeZaBrzoZakazivanje = ocenaKlinikeZaBrzoZAkazivanje;
 	
 		this.salaNaziv = p.getSala().getNazivSala();
-		System.out.println(" zzzzzzzzxxxxxxxxxxxxxxxCCCCCCCCCCCCC " +  this.salaNaziv);
+//		System.out.println(" zzzzzzzzxxxxxxxxxxxxxxxCCCCCCCCCCCCC " +  this.salaNaziv);
 	}
 
 	public PregledDTO(Pregled p, String pocetak, String kraj, String imeLekara, String prezimeLekara,
