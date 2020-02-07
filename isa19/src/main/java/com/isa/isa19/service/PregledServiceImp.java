@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import javax.ws.rs.BadRequestException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -88,10 +86,11 @@ public class PregledServiceImp implements PregledService {
 				StatusPregledaOperacije.IZVRSEN_PREGLED.toString());
 		List<PregledDTO> preglediDTO = new ArrayList<>();
 		for (Pregled p : pregledi) {
-			preglediDTO.add(new PregledDTO(p, p.getVremePocetka().format(DateTimeFormatter.ofPattern("dd-MM-yyyy  HH:mm")),
-					p.getVremeZavrsetka().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), p.getLekar().getIme(),
-					p.getLekar().getPrezime(), p.getDijagnoza().getNazivDijagnoza(),
-					p.getLekar().getSpecijalizacija().toString(), p.getKlinika().getNaziv()));
+			preglediDTO
+					.add(new PregledDTO(p, p.getVremePocetka().format(DateTimeFormatter.ofPattern("dd-MM-yyyy  HH:mm")),
+							p.getVremeZavrsetka().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")),
+							p.getLekar().getIme(), p.getLekar().getPrezime(), p.getDijagnoza().getNazivDijagnoza(),
+							p.getLekar().getSpecijalizacija().toString(), p.getKlinika().getNaziv()));
 		}
 		return preglediDTO;
 	}
@@ -102,7 +101,8 @@ public class PregledServiceImp implements PregledService {
 				StatusPregledaOperacije.ZAKAZAN_PREGLED.toString());
 		List<PregledDTO> preglediDTO = new ArrayList<>();
 		for (Pregled p : pregledi) {
-			preglediDTO.add(new PregledDTO(p, p.getVremePocetka().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")),
+			preglediDTO.add(new PregledDTO(p,
+					p.getVremePocetka().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")),
 					p.getVremeZavrsetka().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), p.getLekar().getIme(),
 					p.getLekar().getPrezime(), p.getLekar().getSpecijalizacija().toString(), p.getKlinika().getNaziv(),
 					p.getKlinika().getGrad(), p.getKlinika().getUlica(), p.getKlinika().getBrojUlice()));
@@ -199,21 +199,20 @@ public class PregledServiceImp implements PregledService {
 		if (!pregled.isPresent() || pregled.get().getStatus() != StatusPregledaOperacije.ZAKAZAN_PREGLED) {
 			return Optional.empty();
 		}
-		
+
 		LocalDateTime now = LocalDateTime.now();
-		now=now.plusDays(1);
-		if(now.isAfter(pregled.get().getVremePocetka())) {
+		now = now.plusDays(1);
+		if (now.isAfter(pregled.get().getVremePocetka())) {
 //			TODO vrati info na front
 			System.out.println(" mora biti barem 24 sata pre pregleda da bi se odkazao");
-			System.out.println(now + "\n" +pregled.get().getVremePocetka()) ;
+			System.out.println(now + "\n" + pregled.get().getVremePocetka());
 			return Optional.empty();
-		}
-		else {
+		} else {
 			System.out.println("proslo, mora biti barem 24 sata pre pregleda da bi se odkazao");
-			System.out.println(now + "\n" +pregled.get().getVremePocetka()) ;
-			
+			System.out.println(now + "\n" + pregled.get().getVremePocetka());
+
 		}
-		
+
 		pregled.get().setStatus(StatusPregledaOperacije.OTKAZAN_PREGLED);
 
 		Pregled p = pregled.get();
@@ -274,17 +273,19 @@ public class PregledServiceImp implements PregledService {
 	}
 
 	@Override
-	public List<PregledDTO> getAllBrziPregledi() {
+	public List<PregledDTO> getAllBrziPregledi(Long idKlinika) {
 		List<PregledDTO> resultPregledDTO = new ArrayList<>();
 		List<Pregled> pregledi = pregledRepo.findByStatus(StatusPregledaOperacije.BRZI_PREGLED);
 		for (Pregled p : pregledi) {
-			resultPregledDTO
-					.add(new PregledDTO(p, p.getVremePocetka().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")),
-							p.getVremeZavrsetka().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")),
-							p.getLekar().getIme(), p.getLekar().getPrezime(),
-							p.getLekar().getSpecijalizacija().toString(), p.getKlinika().getNaziv(),
-							p.getKlinika().getGrad(), p.getKlinika().getUlica(), p.getKlinika().getBrojUlice(),
-							p.getLekar().getOcenaLekar(), p.getKlinika().getOcenaKlinike()));
+			if (p.getKlinika().getIdKlinika().equals(idKlinika)) {
+				resultPregledDTO.add(new PregledDTO(p,
+						p.getVremePocetka().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")),
+						p.getVremeZavrsetka().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")),
+						p.getLekar().getIme(), p.getLekar().getPrezime(), p.getLekar().getSpecijalizacija().toString(),
+						p.getKlinika().getNaziv(), p.getKlinika().getGrad(), p.getKlinika().getUlica(),
+						p.getKlinika().getBrojUlice(), p.getLekar().getOcenaLekar(), p.getKlinika().getOcenaKlinike()));
+
+			}
 		}
 		return resultPregledDTO;
 	}
@@ -294,17 +295,18 @@ public class PregledServiceImp implements PregledService {
 	public Optional<PregledDTO> zakaziBrziPregledIPosaljiMail(BrziPregledDTO brziPregldDTO) {
 
 		Optional<Pregled> pregled = pregledRepo.findById(brziPregldDTO.getIdPregleda());
-		if (!pregled.isPresent() ) {
+		if (!pregled.isPresent()) {
 			return Optional.empty();
 		}
 //		pregled je vec zakazn 
-		if(pregled.get().getStatus().equals(StatusPregledaOperacije.ZAKAZAN_PREGLED) || pregled.get().getPacijent() !=null) {
+		if (pregled.get().getStatus().equals(StatusPregledaOperacije.ZAKAZAN_PREGLED)
+				|| pregled.get().getPacijent() != null) {
 			return Optional.empty();
 		}
 
 		Pacijent pacijent = korisnikService.findPacijentById(brziPregldDTO.getIdPacijent());
 		pregled.get().setPacijent(pacijent);
-		
+
 		pregled.get().setStatus(StatusPregledaOperacije.ZAKAZAN_PREGLED);
 		Pregled p = pregled.get();
 		p = pregledRepo.save(p);
@@ -317,11 +319,12 @@ public class PregledServiceImp implements PregledService {
 	@Override
 	public List<PregledDTO> getBolestiPacijent(Long idKorisnik) {
 		List<Pregled> pregledi = pregledRepo.findByIdPacijentDijagnozaNotNull(idKorisnik);
-		List<PregledDTO> pregledDTO= new ArrayList<>();
+		List<PregledDTO> pregledDTO = new ArrayList<>();
 		for (Pregled pregled : pregledi) {
-			pregledDTO.add(new PregledDTO(pregled.getVremePocetka().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), pregled.getDijagnoza().getNazivDijagnoza()));
+			pregledDTO.add(new PregledDTO(pregled.getVremePocetka().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")),
+					pregled.getDijagnoza().getNazivDijagnoza()));
 		}
-		
+
 		return pregledDTO;
 	}
 

@@ -38,7 +38,7 @@ public interface PregledService {
 
 	public Optional<PregledDTO> oceniKlinikuPregled(PregledDTO pregledDTO);
 
-	public List<PregledDTO> getAllBrziPregledi();
+	public List<PregledDTO> getAllBrziPregledi(Long idKlinika);
 
 	public Optional<PregledDTO> zakaziBrziPregledIPosaljiMail(BrziPregledDTO brziPregldDTO);
 

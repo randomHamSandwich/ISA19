@@ -35,9 +35,9 @@ public class PregledController {
 
 	@GetMapping(value = "/brzi")
 	@PreAuthorize("hasAuthority('PACIJENT')")
-	public ResponseEntity<List<PregledDTO>> getAllBrziPregledi() {
+	public ResponseEntity<List<PregledDTO>> getAllBrziPregledi(@RequestParam Long idKlinika) {
 
-		List<PregledDTO> preglediDTO = pregledService.getAllBrziPregledi();
+		List<PregledDTO> preglediDTO = pregledService.getAllBrziPregledi(idKlinika);
 
 		return new ResponseEntity<>(preglediDTO, HttpStatus.OK);
 	}
