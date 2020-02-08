@@ -28,6 +28,8 @@ public class PregledDTO {
 	private Float ocenaKlinikeZaBrzoZakazivanje;
 	
 	private String salaNaziv;
+	private Float cenaBezPopusta;
+	
 
 	public PregledDTO(Pregled p, String pocetak, String kraj, String imeLekara, String prezimeLekara, String dijagnoza,
 			String specijalizacija, String nazivKlinike) {
@@ -51,13 +53,14 @@ public class PregledDTO {
 //	za brzi
 	public PregledDTO(Pregled p, String pocetak, String kraj, String imeLekara, String prezimeLekara,
 			String specijalizacija, String nazivKlinike, String gradKlionike, String ulicaKlinike,
-			String brojUliceKlinike, Float ocenaLekaraZaBrzoZAkazivanje, Float ocenaKlinikeZaBrzoZAkazivanje) {
+			String brojUliceKlinike, Float ocenaLekaraZaBrzoZAkazivanje, Float ocenaKlinikeZaBrzoZAkazivanje, Float cenaBezPopusta) {
 		this(p, pocetak, kraj, imeLekara, prezimeLekara, specijalizacija, nazivKlinike, gradKlionike, ulicaKlinike,
 				brojUliceKlinike);
 		this.ocenaLekaraZaBrzoZakazivanje= ocenaLekaraZaBrzoZAkazivanje;
 		this.ocenaKlinikeZaBrzoZakazivanje = ocenaKlinikeZaBrzoZAkazivanje;
 	
 		this.salaNaziv = p.getSala().getNazivSala();
+		this.cenaBezPopusta = cenaBezPopusta;
 //		System.out.println(" zzzzzzzzxxxxxxxxxxxxxxxCCCCCCCCCCCCC " +  this.salaNaziv);
 	}
 
@@ -254,5 +257,14 @@ public class PregledDTO {
 		this.salaNaziv = salaNaziv;
 	}
 
+	public Float getCenaBezPopusta() {
+		return cenaBezPopusta;
+	}
+
+	public void setCenaBezPopusta(Float cenaBezPopusta) {
+		this.cenaBezPopusta = cenaBezPopusta;
+	}
+
+	
 
 }

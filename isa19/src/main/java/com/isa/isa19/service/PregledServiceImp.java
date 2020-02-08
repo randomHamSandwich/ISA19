@@ -18,6 +18,7 @@ import com.isa.isa19.model.Lekar;
 import com.isa.isa19.model.Pacijent;
 import com.isa.isa19.model.Pregled;
 import com.isa.isa19.model.StatusPregledaOperacije;
+import com.isa.isa19.model.Usluga;
 import com.isa.isa19.repository.PregledRepo;
 import com.isa.isa19.util.DateChecker;
 
@@ -36,6 +37,9 @@ public class PregledServiceImp implements PregledService {
 
 	@Autowired
 	private EmailService emailService;
+	
+	@Autowired
+	private UslugaService usligaService;
 
 	@Override
 	public List<Pregled> findByIdPacijentAndStatus(Long id, String status) {
@@ -277,13 +281,17 @@ public class PregledServiceImp implements PregledService {
 		List<PregledDTO> resultPregledDTO = new ArrayList<>();
 		List<Pregled> pregledi = pregledRepo.findByStatus(StatusPregledaOperacije.BRZI_PREGLED);
 		for (Pregled p : pregledi) {
+			
 			if (p.getKlinika().getIdKlinika().equals(idKlinika)) {
+				Optional<Usluga> usluga = usligaService.findUsluga(p.getLekar().getSpecijalizacija().toString(), p.getKlinika().getIdKlinika());
+				
+				
 				resultPregledDTO.add(new PregledDTO(p,
 						p.getVremePocetka().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")),
 						p.getVremeZavrsetka().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")),
 						p.getLekar().getIme(), p.getLekar().getPrezime(), p.getLekar().getSpecijalizacija().toString(),
 						p.getKlinika().getNaziv(), p.getKlinika().getGrad(), p.getKlinika().getUlica(),
-						p.getKlinika().getBrojUlice(), p.getLekar().getOcenaLekar(), p.getKlinika().getOcenaKlinike()));
+						p.getKlinika().getBrojUlice(), p.getLekar().getOcenaLekar(), p.getKlinika().getOcenaKlinike(),usluga.get().getCena()));
 
 			}
 		}
