@@ -13,12 +13,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Version;
 
 @Entity
 public class Klinika {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idKlinika;
+	
+    @Version
+    @Column( name = "version",nullable = false, columnDefinition = "int default 0")
+    private int version;
 	@Column
 	private String naziv;
 	@Column

@@ -22,6 +22,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Version;
 
 @Entity
 public class Operacija {
@@ -31,6 +32,11 @@ public class Operacija {
 
 	@Column
 	private LocalDateTime vremePocetka;
+	
+    @Version
+    @Column( name = "version",nullable = false, columnDefinition = "int default 0")
+    private int version;
+	
 	@Column
 	private LocalDateTime vremeZavrsetka;
 	@Column

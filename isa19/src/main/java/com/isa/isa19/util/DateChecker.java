@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import org.springframework.transaction.support.TransactionSynchronizationManager;
+
 import com.isa.isa19.model.KalendarDogadjaja;
 import com.isa.isa19.model.Lekar;
 import com.isa.isa19.model.Operacija;
@@ -18,6 +20,7 @@ public class DateChecker {
 	}
 
 	public static boolean daLiLekarImaOdsustvo(Lekar lekar, LocalDate specifiedDate) {
+		System.out.println("jesam li u transactional: "+TransactionSynchronizationManager.isActualTransactionActive());
 		boolean result = false;
 		for (KalendarDogadjaja kd : lekar.getKalendarDogadjaja()) {
 			if (kd.getTipDogadjaja().equals(TipDogadjajaKalendar.ODOBRENI_ODMOR)
