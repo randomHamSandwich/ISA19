@@ -14,3 +14,4 @@ For editing sender of mailing services edit spring.mail.username and spring.mail
 
 In order to start applicaiton run main method of Isa19Application class.
 
+Documentation for point 4.4 is in doc folder 
