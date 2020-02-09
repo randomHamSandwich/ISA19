@@ -78,6 +78,20 @@ public class DateChecker {
 		}
 		return result;
 	}
+	// bez rezervisanong termina jer treba nam da bi mogli mi da zakazemo 
+	// tj da predjemo iz rezervisanog u zakazani ako smo mi ti koji to potvrdjuju a jesmo
+	public static boolean daLiLekarImaZakazanIliBrziPregledTermin(Lekar lekar, LocalDateTime start) {
+		boolean result =false;
+		for(Pregled pregled : lekar.getPregled()) {
+			if((pregled.getStatus().equals(StatusPregledaOperacije.ZAKAZAN_PREGLED) ||  pregled.getStatus().equals(StatusPregledaOperacije.BRZI_PREGLED)
+					)
+					&& pregled.getVremePocetka().equals(start)) {
+				result= true;
+				break;
+			}
+		}
+		return result;
+	}
 	
 	
 

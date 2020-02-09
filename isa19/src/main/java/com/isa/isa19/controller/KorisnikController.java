@@ -158,7 +158,7 @@ public class KorisnikController {
 				specifiedDate, omin, omax);
 
 		if (lekariDTO.isEmpty()) {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<>(lekariDTO, HttpStatus.OK);
 	}
@@ -228,7 +228,7 @@ public class KorisnikController {
 				Specijalizacija.valueOf(spec), specifiedDate, prezime);
 
 		if (lekariDTO.isEmpty()) {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<>(lekariDTO, HttpStatus.OK);
 	}

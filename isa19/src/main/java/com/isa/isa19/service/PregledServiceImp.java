@@ -160,7 +160,9 @@ public class PregledServiceImp implements PregledService {
 
 		boolean imaOdsustvo = DateChecker.daLiLekarImaOdsustvo(lekar,
 				rezervisaniPregled.getVremePocetka().toLocalDate());
-		boolean imaOvajTerminZakazan = DateChecker.daLiLekarImaZakazanIliBrziPregledTerminIliRezervisan(lekar,
+		//bez rezervisan zato sto on jeste u stanju rezervian i treba da promeni
+		//stanje u zakazan
+		boolean imaOvajTerminZakazan = DateChecker.daLiLekarImaZakazanIliBrziPregledTermin(lekar,
 				rezervisaniPregled.getVremePocetka());
 		boolean imaOperaciju = DateChecker.daLiLekarImaOperaciju(lekar,
 				rezervisaniPregled.getVremePocetka().toLocalDate());
